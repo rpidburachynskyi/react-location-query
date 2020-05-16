@@ -1,0 +1,26 @@
+{
+  "name": "react-use-location-query",
+  "version": "1.0.0",
+  "description": "React hook for manipulating with query params",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "location",
+    "query",
+    "params"
+  ],
+  "author": "Pidburachynskyi Rostyslav",
+  "license": "ISC",
+  "dependencies": {
+    "qs": "^6.9.4",
+    "react": "^16.13.1",
+    "react-router-dom": "^5.2.0"
+  },
+  "homepage": "https://github.com/kitsoRik/react-use-location-query",
+  "bugs": {
+    "url": "https://github.com/kitsoRik/react-use-location-query/issues"
+  }
+}
