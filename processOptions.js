@@ -25,7 +25,6 @@ const recursiveReplace = (query, options) => {
 
 const processOptions = (getValue) => (options) => {
     const _values = getValue();
-    console.log(options);
     if (!options) return _values;
 
     let resultQuery = { ..._values };
