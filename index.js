@@ -63,7 +63,7 @@ const useLocationQuery = (defaultValues = {}, options = {
 
     useEffect(() => {
         if (search === "") {
-            setQueryPath(history);
+            setQueryPath(history, options);
         }
     }, [search]);
 
