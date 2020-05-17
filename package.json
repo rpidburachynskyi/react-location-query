@@ -1,6 +1,6 @@
 {
   "name": "react-use-location-query",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "React hook for manipulating with query params",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,9 @@
   ],
   "files": [
     "index.js",
-    "index.d.ts"
+    "index.d.ts",
+    "processOptions.js",
+    "queryParser.js"
   ],
   "author": "Pidburachynskyi Rostyslav",
   "license": "ISC",
