@@ -15,7 +15,7 @@ const linkDefaultValues = (history, defaultValues) => {
 
 const setQueryPath = (history) => {
     const queryStr = QueryString.stringify(_values);
-    history.push(`${history.location.pathname}?${queryStr}`);
+    history.replace(`${history.location.pathname}?${queryStr}`);
 }
 
 const setQuery = (history, query) => {
