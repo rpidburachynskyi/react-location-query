@@ -44,7 +44,12 @@ const compareAndJoinDefaultValuesWithValues = (defaultValues) => {
         }
 }
 
-const useLocationQuery = (defaultValues, options) => {
+const useLocationQuery = (defaultValues = {}, options = {
+    parseBoolean: true,
+    parseNumber: true,
+
+    hideFalseValues: false
+}) => {
     const history = useHistory();
     const { search } = useLocation();
 

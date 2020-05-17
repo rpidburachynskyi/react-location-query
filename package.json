@@ -1,6 +1,6 @@
 {
   "name": "react-use-location-query",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "React hook for manipulating with query params",
   "main": "index.js",
   "scripts": {
