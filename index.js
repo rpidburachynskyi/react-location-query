@@ -1,33 +1,33 @@
 import { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import QueryString from 'qs';
 import processOptions from './processOptions';
+import { parse, stringify } from './queryParser';
 
 let _values = {};
 const getValue = () => _values;
 
 const acceptProcessOptions = processOptions(getValue);
 
-const linkDefaultValues = (history, defaultValues) => {
+const linkDefaultValues = (history, defaultValues, options) => {
     compareAndJoinDefaultValuesWithValues(defaultValues);
-    setQueryPath(history);
+    setQueryPath(history, options);
 }
 
-const setQueryPath = (history) => {
-    const queryStr = QueryString.stringify(_values);
+const setQueryPath = (history, options) => {
+    const queryStr = stringify(_values, options);
     history.replace(`${history.location.pathname}?${queryStr}`);
 }
 
-const setQuery = (history, query) => {
+const setQuery = (history, query, options) => {
     _values = ({ ..._values, ...query });
-    setQueryPath(history);
+    setQueryPath(history, options);
 }
 
-const unlinkDefaultValues = (history, defaultValues) => {
+const unlinkDefaultValues = (history, defaultValues, options) => {
     const keys = Object.keys(defaultValues);
     for (let i = 0; i < keys.length; i++)
         _values[keys[i]] = undefined;
-    setQueryPath(history);
+    setQueryPath(history, options);
 }
 
 const compareAndJoinLocationValuesWithValues = (defaultValues) => {
@@ -46,20 +46,24 @@ const compareAndJoinDefaultValuesWithValues = (defaultValues) => {
 
 const useLocationQuery = (defaultValues, options) => {
     const history = useHistory();
-    const location = useLocation();
-
-    const { search } = location;
+    const { search } = useLocation();
 
     compareAndJoinDefaultValuesWithValues(defaultValues);
-    compareAndJoinLocationValuesWithValues(QueryString.parse(search.substring(1)));
+    compareAndJoinLocationValuesWithValues(parse(search, options));
 
     useEffect(() => {
-        linkDefaultValues(history, defaultValues);
-        return () => unlinkDefaultValues(history, defaultValues);
+        linkDefaultValues(history, defaultValues, options);
+        return () => unlinkDefaultValues(history, defaultValues, options);
     }, []);
 
+    useEffect(() => {
+        if (search === "") {
+            setQueryPath(history);
+        }
+    }, [search]);
+
     const _setQuery = (changes) => {
-        setQuery(history, changes);
+        setQuery(history, changes, options);
     }
 
     let query = acceptProcessOptions(options);
