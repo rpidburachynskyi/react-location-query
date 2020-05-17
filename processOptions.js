@@ -13,20 +13,19 @@ const recursiveReplace = (query, options) => {
     const keys = Object.keys(query);
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
-        const value = query[key];
 
-        if (options.parseNumber) query[key] = replaceNumber(value);
-        if (options.parseBoolean) query[key] = replaceBoolean(value);
+        if (options.parseNumber) query[key] = replaceNumber(query[key]);
+        if (options.parseBoolean) query[key] = replaceBoolean(query[key]);
 
-        if (typeof value === 'object') query[key] = recursiveReplace(value, options);
-        if (Array.isArray(value)) query[key] = recursiveReplace(value, options)
+        if (typeof query[key] === 'object') query[key] = recursiveReplace(query[key], options);
+        if (Array.isArray(query[key])) query[key] = recursiveReplace(query[key], options)
     }
     return query;
 }
 
 const processOptions = (getValue) => (options) => {
     const _values = getValue();
-
+    console.log(options);
     if (!options) return _values;
 
     let resultQuery = { ..._values };
