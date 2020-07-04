@@ -1,45 +1,30 @@
-# How to install
+# react-use-location-query
+
+> 
+
+[![NPM](https://img.shields.io/npm/v/react-use-location-query.svg)](https://www.npmjs.com/package/react-use-location-query) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+## Install
+
 ```bash
-npm i react-use-location-query
+npm install --save react-use-location-query
 ```
 
-# How to use
-```jsx
-import useLocationQuery from 'react-user-location-query';
+## Usage
 
-function App (){
-  const { query: { text } } = useLocationQuery({ text: "default value"});
-  
-  return <span>{ text }</span>
+```tsx
+import React, { Component } from 'react'
+
+import MyComponent from 'react-use-location-query'
+import 'react-use-location-query/dist/index.css'
+
+class Example extends Component {
+  render() {
+    return <MyComponent />
+  }
 }
 ```
-If text isn't exists, it'll take value from first argument object: 'default value';
 
-Arguments: 
-1.  values - receive values and use them if each key is not exists in query
-2. options - receive options.
+## License
 
-### Handlers
-| setQuery | receive object, which have key from values and use it |
-| ------------ |
-|   |
-
-
-### Options
-| parseBoolean | indicates whether to convert text values to Boolean - "true" and "false"  |
-| - |
-
-
-
-    
-## Examples
-Example button, which changes side parameter in query
-```jsx
-import AsComponent from 'react-as-component';
-
-const Purchases = () => {
-    const { query: { side }, setQuery } = useLocationQuery({ side: 'left' });
-
-    return <button onClick={() => setQuery({ side: side === "left" ? "right" : "left" })}>{side}</button>
-	}
-```
+MIT © [kitsoRik](https://github.com/kitsoRik)
