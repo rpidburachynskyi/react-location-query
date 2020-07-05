@@ -7,11 +7,26 @@ declare module '*.css' {
   export default content;
 }
 
-interface SvgrComponent extends React.StatelessComponent<React.SVGAttributes<SVGElement>> {}
+interface SvgrComponent
+  extends React.StatelessComponent<React.SVGAttributes<SVGElement>> {}
 
 declare module '*.svg' {
   const svgUrl: string;
   const svgComponent: SvgrComponent;
   export default svgUrl;
-  export { svgComponent as ReactComponent }
+  export { svgComponent as ReactComponent };
+}
+
+type Values = string | boolean | number;
+
+type DefaultValueField =
+  | Values
+  | {
+      type: 'string' | 'boolean' | number;
+      default?: Values;
+      hideIfDefault?: boolean;
+    };
+
+interface DefaultValues {
+  [path: string]: DefaultValueField;
 }
