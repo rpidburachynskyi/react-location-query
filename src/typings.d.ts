@@ -3,30 +3,16 @@
  * will be overridden with file-specific definitions by rollup
  */
 declare module '*.css' {
-  const content: { [className: string]: string };
-  export default content;
+	const content: { [className: string]: string };
+	export default content;
 }
 
 interface SvgrComponent
-  extends React.StatelessComponent<React.SVGAttributes<SVGElement>> {}
+	extends React.StatelessComponent<React.SVGAttributes<SVGElement>> {}
 
 declare module '*.svg' {
-  const svgUrl: string;
-  const svgComponent: SvgrComponent;
-  export default svgUrl;
-  export { svgComponent as ReactComponent };
-}
-
-type Values = string | boolean | number;
-
-type DefaultValueField =
-  | Values
-  | {
-      type: 'string' | 'boolean' | number;
-      default?: Values;
-      hideIfDefault?: boolean;
-    };
-
-interface DefaultValues {
-  [path: string]: DefaultValueField;
+	const svgUrl: string;
+	const svgComponent: SvgrComponent;
+	export default svgUrl;
+	export { svgComponent as ReactComponent };
 }

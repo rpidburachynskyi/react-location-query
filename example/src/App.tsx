@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocationQuery } from 'react-use-location-query';
+import { useLocation } from 'react-router-dom';
 
 const App = () => {
 	const { query, setQueryField } = useLocationQuery({
@@ -20,7 +21,7 @@ const App = () => {
 		},
 		tab: 'first'
 	});
-	console.log(query);
+	useLocation();
 	return (
 		<div>
 			{query.tab === 'first' && <FirstComponent />}
@@ -58,8 +59,7 @@ const SecondComponent = () => {
 	const { query, fullQuery } = useLocationQuery({
 		lastname: {
 			type: 'string',
-			default: 'last',
-			hideIfDefault: true
+			default: 'last'
 		}
 	});
 	console.log(fullQuery);

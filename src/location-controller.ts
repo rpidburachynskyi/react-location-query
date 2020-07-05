@@ -1,36 +1,29 @@
 import {
-	setTruthValues,
 	getDefaultValues,
-	prepareValuesForLocation,
-	normalizeValues
+	prepareValuesForLocation
 } from './values-controller';
-import { parseQuery, stringifyQuery } from './query-parser';
+import { parseQuery, writeQuery } from './query-parser';
+import { Location, History, DefaultValues } from './types';
 
-export const calculateLocationPath = (location: any, history: any) => {
+export const calculateLocationPath = (location: Location, history: History) => {
 	const queryValues = parseQuery(location.search);
 	const defaultValues = getDefaultValues();
 
-	const truth = joinValues(defaultValues, queryValues);
-	history.replace(
-		`${location.pathname}?${stringifyQuery(normalizeValues(truth))}`
-	);
-
-	setTruthValues(truth);
+	writeQuery(location, history, joinValues(defaultValues, queryValues));
 };
 
 export const setQueryField = (
-	location: any,
-	history: any,
+	location: Location,
+	history: History,
 	field: string,
 	value: any
 ) => {
-	const values = parseQuery(location.search);
+	const values = { ...parseQuery(location.search) };
 	values[field] = value;
-	const query = stringifyQuery(values);
-	history.replace(`?${query}`);
+	writeQuery(location, history, values);
 };
 
-const joinValues = (defaultValues: object, locationQuery: any) => {
+const joinValues = (defaultValues: DefaultValues, locationQuery: any) => {
 	const result = { ...defaultValues };
 	Object.keys(locationQuery).forEach((key) => {
 		const value = result[key];

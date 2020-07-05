@@ -28,6 +28,7 @@
 		"react/jsx-handler-names": 0,
 		"react/jsx-fragments": 0,
 		"import/export": 0,
-		"semi": "off"
+		"semi": "off",
+		"no-unused-vars": "warn"
 	}
 }

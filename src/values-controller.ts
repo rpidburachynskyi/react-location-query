@@ -1,5 +1,6 @@
-let defaultValues: object[] = [];
-let truthValues: object = {};
+import { DefaultValueField, DefaultValues } from './types';
+
+let defaultValues: DefaultValues[] = [];
 
 export const normalizeValues = (values: object) => {
 	const normalized: any = { ...values };
@@ -26,19 +27,24 @@ export const normalizeValues = (values: object) => {
 	return normalized;
 };
 
-const normalizeValue = (value: any) => {
+const normalizeValue = (value: DefaultValueField) => {
 	return typeof value === 'object' ? value.default : value;
 };
 
 export const prepareValuesForLocation = (
 	values: object,
-	defaultValues: any
+	defaultValues: DefaultValues
 ) => {
 	const normalized: any = { ...values };
 	Object.keys(normalized).forEach((key) => {
 		const value = normalized[key];
 		const defaultValue = defaultValues[key];
 		if (typeof defaultValue === 'object') {
+			// if (!checkValue(value, defaultValue)) {
+			// 	if (defaultValue.onPassedUncorrectValue) {
+			// 		value = defaultValue.onPassedUncorrectValue(value);
+			// 	}
+			// }
 			if (defaultValue.hideIfDefault) {
 				if (compareValues(value, defaultValue)) {
 					delete normalized[key];
@@ -99,7 +105,7 @@ export const getNormalizedStoredValues = () => {
 	return normalized;
 };
 
-export const appendDefaultValues = (values: object) => {
+export const appendDefaultValues = (values: DefaultValues) => {
 	defaultValues = [...defaultValues, values];
 	return defaultValues.length - 1;
 };
@@ -108,12 +114,16 @@ export const removeDefaultValues = (index: number) => {
 	defaultValues.splice(index, 1);
 };
 
-export const setTruthValues = (values: object) => {
-	truthValues = values;
-};
-
-export const getTruthValues = () => {
-	return truthValues;
+export const checkValue = (
+	value: DefaultValueField | string,
+	defaultValue: DefaultValueField
+) => {
+	if (typeof value === 'object') return true;
+	switch (typeof defaultValue) {
+		case 'boolean':
+			return value === 'true' || value === 'false';
+	}
+	return false;
 };
 
 export const compareValues = (value: any, defaultValue: any) => {

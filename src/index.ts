@@ -8,6 +8,7 @@ import {
 } from './values-controller';
 import { calculateLocationPath, setQueryField } from './location-controller';
 import { extractQueryByDefaultValues, readQuery } from './query-parser';
+import { DefaultValues } from './types';
 
 export const useLocationQuery = (defaultValues: DefaultValues) => {
 	const history = useHistory();
