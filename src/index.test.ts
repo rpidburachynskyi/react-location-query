@@ -1,5 +1,3 @@
 describe('index', () => {
-  it('index', () => {
-	  
-  });
+	it('index', () => {});
 });
