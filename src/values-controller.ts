@@ -8,7 +8,14 @@ export const normalizeValues = (values: object) => {
 		if (typeof value === 'object') {
 			switch (value.type) {
 				case 'boolean':
-					normalized[key] = value.default === 'true';
+					switch (value.type) {
+						case 'boolean':
+							normalized[key] = value.default;
+							break;
+						case 'string':
+							normalized[key] = value.default === 'true';
+							break;
+					}
 					break;
 				case 'string':
 				default:
@@ -116,9 +123,30 @@ export const compareValues = (value: any, defaultValue: any) => {
 		} else {
 			switch (defaultValue.type) {
 				case 'boolean':
-					return defaultValue.default === (value === 'true');
+					switch (typeof value) {
+						case 'string':
+							return defaultValue.default === (value === 'true');
+						case 'boolean':
+							return defaultValue.default === value;
+						default:
+							throw new Error(
+								`Bad compare with type boolean, actually (${typeof value})`
+							);
+					}
 				case 'number':
-					return defaultValue.default === parseInt(value as string);
+					switch (typeof value) {
+						case 'string':
+							return (
+								defaultValue.default ===
+								parseInt(value as string)
+							);
+						case 'number':
+							return defaultValue.default === value;
+						default:
+							throw new Error(
+								`Bad compare with type number, actually (${typeof value}`
+							);
+					}
 			}
 			return value === defaultValue.default;
 		}

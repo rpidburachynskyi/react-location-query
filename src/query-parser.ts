@@ -1,4 +1,5 @@
 import qs from 'querystring';
+import { normalizeValues } from './values-controller';
 
 export const extractQueryByDefaultValues = (query: any, defaultValues: any) => {
 	const result: any = {};
@@ -14,7 +15,7 @@ export const parseQuery = (query: string) => {
 };
 
 export const stringifyQuery = (query: object) => {
-	return qs.stringify({ ...query });
+	return qs.stringify({ ...normalizeValues(query) });
 };
 
 export const readQuery = (location: any, defaultValues: object) => {
