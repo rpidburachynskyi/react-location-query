@@ -1,12 +1,12 @@
 import qs from 'querystring';
-import { normalizeValues, getOptions } from './values-controller';
-import { DefaultValues, Location, History } from './types';
+import { normalizeValues, getInitialValuesWrappers } from './values-controller';
+import { InitialValues, Location, History } from './types';
 
-export const extractQueryByDefaultValues = (
+export const extractQueryByInitialValues = (
 	query: any,
-	defaultValues: DefaultValues
+	defaultValues: InitialValues
 ) => {
-	const result: any = {};
+	const result: object = {};
 	Object.keys(defaultValues).forEach((key) => {
 		result[key] = query[key] ? query[key] : defaultValues[key];
 	});
@@ -22,7 +22,7 @@ export const stringifyQuery = (query: object) => {
 	return qs.stringify({ ...normalizeValues(query) });
 };
 
-export const readQuery = (location: Location, defaultValues: DefaultValues) => {
+export const readQuery = (location: Location, defaultValues: InitialValues) => {
 	return { ...defaultValues, ...parseQuery(location.search) };
 };
 
@@ -43,12 +43,15 @@ export const writeQuery = (
 };
 
 const sortFieldsInQuery = (query: object) => {
-	const { sort, sortOrder } = getOptions();
+	const defaultValues = getInitialValuesWrappers();
+
+	const { sortOrder } = { sortOrder: 'asc' };
 	const sortAsserting = (a: string, b: string) => {
-		switch (sort) {
-			case 'alphabet':
-				return a < b;
-		}
+		const indexA = defaultValues.find((value) => !!value[a]);
+		const indexB = defaultValues.find((value) => !!value[b]);
+		if (!indexA || !indexB) return true;
+
+		return indexA.index - indexB.index;
 	};
 	const result = {};
 	const keys = Object.keys(query);

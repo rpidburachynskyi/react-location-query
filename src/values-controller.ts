@@ -1,7 +1,46 @@
-import { DefaultValueField, DefaultValues, Options } from './types';
+import {
+	InitialValuesField,
+	InitialValues,
+	InitialValuesWrapper
+} from './types';
 
-let defaultValues: DefaultValues[] = [];
-let optionses: Options[] = [];
+let initialValuesWrappers: InitialValuesWrapper[] = [];
+
+export const addInitialValues = (
+	initialValues: InitialValues,
+	index: number
+) => {
+	const wrapper: InitialValuesWrapper = { initialValues, index };
+	initialValuesWrappers = [...initialValuesWrappers, wrapper];
+};
+
+export const removeInitialValues = (index: number) => {
+	initialValuesWrappers = initialValuesWrappers.filter(
+		(v) => v.index !== index
+	);
+};
+
+export const getInitialValuesWrappers = () => {
+	return initialValuesWrappers;
+};
+
+export const getInitialValues = () => {
+	let normalized = {};
+	initialValuesWrappers
+		.sort((a, b) => a.index - b.index)
+		.forEach((initialValuesWrapper) => {
+			normalized = {
+				...normalized,
+				...initialValuesWrapper.initialValues
+			};
+		});
+
+	return normalized;
+};
+
+const normalizeValue = (value: InitialValuesField) => {
+	return typeof value === 'object' ? value.initial : value;
+};
 
 export const normalizeValues = (values: object) => {
 	const normalized: any = { ...values };
@@ -12,42 +51,32 @@ export const normalizeValues = (values: object) => {
 				case 'boolean':
 					switch (value.type) {
 						case 'boolean':
-							normalized[key] = value.default;
+							normalized[key] = value.initial;
 							break;
 						case 'string':
-							normalized[key] = value.default === 'true';
+							normalized[key] = value.initial === 'true';
 							break;
 					}
 					break;
 				case 'string':
 				default:
-					normalized[key] = value.default;
+					normalized[key] = value.initial;
 			}
 		}
 	});
 	return normalized;
 };
-
-const normalizeValue = (value: DefaultValueField) => {
-	return typeof value === 'object' ? value.default : value;
-};
-
 export const prepareValuesForLocation = (
 	values: object,
-	defaultValues: DefaultValues
+	initialValues: InitialValues
 ) => {
 	const normalized: any = { ...values };
 	Object.keys(normalized).forEach((key) => {
 		const value = normalized[key];
-		const defaultValue = defaultValues[key];
-		if (typeof defaultValue === 'object') {
-			// if (!checkValue(value, defaultValue)) {
-			// 	if (defaultValue.onPassedUncorrectValue) {
-			// 		value = defaultValue.onPassedUncorrectValue(value);
-			// 	}
-			// }
-			if (defaultValue.hideIfDefault) {
-				if (compareValues(value, defaultValue)) {
+		const initialValue = initialValues[key];
+		if (typeof initialValue === 'object') {
+			if (initialValue.hideIfDefault) {
+				if (compareValues(value, initialValue)) {
 					delete normalized[key];
 				}
 			} else {
@@ -58,13 +87,16 @@ export const prepareValuesForLocation = (
 	return normalized;
 };
 
-export const normalizeValuesForUser = (values: any, defaultValues: any) => {
-	const normalized = { ...values };
+export const normalizeValuesForUser = (
+	values: any,
+	initialValues: InitialValues
+) => {
+	const normalized = {};
 	Object.keys(normalized).forEach((key) => {
-		const value = normalized[key];
-		const defaultValue = defaultValues[key];
-		if (typeof defaultValue === 'object') {
-			switch (defaultValue.type) {
+		const value = values[key];
+		const initialValue: InitialValuesField = initialValues[key] as any;
+		if (typeof initialValue === 'object') {
+			switch (initialValue.type) {
 				case 'boolean':
 					normalized[key] = value === 'true';
 					break;
@@ -73,7 +105,7 @@ export const normalizeValuesForUser = (values: any, defaultValues: any) => {
 					break;
 			}
 		} else {
-			switch (typeof defaultValue) {
+			switch (typeof initialValue) {
 				case 'boolean':
 					normalized[key] = value === 'true';
 					break;
@@ -86,59 +118,18 @@ export const normalizeValuesForUser = (values: any, defaultValues: any) => {
 	return normalized;
 };
 
-export const getDefaultValues = () => {
-	let normalized = {};
-	defaultValues.forEach((storedValue) => {
-		normalized = { ...normalized, ...storedValue };
-	});
-
-	return normalized;
-};
-
-export const getNormalizedStoredValues = () => {
-	let normalized = {};
-	defaultValues.forEach((storedValue) => {
-		normalized = { ...normalized, ...storedValue };
-	});
-
-	normalized = normalizeValues(normalized);
-
-	return normalized;
-};
-
-export const appendDefaultValues = (values: DefaultValues) => {
-	defaultValues = [...defaultValues, values];
-	return defaultValues.length - 1;
-};
-
-export const removeDefaultValues = (index: number) => {
-	defaultValues.splice(index, 1);
-};
-
-export const checkValue = (
-	value: DefaultValueField | string,
-	defaultValue: DefaultValueField
-) => {
-	if (typeof value === 'object') return true;
-	switch (typeof defaultValue) {
-		case 'boolean':
-			return value === 'true' || value === 'false';
-	}
-	return false;
-};
-
-export const compareValues = (value: any, defaultValue: any) => {
-	if (typeof defaultValue === 'object') {
+export const compareValues = (value: any, initialValue: any) => {
+	if (typeof initialValue === 'object') {
 		if (typeof value === 'object') {
-			return value.default === defaultValue.default;
+			return value.initial === initialValue.initial;
 		} else {
-			switch (defaultValue.type) {
+			switch (initialValue.type) {
 				case 'boolean':
 					switch (typeof value) {
 						case 'string':
-							return defaultValue.default === (value === 'true');
+							return initialValue.initial === (value === 'true');
 						case 'boolean':
-							return defaultValue.default === value;
+							return initialValue.initial === value;
 						default:
 							throw new Error(
 								`Bad compare with type boolean, actually (${typeof value})`
@@ -148,38 +139,20 @@ export const compareValues = (value: any, defaultValue: any) => {
 					switch (typeof value) {
 						case 'string':
 							return (
-								defaultValue.default ===
+								initialValue.initial ===
 								parseInt(value as string)
 							);
 						case 'number':
-							return defaultValue.default === value;
+							return initialValue.initial === value;
 						default:
 							throw new Error(
 								`Bad compare with type number, actually (${typeof value}`
 							);
 					}
 			}
-			return value === defaultValue.default;
+			return value === initialValue.initial;
 		}
 	} else {
-		return value === defaultValue;
+		return value === initialValue;
 	}
-};
-
-export const getOptions = (): Options => {
-	let normalized = {};
-	optionses.forEach((options) => {
-		normalized = { ...normalized, ...options };
-	});
-
-	return normalized as Options;
-};
-
-export const appendOptions = (options: Options) => {
-	optionses = [...optionses, options];
-	return optionses.length - 1;
-};
-
-export const removeOptions = (index: number) => {
-	optionses.splice(index, 1);
 };

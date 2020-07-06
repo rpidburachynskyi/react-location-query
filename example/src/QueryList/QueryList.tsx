@@ -1,10 +1,11 @@
 import React from 'react';
 import { List, Input } from 'antd';
 import { useLocationQuery } from 'react-use-location-query';
+import { observer } from 'mobx-react';
 
 const QueryList = () => {
 	const { fullQuery, setQueryField } = useLocationQuery({});
-	console.log(fullQuery);
+
 	return (
 		<List
 			dataSource={Object.keys(fullQuery).map((key) => ({
@@ -25,4 +26,4 @@ const QueryList = () => {
 	);
 };
 
-export default QueryList;
+export default observer(QueryList);

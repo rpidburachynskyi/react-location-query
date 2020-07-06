@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
 
 export class QueryItem {
 	@observable type: 'string' | 'boolean' | 'number' = 'string';
@@ -16,5 +16,14 @@ export class QueryItem {
 		this.type = type;
 		this.default = defaultValue;
 		this.hideIfDefault = hideIfDefault;
+	}
+
+	@action setName(name: string) {
+		this.name = name;
+	}
+
+	@action setDefault(defaultValue: string) {
+		this.default = defaultValue;
+		console.log('C', this.default);
 	}
 }

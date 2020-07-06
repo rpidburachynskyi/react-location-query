@@ -1,55 +1,50 @@
 import { useHistory, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import {
-	appendDefaultValues,
-	removeDefaultValues,
 	normalizeValues,
 	normalizeValuesForUser,
-	appendOptions,
-	removeOptions,
-	getDefaultValues
+	addInitialValues,
+	removeInitialValues,
+	getInitialValues
 } from './values-controller';
 import { calculateLocationPath, setQueryField } from './location-controller';
-import { extractQueryByDefaultValues, readQuery } from './query-parser';
-import { DefaultValues, Options } from './types';
+import { extractQueryByInitialValues, readQuery } from './query-parser';
+import { InitialValues } from './types';
+import useIndex from './useIndex';
 
-export const useLocationQuery = (
-	defaultValues: DefaultValues,
-	options: Options = {
-		sort: 'alphabet',
-		sortOrder: 'asc'
-	}
-) => {
+export const useLocationQuery = (initialValues: InitialValues) => {
 	const history = useHistory();
-	useLocation(); // NO DELETE, useing for rerender when change location
+	useLocation(); // NO DELETE, using for rerender when change location
+	const index = useIndex();
 
 	useEffect(() => {
-		if (Object.keys(defaultValues).length === 0) return;
-		const index = appendDefaultValues(defaultValues);
-		const optionsIndex = appendOptions(options);
+		if (Object.keys(initialValues).length === 0) return;
+		addInitialValues(initialValues, index);
 		calculateLocationPath(history.location, history);
 		return () => {
-			removeDefaultValues(index);
-			removeOptions(optionsIndex);
+			removeInitialValues(index);
 			calculateLocationPath(history.location, history);
 		};
-	}, []);
+	}, [JSON.stringify(initialValues)]);
+
+	const currentInitialNormalizedValues = normalizeValues(initialValues);
+	const initialNormalizedValues = normalizeValues(getInitialValues());
 
 	const locationQuery = readQuery(
 		history.location,
-		normalizeValues(defaultValues)
+		currentInitialNormalizedValues
 	);
-	const query = extractQueryByDefaultValues(
+	const query = extractQueryByInitialValues(
 		locationQuery,
-		normalizeValues(defaultValues)
+		currentInitialNormalizedValues
 	);
 
 	return {
-		fullQuery: extractQueryByDefaultValues(
+		fullQuery: extractQueryByInitialValues(
 			locationQuery,
-			normalizeValues(getDefaultValues())
+			initialNormalizedValues
 		),
-		query: normalizeValuesForUser(query, defaultValues) as any,
+		query: normalizeValuesForUser(query, initialValues) as any,
 		setQueryField: (field: string, value: any) =>
 			setQueryField(history.location, history, field, value)
 	};

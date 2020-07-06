@@ -1,5 +1,5 @@
-import React from 'react';
-import { inject, observer } from 'mobx-react';
+import React, { useEffect, useState } from 'react';
+import { inject, observer, Observer } from 'mobx-react';
 import { QueryItems } from '../mobx/models/QueryItems';
 import { List } from 'antd';
 import CreateQueryListItem from './CreateQueryListItem';
@@ -10,13 +10,23 @@ interface Props {
 }
 
 const CreateQueryList = ({ queryItems }: Props) => {
-	const {} = useLocationQuery({
-		name: {
-			type: 'string',
-			default: 'Rostyslav',
-			hideIfDefault: true
-		}
-	});
+	const [defaultValues, setDefaultVsalues] = useState({});
+
+	const {} = useLocationQuery(defaultValues);
+
+	useEffect(() => {
+		const newDefaultValues: any = {};
+
+		queryItems!.items.forEach((item) => {
+			newDefaultValues[item.name] = {
+				type: item.type,
+				default: item.default,
+				hideIfDefault: item.hideIfDefault
+			};
+		});
+		setDefaultVsalues(newDefaultValues);
+	}, [JSON.stringify(queryItems!.items)]);
+
 	return (
 		<List
 			dataSource={queryItems!.items}

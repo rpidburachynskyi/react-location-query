@@ -1,17 +1,22 @@
 import * as H from 'history';
 
-export type Values = string | boolean | number;
+export type InitialValuesFieldValue = string | boolean | number;
 
-export type DefaultValueField =
-	| Values
+export type InitialValuesField =
+	| InitialValuesFieldValue
 	| {
 			type: 'string' | 'boolean' | 'number';
-			default?: Values;
+			initial: InitialValuesFieldValue;
 			hideIfDefault?: boolean;
 	  };
 
-export interface DefaultValues {
-	[path: string]: DefaultValueField;
+export interface InitialValues {
+	[path: string]: InitialValues;
+}
+
+export interface InitialValuesWrapper {
+	initialValues: InitialValues;
+	index: number;
 }
 
 export interface Options {

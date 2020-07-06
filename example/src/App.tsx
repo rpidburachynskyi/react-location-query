@@ -1,6 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocationQuery } from 'react-use-location-query';
-import { Button, Typography } from 'antd';
+
+const App = () => {
+	const { query, setQueryField } = useLocationQuery({
+		edit: {
+			type: 'number',
+			default: 123,
+			hideIfDefault: true
+		}
+	});
+	return (
+		<div>
+			{query.name !== '' && <FirstComponent />}
+			<button onClick={() => setQueryField('edit', '123123213')}>
+				Click
+			</button>
+		</div>
+	);
+};
+
+const FirstComponent = () => {
+	const { setQueryField } = useLocationQuery({ name: 'q' });
+	return (
+		<div>
+			<button onClick={() => setQueryField('edit', '123')}>Close</button>
+		</div>
+	);
+};
+
+export default App;
+
+/**import React, { useState } from 'react';
+import { Button, Typography, Row, Col } from 'antd';
 import CreateQueryList from './CreateQueryList';
 import { inject, observer } from 'mobx-react';
 import { QueryItems } from './mobx/models/QueryItems';
@@ -17,8 +48,8 @@ const App = ({ queryItems }: Props) => {
 	return (
 		<div>
 			<Typography.Title>React hook - useLocationQuery</Typography.Title>
-			<div>
-				<div>
+			<Row gutter={[8, 8]}>
+				<Col span={12}>
 					<CreateQueryList />
 					<Button onClick={() => setAddQueryDialogVisible(true)}>
 						Add query item
@@ -28,13 +59,19 @@ const App = ({ queryItems }: Props) => {
 							onClose={() => setAddQueryDialogVisible(false)}
 						/>
 					)}
-				</div>
-				<div>
+				</Col>
+				<Col span={12}>
 					<QueryList />
-				</div>
-			</div>
+				</Col>
+			</Row>
+			<Row gutter={[8, 8]}>
+				<Col span={12}>
+					<QueryList />
+				</Col>
+			</Row>
 		</div>
 	);
 };
 
 export default inject('queryItems')(observer(App));
+ */

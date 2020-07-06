@@ -1,15 +1,13 @@
 import {
-	getDefaultValues,
 	prepareValuesForLocation,
-	getOptions
+	getInitialValues
 } from './values-controller';
 import { parseQuery, writeQuery } from './query-parser';
-import { Location, History, DefaultValues } from './types';
+import { Location, History, InitialValues } from './types';
 
 export const calculateLocationPath = (location: Location, history: History) => {
 	const queryValues = parseQuery(location.search);
-	const defaultValues = getDefaultValues();
-	console.log(getOptions());
+	const defaultValues = getInitialValues();
 	writeQuery(location, history, joinValues(defaultValues, queryValues));
 };
 
@@ -22,12 +20,12 @@ export const setQueryField = (
 	const values = { ...parseQuery(location.search) };
 	values[field] = value;
 
-	const defaultValues = getDefaultValues();
+	const defaultValues = getInitialValues();
 
 	writeQuery(location, history, joinValues(defaultValues, values));
 };
 
-const joinValues = (defaultValues: DefaultValues, locationQuery: any) => {
+const joinValues = (defaultValues: InitialValues, locationQuery: any) => {
 	const result = { ...defaultValues };
 	Object.keys(locationQuery).forEach((key) => {
 		const value = result[key] ? result[key] : true;
