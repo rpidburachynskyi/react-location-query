@@ -1,38 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocationQuery } from 'react-use-location-query';
+import { Button, Typography } from 'antd';
+import CreateQueryList from './CreateQueryList';
+import { inject, observer } from 'mobx-react';
+import { QueryItems } from './mobx/models/QueryItems';
+import AddQueryItemDialog from './AddQueryItemDialog';
+import QueryList from './QueryList';
 
-const App = () => {
-	const { query, setQueryField } = useLocationQuery(
-		{
-			edit: {
-				type: 'string',
-				default: '',
-				hideIfDefault: true
-			}
-		},
-		'App',
-		{
-			sort: 'alphabet',
-			sortOrder: 'asc'
-		}
-	);
+interface Props {
+	queryItems?: QueryItems;
+}
+
+const App = ({ queryItems }: Props) => {
+	const [addQueryDialogVisible, setAddQueryDialogVisible] = useState(false);
+
 	return (
 		<div>
-			{query.edit !== '' && <FirstComponent />}
-			<button onClick={() => setQueryField('edit', '123123213')}>
-				Click
-			</button>
+			<Typography.Title>React hook - useLocationQuery</Typography.Title>
+			<div>
+				<div>
+					<CreateQueryList />
+					<Button onClick={() => setAddQueryDialogVisible(true)}>
+						Add query item
+					</Button>
+					{addQueryDialogVisible && (
+						<AddQueryItemDialog
+							onClose={() => setAddQueryDialogVisible(false)}
+						/>
+					)}
+				</div>
+				<div>
+					<QueryList />
+				</div>
+			</div>
 		</div>
 	);
 };
 
-const FirstComponent = () => {
-	const { setQueryField } = useLocationQuery({ name: 'Rostyslav' }, 'First');
-	return (
-		<div>
-			<button onClick={() => setQueryField('edit', '')}>Close</button>
-		</div>
-	);
-};
-
-export default App;
+export default inject('queryItems')(observer(App));

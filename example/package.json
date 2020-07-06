@@ -17,12 +17,17 @@
 		"@types/node": "file:../node_modules/@types/node",
 		"@types/react": "file:../node_modules/@types/react",
 		"@types/react-dom": "file:../node_modules/@types/react-dom",
+		"antd": "^4.4.1",
+		"argon-design-system-react": "^1.1.0",
+		"formik": "^2.1.4",
+		"mobx": "^5.15.4",
+		"mobx-react": "^6.2.2",
 		"react": "file:../node_modules/react",
 		"react-dom": "file:../node_modules/react-dom",
-		"react-scripts": "file:../node_modules/react-scripts",
 		"react-router-dom": "file:../node_modules/react-router-dom",
-		"typescript": "file:../node_modules/typescript",
-		"react-use-location-query": "file:.."
+		"react-scripts": "file:../node_modules/react-scripts",
+		"react-use-location-query": "file:..",
+		"typescript": "file:../node_modules/typescript"
 	},
 	"devDependencies": {
 		"@babel/plugin-syntax-object-rest-spread": "^7.8.3"
