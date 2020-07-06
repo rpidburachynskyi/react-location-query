@@ -1,5 +1,5 @@
 import qs from 'querystring';
-import { normalizeValues } from './values-controller';
+import { normalizeValues, getOptions } from './values-controller';
 import { DefaultValues, Location, History } from './types';
 
 export const extractQueryByDefaultValues = (
@@ -35,7 +35,34 @@ export const writeQuery = (
 		history.replace(location.pathname);
 	} else {
 		history.replace(
-			`${location.pathname}?${stringifyQuery(normalizeValues(query))}`
+			`${location.pathname}?${stringifyQuery(
+				sortFieldsInQuery(normalizeValues(query))
+			)}`
 		);
 	}
+};
+
+const sortFieldsInQuery = (query: object) => {
+	const { sort, sortOrder } = getOptions();
+	const sortAsserting = (a: string, b: string) => {
+		switch (sort) {
+			case 'alphabet':
+				return a < b;
+		}
+	};
+	const result = {};
+	const keys = Object.keys(query);
+	const sortedKeys = keys.sort((a, b) =>
+		sortAsserting(a, b)
+			? sortOrder === 'asc'
+				? 1
+				: -1
+			: sortOrder === 'asc'
+			? -1
+			: 1
+	);
+	sortedKeys.forEach((key) => {
+		result[key] = query[key];
+	});
+	return result;
 };

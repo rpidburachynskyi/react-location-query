@@ -13,5 +13,11 @@ export type DefaultValueField =
 export interface DefaultValues {
 	[path: string]: DefaultValueField;
 }
+
+export interface Options {
+	sort: 'alphabet';
+	sortOrder: 'asc' | 'desc';
+}
+
 export interface Location extends H.Location<H.History.PoorMansUnknown> {}
 export interface History extends H.History<H.LocationState> {}

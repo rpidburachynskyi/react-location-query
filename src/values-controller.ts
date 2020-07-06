@@ -1,6 +1,7 @@
-import { DefaultValueField, DefaultValues } from './types';
+import { DefaultValueField, DefaultValues, Options } from './types';
 
 let defaultValues: DefaultValues[] = [];
+let optionses: Options[] = [];
 
 export const normalizeValues = (values: object) => {
 	const normalized: any = { ...values };
@@ -163,4 +164,22 @@ export const compareValues = (value: any, defaultValue: any) => {
 	} else {
 		return value === defaultValue;
 	}
+};
+
+export const getOptions = (): Options => {
+	let normalized = {};
+	optionses.forEach((options) => {
+		normalized = { ...normalized, ...options };
+	});
+
+	return normalized as Options;
+};
+
+export const appendOptions = (options: Options) => {
+	optionses = [...optionses, options];
+	return optionses.length - 1;
+};
+
+export const removeOptions = (index: number) => {
+	optionses.splice(index, 1);
 };

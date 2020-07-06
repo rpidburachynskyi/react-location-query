@@ -1,6 +1,7 @@
 import {
 	getDefaultValues,
-	prepareValuesForLocation
+	prepareValuesForLocation,
+	getOptions
 } from './values-controller';
 import { parseQuery, writeQuery } from './query-parser';
 import { Location, History, DefaultValues } from './types';
@@ -8,7 +9,7 @@ import { Location, History, DefaultValues } from './types';
 export const calculateLocationPath = (location: Location, history: History) => {
 	const queryValues = parseQuery(location.search);
 	const defaultValues = getDefaultValues();
-
+	console.log(getOptions());
 	writeQuery(location, history, joinValues(defaultValues, queryValues));
 };
 

@@ -10,7 +10,11 @@ const App = () => {
 				hideIfDefault: true
 			}
 		},
-		'App'
+		'App',
+		{
+			sort: 'alphabet',
+			sortOrder: 'asc'
+		}
 	);
 	return (
 		<div>
