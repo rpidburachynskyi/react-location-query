@@ -1,39 +1,21 @@
 import React from 'react';
 import { useLocationQuery } from 'react-use-location-query';
-import { useLocation } from 'react-router-dom';
 
 const App = () => {
-	const { query, setQueryField } = useLocationQuery({
-		name: {
-			type: 'string',
-			default: 'qwee',
-			hideIfDefault: true
+	const { query, setQueryField } = useLocationQuery(
+		{
+			edit: {
+				type: 'string',
+				default: '',
+				hideIfDefault: true
+			}
 		},
-		age: {
-			type: 'number',
-			default: 19,
-			hideIfDefault: true
-		},
-		visible: {
-			type: 'boolean',
-			default: false,
-			hideIfDefault: true
-		},
-		tab: 'first'
-	});
-	useLocation();
+		'App'
+	);
 	return (
 		<div>
-			{query.tab === 'first' && <FirstComponent />}
-			{query.tab === 'second' && <SecondComponent />}
-			<button
-				onClick={() =>
-					setQueryField(
-						'tab',
-						query.tab === 'first' ? 'second' : 'first'
-					)
-				}
-			>
+			{query.edit !== '' && <FirstComponent />}
+			<button onClick={() => setQueryField('edit', '123123213')}>
 				Click
 			</button>
 		</div>
@@ -41,32 +23,12 @@ const App = () => {
 };
 
 const FirstComponent = () => {
-	const { query } = useLocationQuery({
-		surname: {
-			type: 'string',
-			default: 'sur',
-			hideIfDefault: true
-		}
-	});
+	const { setQueryField } = useLocationQuery({ name: 'Rostyslav' }, 'First');
 	return (
 		<div>
-			<div>Surname: {query.surname}</div>
+			<button onClick={() => setQueryField('edit', '')}>Close</button>
 		</div>
 	);
 };
 
-const SecondComponent = () => {
-	const { query, fullQuery } = useLocationQuery({
-		lastname: {
-			type: 'string',
-			default: 'last'
-		}
-	});
-	console.log(fullQuery);
-	return (
-		<div>
-			<div>Lastname: {query.lastname}</div>
-		</div>
-	);
-};
 export default App;

@@ -10,20 +10,28 @@ import { calculateLocationPath, setQueryField } from './location-controller';
 import { extractQueryByDefaultValues, readQuery } from './query-parser';
 import { DefaultValues } from './types';
 
-export const useLocationQuery = (defaultValues: DefaultValues) => {
+export const useLocationQuery = (
+	defaultValues: DefaultValues,
+	name: string
+) => {
 	const history = useHistory();
-	const location = useLocation();
+	useLocation(); // NO DELETE, useing for rerender when change location
 
 	useEffect(() => {
+		console.log('UE', name);
+		if (Object.keys(defaultValues).length === 0) return;
 		const index = appendDefaultValues(defaultValues);
-		calculateLocationPath(location, history);
+		calculateLocationPath(history.location, history);
 		return () => {
 			removeDefaultValues(index);
-			calculateLocationPath(location, history);
+			calculateLocationPath(history.location, history);
 		};
 	}, []);
 
-	const fullQuery = readQuery(location, normalizeValues(defaultValues));
+	const fullQuery = readQuery(
+		history.location,
+		normalizeValues(defaultValues)
+	);
 	const query = extractQueryByDefaultValues(
 		fullQuery,
 		normalizeValues(defaultValues)
@@ -33,6 +41,6 @@ export const useLocationQuery = (defaultValues: DefaultValues) => {
 		fullQuery,
 		query: normalizeValuesForUser(query, defaultValues) as any,
 		setQueryField: (field: string, value: any) =>
-			setQueryField(location, history, field, value)
+			setQueryField(history.location, history, field, value)
 	};
 };

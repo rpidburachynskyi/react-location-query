@@ -1,8 +1,7 @@
 import { useLocationQuery } from '.';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 jest.mock('react-router-dom', () => ({
-	useLocation: jest.fn(),
 	useHistory: jest.fn()
 }));
 
@@ -15,20 +14,16 @@ jest.mock('react', () => ({
 describe('useLocationQuery', () => {
 	beforeEach(() => {
 		// @ts-ignore
-		useLocation.mockReset();
-		// @ts-ignore
 		useHistory.mockReset();
 	});
 	it('default', () => {
 		const replaceMock = jest.fn();
 		const location = {
 			search: '?name=Rostyslav',
-			pathname: 'http://localhost:3000/'
+			pathname: '/'
 		};
 		// @ts-ignore
-		useLocation.mockReturnValueOnce(location);
-		// @ts-ignore
-		useHistory.mockReturnValueOnce({ replace: replaceMock });
+		useHistory.mockReturnValueOnce({ replace: replaceMock, location });
 
 		const { query } = useLocationQuery({
 			name: {
@@ -38,7 +33,6 @@ describe('useLocationQuery', () => {
 		});
 
 		expect(query).toEqual({ name: 'Rostyslav' });
-		expect(useLocation).toBeCalledTimes(1);
 		expect(useHistory).toBeCalledTimes(1);
 		expect(replaceMock).toBeCalledTimes(1);
 		expect(replaceMock).toBeCalledWith(
@@ -49,12 +43,10 @@ describe('useLocationQuery', () => {
 		const replaceMock = jest.fn();
 		const location = {
 			search: '?name=Rostyslav',
-			pathname: 'http://localhost:3000/'
+			pathname: '/'
 		};
 		// @ts-ignore
-		useLocation.mockReturnValueOnce(location);
-		// @ts-ignore
-		useHistory.mockReturnValueOnce({ replace: replaceMock });
+		useHistory.mockReturnValueOnce({ replace: replaceMock, location });
 
 		const { query } = useLocationQuery({
 			name: {
@@ -65,7 +57,6 @@ describe('useLocationQuery', () => {
 		});
 
 		expect(query).toEqual({ name: 'Rostyslav' });
-		expect(useLocation).toBeCalledTimes(1);
 		expect(useHistory).toBeCalledTimes(1);
 		expect(replaceMock).toBeCalledTimes(1);
 		expect(replaceMock).toBeCalledWith(location.pathname);
@@ -77,12 +68,10 @@ describe('useLocationQuery', () => {
 		);
 		const location = {
 			search: '?name=Rostyslav',
-			pathname: 'http://localhost:3000/'
+			pathname: '/'
 		};
 		// @ts-ignore
-		useLocation.mockReturnValueOnce(location);
-		// @ts-ignore
-		useHistory.mockReturnValueOnce({ replace: replaceMock });
+		useHistory.mockReturnValueOnce({ replace: replaceMock, location });
 
 		const { query, setQueryField } = useLocationQuery({
 			name: {
@@ -100,7 +89,6 @@ describe('useLocationQuery', () => {
 		});
 
 		expect(query).toEqual({ name: 'Rostyslav', age: 19, married: false });
-		expect(useLocation).toBeCalledTimes(1);
 		expect(useHistory).toBeCalledTimes(1);
 		expect(replaceMock).toBeCalledTimes(1);
 		expect(replaceMock).toBeCalledWith(
@@ -111,6 +99,12 @@ describe('useLocationQuery', () => {
 
 		expect(replaceMock).toBeCalledWith(
 			`${location.pathname}?name=Rostik&age=19&married=false`
+		);
+
+		setQueryField('name', '');
+
+		expect(replaceMock).toBeCalledWith(
+			`${location.pathname}?name=&age=19&married=false`
 		);
 	});
 });

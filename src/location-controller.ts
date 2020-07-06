@@ -20,13 +20,16 @@ export const setQueryField = (
 ) => {
 	const values = { ...parseQuery(location.search) };
 	values[field] = value;
-	writeQuery(location, history, values);
+
+	const defaultValues = getDefaultValues();
+
+	writeQuery(location, history, joinValues(defaultValues, values));
 };
 
 const joinValues = (defaultValues: DefaultValues, locationQuery: any) => {
 	const result = { ...defaultValues };
 	Object.keys(locationQuery).forEach((key) => {
-		const value = result[key];
+		const value = result[key] ? result[key] : true;
 		if (value) {
 			result[key] = locationQuery[key];
 		}
