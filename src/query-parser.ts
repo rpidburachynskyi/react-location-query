@@ -1,6 +1,7 @@
 import qs from 'querystring';
 import { normalizeValues, getInitialValuesWrappers } from './values-controller';
 import { InitialValues, Location, History } from './types';
+import { getLocation } from './store';
 
 export const extractQueryByInitialValues = (
 	query: any,
@@ -22,7 +23,8 @@ export const stringifyQuery = (query: object) => {
 	return qs.stringify({ ...normalizeValues(query) });
 };
 
-export const readQuery = (location: Location, defaultValues: InitialValues) => {
+export const readQuery = (defaultValues: InitialValues) => {
+	const location: Location = getLocation();
 	return { ...defaultValues, ...parseQuery(location.search) };
 };
 

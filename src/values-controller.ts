@@ -92,9 +92,9 @@ export const normalizeValuesForUser = (
 	initialValues: InitialValues
 ) => {
 	const normalized = {};
-	Object.keys(normalized).forEach((key) => {
+	Object.keys(values).forEach((key) => {
 		const value = values[key];
-		const initialValue: InitialValuesField = initialValues[key] as any;
+		const initialValue: InitialValuesField = initialValues[key];
 		if (typeof initialValue === 'object') {
 			switch (initialValue.type) {
 				case 'boolean':
@@ -118,41 +118,17 @@ export const normalizeValuesForUser = (
 	return normalized;
 };
 
-export const compareValues = (value: any, initialValue: any) => {
-	if (typeof initialValue === 'object') {
-		if (typeof value === 'object') {
-			return value.initial === initialValue.initial;
-		} else {
-			switch (initialValue.type) {
-				case 'boolean':
-					switch (typeof value) {
-						case 'string':
-							return initialValue.initial === (value === 'true');
-						case 'boolean':
-							return initialValue.initial === value;
-						default:
-							throw new Error(
-								`Bad compare with type boolean, actually (${typeof value})`
-							);
-					}
-				case 'number':
-					switch (typeof value) {
-						case 'string':
-							return (
-								initialValue.initial ===
-								parseInt(value as string)
-							);
-						case 'number':
-							return initialValue.initial === value;
-						default:
-							throw new Error(
-								`Bad compare with type number, actually (${typeof value}`
-							);
-					}
-			}
-			return value === initialValue.initial;
-		}
-	} else {
-		return value === initialValue;
+export const compareValues = (
+	value: string,
+	initialValue: InitialValuesField
+) => {
+	if (typeof initialValue !== 'object') return value === initialValue;
+
+	switch (initialValue.type) {
+		case 'boolean':
+			return initialValue.initial === (value === 'true');
+		case 'number':
+			return initialValue.initial === parseInt(value);
 	}
+	return true;
 };

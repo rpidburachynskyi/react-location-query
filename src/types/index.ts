@@ -11,7 +11,7 @@ export type InitialValuesField =
 	  };
 
 export interface InitialValues {
-	[path: string]: InitialValues;
+	[path: string]: InitialValuesField;
 }
 
 export interface InitialValuesWrapper {

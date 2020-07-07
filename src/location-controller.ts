@@ -4,19 +4,21 @@ import {
 } from './values-controller';
 import { parseQuery, writeQuery } from './query-parser';
 import { Location, History, InitialValues } from './types';
+import { getLocation, getHistory } from './store';
 
-export const calculateLocationPath = (location: Location, history: History) => {
+export const calculateLocationPath = () => {
+	const location: Location = getLocation();
+	const history: History = getHistory();
+
 	const queryValues = parseQuery(location.search);
 	const defaultValues = getInitialValues();
 	writeQuery(location, history, joinValues(defaultValues, queryValues));
 };
 
-export const setQueryField = (
-	location: Location,
-	history: History,
-	field: string,
-	value: any
-) => {
+export const setQueryField = (field: string, value: any) => {
+	const location: Location = getLocation();
+	const history: History = getHistory();
+
 	const values = { ...parseQuery(location.search) };
 	values[field] = value;
 

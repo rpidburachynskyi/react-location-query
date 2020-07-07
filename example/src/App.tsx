@@ -9,6 +9,7 @@ const App = () => {
 			hideIfDefault: true
 		}
 	});
+	console.log(query);
 	return (
 		<div>
 			{query.name !== '' && <FirstComponent />}
