@@ -47,27 +47,19 @@ export const writeQuery = (
 const sortFieldsInQuery = (query: object) => {
 	const defaultValues = getInitialValuesWrappers();
 
-	const { sortOrder } = { sortOrder: 'asc' };
-	const sortAsserting = (a: string, b: string) => {
-		const indexA = defaultValues.find((value) => !!value[a]);
-		const indexB = defaultValues.find((value) => !!value[b]);
-		if (!indexA || !indexB) return true;
-
-		return indexA.index - indexB.index;
-	};
 	const result = {};
 	const keys = Object.keys(query);
-	const sortedKeys = keys.sort((a, b) =>
-		sortAsserting(a, b)
-			? sortOrder === 'asc'
-				? 1
-				: -1
-			: sortOrder === 'asc'
-			? -1
-			: 1
-	);
+	const sortedKeys = keys.sort((a: string, b: string) => {
+		const indexA = defaultValues.find((value) => !!value[a]);
+		const indexB = defaultValues.find((value) => !!value[b]);
+		if (!indexA || !indexB) return 0;
+
+		return indexA.index - indexB.index;
+	});
+
 	sortedKeys.forEach((key) => {
 		result[key] = query[key];
 	});
+
 	return result;
 };
