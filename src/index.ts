@@ -37,14 +37,15 @@ export const useLocationQuery = (initialValues: InitialValues) => {
 		locationQuery,
 		currentInitialNormalizedValues
 	);
-	console.log(query);
-
 	return {
 		fullQuery: extractQueryByInitialValues(
 			locationQuery,
 			initialNormalizedValues
 		),
-		query: normalizeValuesForUser(query, initialValues) as any,
+		query: normalizeValuesForUser(
+			query as InitialValues,
+			initialValues
+		) as any,
 		setQueryField: (field: string, value: InitialValuesFieldValue) =>
 			setQueryField(field, value)
 	};

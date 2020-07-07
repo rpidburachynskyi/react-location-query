@@ -3,16 +3,15 @@ import { useLocationQuery } from 'react-use-location-query';
 
 const App = () => {
 	const { query, setQueryField } = useLocationQuery({
-		edit: {
-			type: 'number',
-			default: 123,
-			hideIfDefault: true
-		}
+		name: {
+			type: 'string',
+			initial: 'Rostyslav'
+		},
+		age: 19
 	});
 	console.log(query);
 	return (
 		<div>
-			{query.name !== '' && <FirstComponent />}
 			<button onClick={() => setQueryField('edit', '123123213')}>
 				Click
 			</button>
@@ -76,5 +75,3 @@ const App = ({ queryItems }: Props) => {
 
 export default inject('queryItems')(observer(App));
  */
-
- 

@@ -92,6 +92,9 @@ export const normalizeValuesForUser = (
 				break;
 			case 'object':
 				throw new Error('Object cannot be assigned');
+			case 'string':
+			default:
+				normalized[key] = value;
 		}
 	});
 	return normalized;
@@ -101,13 +104,20 @@ export const compareValues = (
 	value: string,
 	initialValue: InitialValuesField
 ) => {
-	if (typeof initialValue !== 'object') return value === initialValue;
+	const compare = (type: string, initialValue: any, value: any) => {
+		switch (type) {
+			case 'boolean':
+				return initialValue === (value === 'true');
+			case 'number':
+				return initialValue === parseInt(value);
+			case 'string':
+			default:
+				return initialValue === value;
+		}
+	};
 
-	switch (initialValue.type) {
-		case 'boolean':
-			return initialValue.initial === (value === 'true');
-		case 'number':
-			return initialValue.initial === parseInt(value);
+	if (typeof initialValue !== 'object') {
+		return compare(typeof initialValue, initialValue, value);
 	}
-	return value === initialValue.initial;
+	return compare(initialValue.type, initialValue.initial, value);
 };

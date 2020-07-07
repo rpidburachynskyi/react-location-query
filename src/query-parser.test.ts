@@ -15,11 +15,11 @@ describe('query-parser', () => {
 				surname: 'Pidburachynskyi',
 				year: {
 					type: 'number',
-					default: 19
+					initial: 19
 				},
 				student: {
 					type: 'boolean',
-					default: true
+					initial: true
 				}
 			})
 		).toEqual(

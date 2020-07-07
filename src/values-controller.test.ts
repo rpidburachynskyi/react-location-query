@@ -5,34 +5,29 @@ describe('values-controller', () => {
 		expect(compareValues('qwe', 'qwe')).toBeTruthy();
 		expect(compareValues('qwe', 'ewq')).toBeFalsy();
 
-		expect(compareValues(1, 1)).toBeTruthy();
-		expect(compareValues(1, 2)).toBeFalsy();
+		expect(compareValues('1', 1)).toBeTruthy();
+		expect(compareValues('1', 2)).toBeFalsy();
 
-		expect(compareValues(1, { type: 'number', default: 1 })).toBeTruthy();
-		expect(compareValues(1, { type: 'number', default: 2 })).toBeFalsy();
+		expect(compareValues('1', { type: 'number', initial: 1 })).toBeTruthy();
+		expect(compareValues('1', { type: 'number', initial: 2 })).toBeFalsy();
+
+		expect(compareValues('1', { type: 'number', initial: 1 })).toBeTruthy();
+		expect(compareValues('1', { type: 'number', initial: 5 })).toBeFalsy();
 
 		expect(
-			compareValues(
-				{ type: 'number', default: 1 },
-				{ type: 'number', default: 1 }
-			)
+			compareValues('true', { type: 'boolean', initial: true })
 		).toBeTruthy();
+
 		expect(
-			compareValues(
-				{ type: 'number', default: 2 },
-				{ type: 'number', default: 1 }
-			)
+			compareValues('false', { type: 'boolean', initial: true })
 		).toBeFalsy();
 
-		expect(compareValues(1, { type: 'number', default: 1 })).toBeTruthy();
-		expect(compareValues(1, { type: 'number', default: 5 })).toBeFalsy();
+		expect(
+			compareValues('', { type: 'boolean', initial: true })
+		).toBeFalsy();
 
 		expect(
-			compareValues(true, { type: 'boolean', default: true })
-		).toBeTruthy();
-
-		expect(
-			compareValues(false, { type: 'boolean', default: true })
+			compareValues('qweddfgdf', { type: 'boolean', initial: true })
 		).toBeFalsy();
 	});
 });

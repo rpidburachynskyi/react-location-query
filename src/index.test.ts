@@ -2,12 +2,16 @@ import { useLocationQuery } from '.';
 import { useHistory } from 'react-router-dom';
 
 jest.mock('react-router-dom', () => ({
-	useHistory: jest.fn()
+	useHistory: jest.fn(),
+	useLocation: jest.fn()
 }));
 
 jest.mock('react', () => ({
 	useEffect: (a: Function) => {
 		a();
+	},
+	useState: (value: number) => {
+		return [value, () => {}];
 	}
 }));
 
@@ -28,7 +32,7 @@ describe('useLocationQuery', () => {
 		const { query } = useLocationQuery({
 			name: {
 				type: 'string',
-				default: 'Rostyslav'
+				initial: 'Rostyslav'
 			}
 		});
 
@@ -51,7 +55,7 @@ describe('useLocationQuery', () => {
 		const { query } = useLocationQuery({
 			name: {
 				type: 'string',
-				default: 'Rostyslav',
+				initial: 'Rostyslav',
 				hideIfDefault: true
 			}
 		});
@@ -76,15 +80,15 @@ describe('useLocationQuery', () => {
 		const { query, setQueryField } = useLocationQuery({
 			name: {
 				type: 'string',
-				default: 'Rostyslav'
+				initial: 'Rostyslav'
 			},
 			age: {
 				type: 'number',
-				default: 19
+				initial: 19
 			},
 			married: {
 				type: 'boolean',
-				default: false
+				initial: false
 			}
 		});
 
