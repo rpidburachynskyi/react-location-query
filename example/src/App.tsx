@@ -5,7 +5,13 @@ const App = () => {
 	const { query, setQueryField } = useLocationQuery({
 		name: {
 			type: 'string',
-			initial: 'Rostyslav'
+			initial: 'Rostyslav',
+			hideIfInitial: true
+		},
+		array: {
+			type: 'array',
+			arrayType: 'string',
+			initial: [1, 2, 1]
 		},
 		age: 19
 	});

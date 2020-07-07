@@ -4,18 +4,18 @@ export class QueryItem {
 	@observable type: 'string' | 'boolean' | 'number' = 'string';
 	@observable name: string = '';
 	@observable default: string | boolean | number = '';
-	@observable hideIfDefault: boolean = false;
+	@observable hideIfInitial: boolean = false;
 
 	constructor(
 		name: string,
 		type: 'string' | 'boolean' | 'number',
 		defaultValue: string | boolean | number,
-		hideIfDefault: boolean
+		hideIfInitial: boolean
 	) {
 		this.name = name;
 		this.type = type;
 		this.default = defaultValue;
-		this.hideIfDefault = hideIfDefault;
+		this.hideIfInitial = hideIfInitial;
 	}
 
 	@action setName(name: string) {

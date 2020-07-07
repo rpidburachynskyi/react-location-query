@@ -9,7 +9,7 @@ import {
 } from './values-controller';
 import { calculateLocationPath, setQueryField } from './location-controller';
 import { extractQueryByInitialValues, readQuery } from './query-parser';
-import { InitialValues, InitialValuesFieldValue } from './types';
+import { InitialValues, InitialField } from './types/Initial';
 import useIndex from './useIndex';
 import { setHistory } from './store';
 
@@ -19,10 +19,9 @@ export const useLocationQuery = (initialValues: InitialValues) => {
 	setHistory(useHistory());
 	useLocation(); // NO DELETE, using for rerender when change location
 
+	addInitialValues(initialValues, index);
+
 	useEffect(() => {
-		if (Object.keys(initialValues).length === 0) return;
-		addInitialValues(initialValues, index);
-		calculateLocationPath();
 		return () => {
 			removeInitialValues(index);
 			calculateLocationPath();
@@ -32,7 +31,7 @@ export const useLocationQuery = (initialValues: InitialValues) => {
 	const currentInitialNormalizedValues = normalizeValues(initialValues);
 	const initialNormalizedValues = normalizeValues(getInitialValues());
 
-	const locationQuery = readQuery(currentInitialNormalizedValues);
+	const locationQuery = readQuery();
 	const query = extractQueryByInitialValues(
 		locationQuery,
 		currentInitialNormalizedValues
@@ -42,11 +41,8 @@ export const useLocationQuery = (initialValues: InitialValues) => {
 			locationQuery,
 			initialNormalizedValues
 		),
-		query: normalizeValuesForUser(
-			query as InitialValues,
-			initialValues
-		) as any,
-		setQueryField: (field: string, value: InitialValuesFieldValue) =>
+		query: normalizeValuesForUser(query),
+		setQueryField: (field: string, value: InitialField) =>
 			setQueryField(field, value)
 	};
 };

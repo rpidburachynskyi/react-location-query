@@ -27,7 +27,7 @@ const AddQueryItemDialog = ({ queryItems, onClose }: Props) => {
 			name: '',
 			type: 'string',
 			defaultValue: '',
-			hideIfDefault: false
+			hideIfInitial: false
 		},
 		validate: ({ name }) => {
 			const errors: any = {};
@@ -54,7 +54,7 @@ const AddQueryItemDialog = ({ queryItems, onClose }: Props) => {
 					values.name,
 					values.type as any,
 					values.defaultValue,
-					values.hideIfDefault
+					values.hideIfInitial
 				);
 				onClose();
 			}}
@@ -111,9 +111,9 @@ const AddQueryItemDialog = ({ queryItems, onClose }: Props) => {
 					/>
 				</Form.Item>
 				<Checkbox
-					checked={values.hideIfDefault}
+					checked={values.hideIfInitial}
 					onChange={({ target: { checked } }) =>
-						setFieldValue('hideIfDefault', checked)
+						setFieldValue('hideIfInitial', checked)
 					}
 				>
 					Hide if default?

@@ -1,13 +1,15 @@
 import qs from 'querystring';
 import { normalizeValues, getInitialValuesWrappers } from './values-controller';
-import { InitialValues, Location, History } from './types';
-import { getLocation } from './store';
+import { InitialValues } from './types/Initial';
+import { getLocation, getHistory } from './store';
+import { QueryObject, QueryValues } from './types/Query';
+import { Location } from './types';
 
 export const extractQueryByInitialValues = (
 	query: any,
 	defaultValues: InitialValues
-) => {
-	const result: object = {};
+): QueryValues => {
+	const result: QueryValues = {};
 	Object.keys(defaultValues).forEach((key) => {
 		result[key] = query[key] ? query[key] : defaultValues[key];
 	});
@@ -19,20 +21,19 @@ export const parseQuery = (query: string) => {
 	return qs.parse(query === '' ? '' : query.substring(1));
 };
 
-export const stringifyQuery = (query: InitialValues) => {
+export const stringifyQuery = (query: QueryValues) => {
 	return qs.stringify(normalizeValues(query));
 };
 
-export const readQuery = (defaultValues: InitialValues) => {
+export const readQuery = (): QueryObject => {
 	const location: Location = getLocation();
-	return { ...defaultValues, ...parseQuery(location.search) };
+	return parseQuery(location.search);
 };
 
-export const writeQuery = (
-	location: Location,
-	history: History,
-	query: InitialValues
-) => {
+export const writeQuery = (query: InitialValues) => {
+	const history = getHistory();
+	const location = getLocation();
+
 	if (Object.keys(query).length === 0) {
 		history.replace(location.pathname);
 	} else {

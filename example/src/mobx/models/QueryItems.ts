@@ -3,19 +3,19 @@ import { observable, action } from 'mobx';
 
 export class QueryItems {
 	@observable items: QueryItem[] = loadFromLocalStorage().map(
-		({ name, type, default: defaultv, hideIfDefault }: any) =>
-			new QueryItem(name, type, defaultv, hideIfDefault)
+		({ name, type, default: defaultv, hideIfInitial }: any) =>
+			new QueryItem(name, type, defaultv, hideIfInitial)
 	);
 
 	@action addQueryItem(
 		name: string,
 		type: 'string' | 'boolean' | 'number',
 		defaultValue: string | boolean | number,
-		hideIfDefault: boolean
+		hideIfInitial: boolean
 	) {
 		this.items = [
 			...this.items,
-			new QueryItem(name, type, defaultValue, hideIfDefault)
+			new QueryItem(name, type, defaultValue, hideIfInitial)
 		];
 
 		saveToLocalStorage(this.items);

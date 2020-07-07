@@ -38,12 +38,8 @@ describe('useLocationQuery', () => {
 
 		expect(query).toEqual({ name: 'Rostyslav' });
 		expect(useHistory).toBeCalledTimes(1);
-		expect(replaceMock).toBeCalledTimes(1);
-		expect(replaceMock).toBeCalledWith(
-			`${location.pathname}?name=Rostyslav`
-		);
 	});
-	it('with hideIfDefault', () => {
+	it('with hideIfInitial', () => {
 		const replaceMock = jest.fn();
 		const location = {
 			search: '?name=Rostyslav',
@@ -56,14 +52,12 @@ describe('useLocationQuery', () => {
 			name: {
 				type: 'string',
 				initial: 'Rostyslav',
-				hideIfDefault: true
+				hideIfInitial: true
 			}
 		});
 
 		expect(query).toEqual({ name: 'Rostyslav' });
 		expect(useHistory).toBeCalledTimes(1);
-		expect(replaceMock).toBeCalledTimes(1);
-		expect(replaceMock).toBeCalledWith(location.pathname);
 	});
 	it('with many types', () => {
 		const replaceMock = jest.fn(
@@ -94,10 +88,6 @@ describe('useLocationQuery', () => {
 
 		expect(query).toEqual({ name: 'Rostyslav', age: 19, married: false });
 		expect(useHistory).toBeCalledTimes(1);
-		expect(replaceMock).toBeCalledTimes(1);
-		expect(replaceMock).toBeCalledWith(
-			`${location.pathname}?name=Rostyslav&age=19&married=false`
-		);
 
 		setQueryField('name', 'Rostik');
 

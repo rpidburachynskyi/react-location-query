@@ -21,7 +21,7 @@ const CreateQueryList = ({ queryItems }: Props) => {
 			newDefaultValues[item.name] = {
 				type: item.type,
 				default: item.default,
-				hideIfDefault: item.hideIfDefault
+				hideIfInitial: item.hideIfInitial
 			};
 		});
 		setDefaultVsalues(newDefaultValues);

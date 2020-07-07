@@ -2,33 +2,22 @@ import {
 	prepareValuesForLocation,
 	getInitialValues
 } from './values-controller';
-import { parseQuery, writeQuery } from './query-parser';
-import { Location, History, InitialValues } from './types';
-import { getLocation, getHistory } from './store';
+import { writeQuery, readQuery } from './query-parser';
 
 export const calculateLocationPath = () => {
-	const location: Location = getLocation();
-	const history: History = getHistory();
-
-	const queryValues = parseQuery(location.search);
-	const defaultValues = getInitialValues();
-	writeQuery(location, history, joinValues(defaultValues, queryValues));
+	const queryValues = readQuery();
+	writeQuery(joinValues(queryValues));
 };
 
 export const setQueryField = (field: string, value: any) => {
-	const location: Location = getLocation();
-	const history: History = getHistory();
-
-	const values = { ...parseQuery(location.search) };
+	const values = { ...readQuery() };
 	values[field] = value;
 
-	const defaultValues = getInitialValues();
-
-	writeQuery(location, history, joinValues(defaultValues, values));
+	writeQuery(joinValues(values));
 };
 
-const joinValues = (defaultValues: InitialValues, locationQuery: any) => {
-	const result = { ...defaultValues };
+const joinValues = (locationQuery: any) => {
+	const result = { ...getInitialValues() };
 	Object.keys(locationQuery).forEach((key) => {
 		const value = result[key] ? result[key] : true;
 		if (value) {
@@ -36,5 +25,5 @@ const joinValues = (defaultValues: InitialValues, locationQuery: any) => {
 		}
 	});
 
-	return prepareValuesForLocation(result, defaultValues);
+	return prepareValuesForLocation(result);
 };
