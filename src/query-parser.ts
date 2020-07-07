@@ -19,8 +19,8 @@ export const parseQuery = (query: string) => {
 	return qs.parse(query === '' ? '' : query.substring(1));
 };
 
-export const stringifyQuery = (query: object) => {
-	return qs.stringify({ ...normalizeValues(query) });
+export const stringifyQuery = (query: InitialValues) => {
+	return qs.stringify(normalizeValues(query));
 };
 
 export const readQuery = (defaultValues: InitialValues) => {
@@ -31,7 +31,7 @@ export const readQuery = (defaultValues: InitialValues) => {
 export const writeQuery = (
 	location: Location,
 	history: History,
-	query: object
+	query: InitialValues
 ) => {
 	if (Object.keys(query).length === 0) {
 		history.replace(location.pathname);

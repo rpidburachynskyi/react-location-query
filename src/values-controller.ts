@@ -39,35 +39,19 @@ export const getInitialValues = () => {
 };
 
 const normalizeValue = (value: InitialValuesField) => {
-	return typeof value === 'object' ? value.initial : value;
+	return typeof value !== 'object' ? value : value.initial;
 };
 
-export const normalizeValues = (values: object) => {
-	const normalized: any = { ...values };
-	Object.keys(normalized).forEach((key) => {
-		const value = normalized[key];
-		if (typeof value === 'object') {
-			switch (value.type) {
-				case 'boolean':
-					switch (value.type) {
-						case 'boolean':
-							normalized[key] = value.initial;
-							break;
-						case 'string':
-							normalized[key] = value.initial === 'true';
-							break;
-					}
-					break;
-				case 'string':
-				default:
-					normalized[key] = value.initial;
-			}
-		}
+export const normalizeValues = (values: InitialValues) => {
+	const normalized: any = {};
+	Object.keys(values).forEach((key) => {
+		normalized[key] = normalizeValue(values[key]);
 	});
 	return normalized;
 };
+
 export const prepareValuesForLocation = (
-	values: object,
+	values: InitialValues,
 	initialValues: InitialValues
 ) => {
 	const normalized: any = { ...values };
@@ -88,31 +72,26 @@ export const prepareValuesForLocation = (
 };
 
 export const normalizeValuesForUser = (
-	values: any,
+	values: InitialValues,
 	initialValues: InitialValues
 ) => {
 	const normalized = {};
 	Object.keys(values).forEach((key) => {
-		const value = values[key];
+		const value = normalizeValue(values[key]);
 		const initialValue: InitialValuesField = initialValues[key];
-		if (typeof initialValue === 'object') {
-			switch (initialValue.type) {
-				case 'boolean':
-					normalized[key] = value === 'true';
-					break;
-				case 'number':
-					normalized[key] = parseInt(value);
-					break;
-			}
-		} else {
-			switch (typeof initialValue) {
-				case 'boolean':
-					normalized[key] = value === 'true';
-					break;
-				case 'number':
-					normalized[key] = parseInt(value);
-					break;
-			}
+		switch (
+			typeof initialValue === 'object'
+				? initialValue.type
+				: typeof initialValue
+		) {
+			case 'boolean':
+				normalized[key] = value === 'true';
+				break;
+			case 'number':
+				normalized[key] = parseInt(value.toString());
+				break;
+			case 'object':
+				throw new Error('Object cannot be assigned');
 		}
 	});
 	return normalized;
@@ -130,5 +109,5 @@ export const compareValues = (
 		case 'number':
 			return initialValue.initial === parseInt(value);
 	}
-	return true;
+	return value === initialValue.initial;
 };
