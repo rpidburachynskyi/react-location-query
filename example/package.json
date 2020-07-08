@@ -22,6 +22,7 @@
 		"formik": "^2.1.4",
 		"mobx": "^5.15.4",
 		"mobx-react": "^6.2.2",
+		"node-sass": "^4.14.1",
 		"react": "file:../node_modules/react",
 		"react-dom": "file:../node_modules/react-dom",
 		"react-router-dom": "file:../node_modules/react-router-dom",

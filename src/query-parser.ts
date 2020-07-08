@@ -1,5 +1,9 @@
 import qs from 'querystring';
-import { normalizeValues, getInitialValuesWrappers } from './values-controller';
+import {
+	normalizeValues,
+	getInitialValuesWrappers,
+	prepareValuesForLocation
+} from './values-controller';
 import { InitialValues } from './types/Initial';
 import { getLocation, getHistory } from './store';
 import { QueryObject, QueryValues } from './types/Query';
@@ -39,7 +43,9 @@ export const writeQuery = (query: InitialValues) => {
 	} else {
 		history.replace(
 			`${location.pathname}?${stringifyQuery(
-				sortFieldsInQuery(normalizeValues(query))
+				prepareValuesForLocation(
+					sortFieldsInQuery(normalizeValues(query))
+				)
 			)}`
 		);
 	}

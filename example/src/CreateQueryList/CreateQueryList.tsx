@@ -10,8 +10,7 @@ interface Props {
 }
 
 const CreateQueryList = ({ queryItems }: Props) => {
-	const [defaultValues, setDefaultVsalues] = useState({});
-
+	const [defaultValues, setDefaultValues] = useState({});
 	const {} = useLocationQuery(defaultValues);
 
 	useEffect(() => {
@@ -20,13 +19,12 @@ const CreateQueryList = ({ queryItems }: Props) => {
 		queryItems!.items.forEach((item) => {
 			newDefaultValues[item.name] = {
 				type: item.type,
-				default: item.default,
+				initial: item.initial,
 				hideIfInitial: item.hideIfInitial
 			};
 		});
-		setDefaultVsalues(newDefaultValues);
+		setDefaultValues(newDefaultValues);
 	}, [JSON.stringify(queryItems!.items)]);
-
 	return (
 		<List
 			dataSource={queryItems!.items}

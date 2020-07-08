@@ -7,6 +7,7 @@ import {
 	InitialObjectArray
 } from './types/Initial';
 import { QueryValue, QueryValues } from './types/Query';
+import { UserValues } from './types/User';
 
 let initialValuesWrappers: InitialValuesWrapper[] = [];
 
@@ -59,14 +60,16 @@ export const normalizeValues = (values: InitialValues | QueryValues) => {
 
 export const prepareValuesForLocation = (values: InitialValues) => {
 	const initialValues = getInitialValues();
-
 	const normalized: any = { ...values };
 	Object.keys(normalized).forEach((key) => {
 		const value = normalized[key];
 		const initialValue = initialValues[key];
 		if (isInitialValueObject(initialValue)) {
 			if (initialValue.hideIfInitial) {
-				if (compareValues(value, initialValue)) {
+				if (
+					compareValues(value, initialValue) ||
+					isInitialValueObject(value)
+				) {
 					delete normalized[key];
 				}
 			} else {
@@ -77,10 +80,11 @@ export const prepareValuesForLocation = (values: InitialValues) => {
 	return normalized;
 };
 
-export const normalizeValuesForUser = (values: InitialValues | QueryValues) => {
-	const initialValues = getInitialValues();
-
-	const normalized = {};
+export const normalizeValuesForUser = (
+	values: InitialValues | QueryValues,
+	initialValues: InitialValues
+): UserValues => {
+	const normalized: UserValues = {};
 	Object.keys(values).forEach((key) => {
 		const value = normalizeValue(values[key]);
 		const initialValue = initialValues[key];

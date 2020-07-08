@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { Provider } from 'mobx-react';
 import mobx from './mobx';
+import './global';
 
 ReactDOM.render(
 	<Provider queryItems={mobx.queryItems}>

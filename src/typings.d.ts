@@ -4,11 +4,6 @@
  */
 
 import * as H from 'history';
-declare module '*.css' {
-	const content: { [className: string]: string };
-	export default content;
-}
-
 interface SvgrComponent
 	extends React.StatelessComponent<React.SVGAttributes<SVGElement>> {}
 

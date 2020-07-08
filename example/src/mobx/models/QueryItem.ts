@@ -1,20 +1,21 @@
 import { observable, action } from 'mobx';
+import { saveToLocalStorageItem } from './QueryItems';
 
 export class QueryItem {
 	@observable type: 'string' | 'boolean' | 'number' = 'string';
 	@observable name: string = '';
-	@observable default: string | boolean | number = '';
+	@observable initial: string | boolean | number = '';
 	@observable hideIfInitial: boolean = false;
 
 	constructor(
 		name: string,
 		type: 'string' | 'boolean' | 'number',
-		defaultValue: string | boolean | number,
+		initial: string | boolean | number,
 		hideIfInitial: boolean
 	) {
 		this.name = name;
 		this.type = type;
-		this.default = defaultValue;
+		this.initial = initial;
 		this.hideIfInitial = hideIfInitial;
 	}
 
@@ -22,8 +23,12 @@ export class QueryItem {
 		this.name = name;
 	}
 
-	@action setDefault(defaultValue: string) {
-		this.default = defaultValue;
-		console.log('C', this.default);
+	@action setInitial(initial: string) {
+		this.initial = initial;
+	}
+
+	@action setHideIfInitial(hide: boolean) {
+		this.hideIfInitial = hide;
+		saveToLocalStorageItem(this);
 	}
 }

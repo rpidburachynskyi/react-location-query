@@ -22,6 +22,8 @@ export const useLocationQuery = (initialValues: InitialValues) => {
 	addInitialValues(initialValues, index);
 
 	useEffect(() => {
+		addInitialValues(initialValues, index);
+		calculateLocationPath();
 		return () => {
 			removeInitialValues(index);
 			calculateLocationPath();
@@ -41,7 +43,7 @@ export const useLocationQuery = (initialValues: InitialValues) => {
 			locationQuery,
 			initialNormalizedValues
 		),
-		query: normalizeValuesForUser(query),
+		query: normalizeValuesForUser(query, initialValues),
 		setQueryField: (field: string, value: InitialField) =>
 			setQueryField(field, value)
 	};

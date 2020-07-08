@@ -1,7 +1,4 @@
-import {
-	prepareValuesForLocation,
-	getInitialValues
-} from './values-controller';
+import { getInitialValues } from './values-controller';
 import { writeQuery, readQuery } from './query-parser';
 
 export const calculateLocationPath = () => {
@@ -25,5 +22,5 @@ const joinValues = (locationQuery: any) => {
 		}
 	});
 
-	return prepareValuesForLocation(result);
+	return result;
 };

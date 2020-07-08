@@ -1,42 +1,4 @@
-import React from 'react';
-import { useLocationQuery } from 'react-use-location-query';
-
-const App = () => {
-	const { query, setQueryField } = useLocationQuery({
-		name: {
-			type: 'string',
-			initial: 'Rostyslav',
-			hideIfInitial: true
-		},
-		array: {
-			type: 'array',
-			arrayType: 'string',
-			initial: [1, 2, 1]
-		},
-		age: 19
-	});
-	console.log(query);
-	return (
-		<div>
-			<button onClick={() => setQueryField('edit', '123123213')}>
-				Click
-			</button>
-		</div>
-	);
-};
-
-const FirstComponent = () => {
-	const { setQueryField } = useLocationQuery({ name: 'q' });
-	return (
-		<div>
-			<button onClick={() => setQueryField('edit', '123')}>Close</button>
-		</div>
-	);
-};
-
-export default App;
-
-/**import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Typography, Row, Col } from 'antd';
 import CreateQueryList from './CreateQueryList';
 import { inject, observer } from 'mobx-react';
@@ -70,14 +32,8 @@ const App = ({ queryItems }: Props) => {
 					<QueryList />
 				</Col>
 			</Row>
-			<Row gutter={[8, 8]}>
-				<Col span={12}>
-					<QueryList />
-				</Col>
-			</Row>
 		</div>
 	);
 };
 
 export default inject('queryItems')(observer(App));
- */
