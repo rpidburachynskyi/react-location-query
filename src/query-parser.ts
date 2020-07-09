@@ -4,14 +4,14 @@ import {
 	getInitialValuesWrappers,
 	prepareValuesForLocation
 } from './values-controller';
-import { InitialValues } from './types/Initial';
+import { InitialExtendValues } from './types/initial';
 import { getLocation, getHistory } from './store';
 import { QueryObject, QueryValues } from './types/Query';
 import { Location } from './types';
 
 export const extractQueryByInitialValues = (
 	query: any,
-	defaultValues: InitialValues
+	defaultValues: InitialExtendValues
 ): QueryValues => {
 	const result: QueryValues = {};
 	Object.keys(defaultValues).forEach((key) => {
@@ -25,7 +25,7 @@ export const parseQuery = (query: string) => {
 	return qs.parse(query === '' ? '' : query.substring(1));
 };
 
-export const stringifyQuery = (query: QueryValues | InitialValues) => {
+export const stringifyQuery = (query: QueryValues | InitialExtendValues) => {
 	return qs.stringify(normalizeValues(query));
 };
 
@@ -34,7 +34,7 @@ export const readQuery = (): QueryObject => {
 	return parseQuery(location.search);
 };
 
-export const writeQuery = (query: InitialValues) => {
+export const writeQuery = (query: InitialExtendValues) => {
 	const history = getHistory();
 	const location = getLocation();
 

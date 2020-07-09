@@ -1,69 +1,76 @@
-import * as H from 'history';
-
-export type _InitialObject = {
+export type _InitialExtendObject = {
 	hideIfInitial?: boolean;
 };
 
-export interface InitialObjectString extends _InitialObject {
+export interface InitialExtendObjectString extends _InitialExtendObject {
 	type: 'string';
 	initial: string;
 }
 
-export interface InitialObjectBoolean extends _InitialObject {
+export interface InitialExtendObjectBoolean extends _InitialExtendObject {
 	type: 'boolean';
 	initial: boolean;
 }
 
-export interface InitialObjectNumber extends _InitialObject {
+export interface InitialExtendObjectNumber extends _InitialExtendObject {
 	type: 'number';
 	initial: number;
 }
 
-export interface _InitialObjectArray extends _InitialObject {
+export interface _InitialExtendObjectArray extends _InitialExtendObject {
 	type: 'array';
 	arrayType: 'string' | 'boolean' | 'number';
 	initial: Array<any>;
 }
 
-export interface InitialObjectArrayString extends _InitialObjectArray {
+export interface InitialExtendObjectArrayString
+	extends _InitialExtendObjectArray {
 	arrayType: 'string';
 	initial: Array<string>;
 }
 
-export interface InitialObjectArrayNumber extends _InitialObjectArray {
+export interface InitialExtendObjectArrayNumber
+	extends _InitialExtendObjectArray {
 	arrayType: 'number';
 	initial: Array<number>;
 }
 
-export interface InitialObjectArrayBoolean extends _InitialObjectArray {
+export interface InitialExtendObjectArrayBoolean
+	extends _InitialExtendObjectArray {
 	arrayType: 'boolean';
 	initial: Array<boolean>;
 }
 
-export type InitialObjectArray =
-	| InitialObjectArrayString
-	| InitialObjectArrayNumber
-	| InitialObjectArrayBoolean;
+export type InitialExtendObjectArray =
+	| InitialExtendObjectArrayString
+	| InitialExtendObjectArrayNumber
+	| InitialExtendObjectArrayBoolean;
 
-export type InitialObject =
-	| InitialObjectString
-	| InitialObjectBoolean
-	| InitialObjectNumber
-	| InitialObjectArray;
+export interface InitialExtendObjectJson extends _InitialExtendObject {
+	type: 'json';
+	initial: NonNullable<string | number | boolean>;
+}
 
-export type InitialValue =
+export type InitialExtendObject =
+	| InitialExtendObjectString
+	| InitialExtendObjectBoolean
+	| InitialExtendObjectNumber
+	| InitialExtendObjectArray
+	| InitialExtendObjectJson;
+
+export type InitialExtendValue =
 	| string
 	| boolean
 	| number
 	| Array<string | boolean | number>;
 
-export type InitialField = InitialValue | InitialObject;
+export type InitialExtendField = InitialExtendValue | InitialExtendObject;
 
-export interface InitialValues {
-	[path: string]: InitialField;
+export interface InitialExtendValues {
+	[path: string]: InitialExtendField;
 }
 
-export interface InitialValuesWrapper {
-	initialValues: InitialValues;
+export interface InitialExtendValuesWrapper {
+	initialValues: InitialExtendValues;
 	index: number;
 }

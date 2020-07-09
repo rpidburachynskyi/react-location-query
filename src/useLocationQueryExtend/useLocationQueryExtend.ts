@@ -9,12 +9,12 @@ import {
 } from '../values-controller';
 import { calculateLocationPath, setQueryField } from '../location-controller';
 import { extractQueryByInitialValues, readQuery } from '../query-parser';
-import { InitialValues, InitialField } from '../types/Initial';
+import { InitialExtendValues, InitialExtendField } from '../types/initial';
 import useIndex from '../useIndex';
 import { setHistory } from '../store';
 
 // it will be extended hook
-const useLocationQueryExtend = (initialValues: InitialValues) => {
+const useLocationQueryExtend = (initialValues: InitialExtendValues) => {
 	const index = useIndex(); // index for save order
 
 	setHistory(useHistory());
@@ -45,7 +45,7 @@ const useLocationQueryExtend = (initialValues: InitialValues) => {
 			initialNormalizedValues
 		),
 		query: normalizeValuesForUser(query, initialValues),
-		setQueryField: (field: string, value: InitialField) =>
+		setQueryField: (field: string, value: InitialExtendField) =>
 			setQueryField(field, value)
 	};
 };

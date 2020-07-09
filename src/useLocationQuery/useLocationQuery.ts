@@ -9,7 +9,7 @@ import {
 } from '../values-controller';
 import { calculateLocationPath, setQueryField } from '../location-controller';
 import { extractQueryByInitialValues, readQuery } from '../query-parser';
-import { InitialValues, InitialField } from '../types/Initial';
+import { InitialValues, InitialField } from './types';
 import useIndex from '../useIndex';
 import { setHistory } from '../store';
 

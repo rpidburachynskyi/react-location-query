@@ -1,21 +1,21 @@
 import {
-	InitialValues,
-	InitialValuesWrapper,
-	InitialObject,
-	InitialField,
-	InitialValue,
-	InitialObjectArray
-} from './types/Initial';
+	InitialExtendValues,
+	InitialExtendValuesWrapper,
+	InitialExtendObject,
+	InitialExtendField,
+	InitialExtendValue,
+	InitialExtendObjectArray
+} from './types/initial';
 import { QueryValue, QueryValues } from './types/Query';
 import { UserValues } from './types/User';
 
-let initialValuesWrappers: InitialValuesWrapper[] = [];
+let initialValuesWrappers: InitialExtendValuesWrapper[] = [];
 
 export const addInitialValues = (
-	initialValues: InitialValues,
+	initialValues: InitialExtendValues,
 	index: number
 ) => {
-	const wrapper: InitialValuesWrapper = { initialValues, index };
+	const wrapper: InitialExtendValuesWrapper = { initialValues, index };
 	initialValuesWrappers = [
 		...initialValuesWrappers.filter((v) => v.index !== index),
 		wrapper
@@ -33,7 +33,7 @@ export const getInitialValuesWrappers = () => {
 };
 
 export const getInitialValues = () => {
-	let initialValues: InitialValues = {};
+	let initialValues: InitialExtendValues = {};
 	initialValuesWrappers
 		.sort((a, b) => a.index - b.index)
 		.forEach((initialValuesWrapper) => {
@@ -46,11 +46,11 @@ export const getInitialValues = () => {
 	return initialValues;
 };
 
-const normalizeValue = (value: InitialObject | QueryValue) => {
+const normalizeValue = (value: InitialExtendObject | QueryValue) => {
 	return !isInitialValueObject(value) ? value : value.initial;
 };
 
-export const normalizeValues = (values: InitialValues | QueryValues) => {
+export const normalizeValues = (values: InitialExtendValues | QueryValues) => {
 	const normalized: any = {};
 	Object.keys(values).forEach((key) => {
 		normalized[key] = normalizeValue(values[key]);
@@ -58,7 +58,7 @@ export const normalizeValues = (values: InitialValues | QueryValues) => {
 	return normalized;
 };
 
-export const prepareValuesForLocation = (values: InitialValues) => {
+export const prepareValuesForLocation = (values: InitialExtendValues) => {
 	const initialValues = getInitialValues();
 	const normalized: any = { ...values };
 	Object.keys(normalized).forEach((key) => {
@@ -81,8 +81,8 @@ export const prepareValuesForLocation = (values: InitialValues) => {
 };
 
 export const normalizeValuesForUser = (
-	values: InitialValues | QueryValues,
-	initialValues: InitialValues
+	values: InitialExtendValues | QueryValues,
+	initialValues: InitialExtendValues
 ): UserValues => {
 	const normalized: UserValues = {};
 	Object.keys(values).forEach((key) => {
@@ -117,7 +117,7 @@ export const normalizeValuesForUser = (
 				};
 				const array = Array.isArray(value) ? value : [value];
 				normalized[key] = normalizeArray(
-					(initialValue as InitialObjectArray).arrayType,
+					(initialValue as InitialExtendObjectArray).arrayType,
 					array
 				);
 				break;
@@ -129,7 +129,10 @@ export const normalizeValuesForUser = (
 	return normalized;
 };
 
-export const compareValues = (value: string, initialValue: InitialField) => {
+export const compareValues = (
+	value: string,
+	initialValue: InitialExtendField
+) => {
 	const compare = (type: string, initialValue: any, value: any) => {
 		switch (type) {
 			case 'boolean':
@@ -148,10 +151,11 @@ export const compareValues = (value: string, initialValue: InitialField) => {
 	return compare(initialValue.type, initialValue.initial, value);
 };
 const isInitialValueObject = (
-	value: InitialObject | InitialValue | QueryValue
-): value is InitialObject => typeof value === 'object' && !Array.isArray(value);
+	value: InitialExtendObject | InitialExtendValue | QueryValue
+): value is InitialExtendObject =>
+	typeof value === 'object' && !Array.isArray(value);
 
-const typeOfValue = (value: InitialField) => {
+const typeOfValue = (value: InitialExtendField) => {
 	return isInitialValueObject(value)
 		? value.type
 		: (typeof value as 'string' | 'number' | 'boolean');

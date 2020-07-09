@@ -1,5 +1,5 @@
 import useLocationQuery from '../useLocationQuery';
-import { InitialField } from '../types/Initial';
+import { InitialField } from '../useLocationQuery/types';
 
 const useLocationField = (name: string, value?: InitialField) => {
 	const { fullQuery, setQueryField } = useLocationQuery(
