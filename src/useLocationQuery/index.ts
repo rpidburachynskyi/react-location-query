@@ -1,3 +1,3 @@
 import useLocationQuery from './useLocationQuery';
 
-export { useLocationQuery };
+export default useLocationQuery;
