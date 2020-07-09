@@ -1,10 +1,10 @@
 {
-	"name": "react-use-location-query",
+	"name": "react-location-query",
 	"version": "2.0.2",
 	"description": "Package for manipulation location query",
 	"author": "kitsoRik",
 	"license": "MIT",
-	"repository": "kitsoRik/react-use-location-query",
+	"repository": "kitsoRik/react-location-query",
 	"main": "dist/index.js",
 	"module": "dist/index.modern.js",
 	"source": "src/index.ts",

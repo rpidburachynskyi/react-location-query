@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, Input, Form } from 'antd';
-import { useLocationQuery } from 'react-use-location-query';
+import { useLocationQuery } from 'react-location-query';
 import { observer } from 'mobx-react';
 
 import classes from './QueryList.module.css';

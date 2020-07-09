@@ -3,7 +3,7 @@ import { inject, observer, Observer } from 'mobx-react';
 import { QueryItems } from '../mobx/models/QueryItems';
 import { List } from 'antd';
 import CreateQueryListItem from './CreateQueryListItem';
-import { useLocationQuery } from 'react-use-location-query';
+import { useLocationQuery } from 'react-location-query';
 
 interface Props {
 	queryItems?: QueryItems;

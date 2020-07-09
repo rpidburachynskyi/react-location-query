@@ -1,4 +1,4 @@
-# react-use-location-query
+# react-location-query
 
 DEPRECATED, use instead [react-location-query](https://github.com/kitsoRik/react-location-query 'react-location-query')
 
@@ -8,7 +8,7 @@ React hook to manipulate with location query.
 
 # How to install
 
-`npm install react-use-location-query --save`
+`npm install react-location-query --save`
 
 # How to use
 
