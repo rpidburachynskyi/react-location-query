@@ -1,3 +1,5 @@
 import useLocationQuery from './useLocationQuery';
+import useLocationQueryExtend from './useLocationQueryExtend';
+import useLocationField from './useLocationField';
 
-export { useLocationQuery };
+export { useLocationQuery, useLocationQueryExtend, useLocationField };
