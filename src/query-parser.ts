@@ -25,7 +25,7 @@ export const parseQuery = (query: string) => {
 	return qs.parse(query === '' ? '' : query.substring(1));
 };
 
-export const stringifyQuery = (query: QueryValues) => {
+export const stringifyQuery = (query: QueryValues | InitialValues) => {
 	return qs.stringify(normalizeValues(query));
 };
 

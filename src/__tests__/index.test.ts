@@ -1,4 +1,4 @@
-import { useLocationQuery } from '.';
+import { useLocationQuery } from '../';
 import { useHistory } from 'react-router-dom';
 
 jest.mock('react-router-dom', () => ({

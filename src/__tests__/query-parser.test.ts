@@ -1,4 +1,4 @@
-import { parseQuery, stringifyQuery } from './query-parser';
+import { parseQuery, stringifyQuery } from '../query-parser';
 
 describe('query-parser', () => {
 	it('parseQuery', () => {

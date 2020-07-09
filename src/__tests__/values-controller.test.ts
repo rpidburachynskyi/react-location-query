@@ -1,4 +1,4 @@
-import { compareValues } from './values-controller';
+import { compareValues } from '../values-controller';
 
 describe('values-controller', () => {
 	it('compareValues', () => {
