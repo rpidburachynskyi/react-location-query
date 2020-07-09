@@ -1,30 +1,48 @@
 # react-use-location-query
 
-> Package for manipulation location query
+DEPRECATED, use instead [react-location-query](https://github.com/kitsoRik/react-location-query 'react-location-query')
 
-[![NPM](https://img.shields.io/npm/v/react-use-location-query.svg)](https://www.npmjs.com/package/react-use-location-query) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+# Description
 
-## Install
+React hook to manipulate with location query.
 
-```bash
-npm install --save react-use-location-query
-```
+# How to install
 
-## Usage
+`npm install react-use-location-query --save`
 
-```tsx
-import React, { Component } from 'react'
+# How to use
 
-import MyComponent from 'react-use-location-query'
-import 'react-use-location-query/dist/index.css'
+To use hook, you need install and use `react-router-dom`. Use this package in component which wrapped by `BrowserRouter` from `react-router-dom`.
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
-}
-```
+To call hook you need pass first parameters as object with keys you want to pass to location path, which will be controlling by this component. Values can be next types:
 
-## License
+-   `string | number | boolean | Array< string | number | boolean >`
+    or object which describe options of field with next fields:
+-   type - string field which stored type of field (`'string' | 'number' | 'boolean' | 'array'`)
+-   initial - initial value
+-   hideIfInitial - boolean options which allow to hide value if it is initial
+-   arrayType - values of array type (only with `type === array`)
 
-MIT © [kitsoRik](https://github.com/kitsoRik)
+This hook returns object with next fields:
+
+-   query - object with valid values from first parameters hook
+-   fullQuery - all query from your application
+-   setQueryField - function `(fieldName: string, value: any) => void` to change location query value
+
+# Example
+
+    const {
+    		query: { name, surname, age },
+    		setQueryField
+    	} = useLocationQuery({
+    		name: {
+    			type: 'string',
+    			initial: 'Rostyslav',
+    			hideIfInitial: false
+    		},
+    		surname: 'Pidburachynskyi',
+    		age: {
+    			type: 'number',
+    			initial: 19
+    		}
+    	});
