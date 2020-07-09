@@ -13,7 +13,7 @@ import { InitialValues, InitialField } from '../types/Initial';
 import useIndex from '../useIndex';
 import { setHistory } from '../store';
 
-const useLocationQuery = (initialValues: InitialValues) => {
+const useLocationQuery = (initialValues: InitialValues = {}) => {
 	const index = useIndex(); // index for save order
 
 	setHistory(useHistory());
