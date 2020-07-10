@@ -81,7 +81,7 @@ const normalizeArray = (
 				func = (a: string | boolean) => a === true || a === 'true';
 				break;
 			case 'number':
-				func = (a: string | number) => parseInt(a.toString());
+				func = (a: string | number) => +a.toString();
 				break;
 		}
 

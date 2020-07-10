@@ -14,7 +14,6 @@ const normalizeForLocation = (
 ) => {
 	const initialValues = getInitialValues();
 	const locationValues: QueryValues = {};
-	console.log(queryValues);
 	Object.keys(initialValues).forEach((key) => {
 		const value = queryValues[key];
 		const initialValue = initialValues[key];
@@ -60,7 +59,7 @@ export const compareValues = (
 		case 'boolean':
 			return initialValue.initial === (value === 'true');
 		case 'number':
-			return initialValue.initial === parseInt(value as any);
+			return initialValue.initial === (+value as any);
 		case 'json':
 			return JSON.stringify(initialValue.initial) === value;
 		case 'string':
@@ -82,6 +81,7 @@ const normalizeNumber = (
 ): string => {
 	if (typeof value === 'object' && 'type' in value)
 		return value.initial.toString();
+
 	if (isNaN(+value)) {
 		return (initialValue.onParsedError
 			? initialValue.onParsedError(value as string)
