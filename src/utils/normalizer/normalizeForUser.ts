@@ -2,11 +2,14 @@ import {
 	InitialExtendValues,
 	InitialExtendObjectArray,
 	InitialExtendObject,
-	InitialExtendObjectNumber
+	InitialExtendObjectNumber,
+	InitialExtendObjectJson,
+	InitialExtendObjectBoolean
 } from '../../types/initial';
 import { QueryValues, QueryValue } from '../../types/Query';
 import { UserValues } from '../../types/User';
 import { getInitialValues } from '../../values-controller';
+import { setQueryFieldImmidiatly } from '../../location-controller';
 
 const normalizeForUser = (
 	values: InitialExtendValues | QueryValues,
@@ -18,7 +21,11 @@ const normalizeForUser = (
 		const initialValue = initialValues[key];
 		switch (initialValue.type) {
 			case 'boolean':
-				normalized[key] = normalizeBoolean(value as string);
+				normalized[key] = normalizeBoolean(
+					value as string,
+					initialValue,
+					key
+				);
 				break;
 			case 'number':
 				normalized[key] = normalizeNumber(
@@ -30,7 +37,11 @@ const normalizeForUser = (
 				normalized[key] = normalizeArray(value, initialValue);
 				break;
 			case 'json':
-				normalized[key] = normalizeJson(value as string);
+				normalized[key] = normalizeJson(
+					value as string,
+					initialValue,
+					key
+				);
 				break;
 			case 'string':
 				normalized[key] = normalizeString(value as string);
@@ -43,10 +54,22 @@ const normalizeForUser = (
 	return normalized;
 };
 
-const normalizeBoolean = (value: QueryValue | InitialExtendObject): boolean => {
+const normalizeBoolean = (
+	value: QueryValue | InitialExtendObject,
+	initialValue: InitialExtendObjectBoolean,
+	name: string
+): boolean => {
 	if (typeof value === 'object' && 'type' in value)
 		return value.initial as boolean;
-	return value === 'true';
+	if (value === 'true') return true;
+	if (value === 'false') return false;
+	if (initialValue.onParsedError) {
+		const newValue = initialValue.onParsedError(value as string);
+		setQueryFieldImmidiatly(name, newValue ? 'true' : 'false');
+		return newValue;
+	}
+
+	return false;
 };
 
 const normalizeNumber = (
@@ -93,11 +116,18 @@ const normalizeArray = (
 };
 
 const normalizeJson = (
-	value: QueryValue | InitialExtendObject
+	value: QueryValue | InitialExtendObject,
+	initialValue: InitialExtendObjectJson,
+	name: string
 ): object | string | number | boolean => {
 	try {
 		return JSON.parse(value as string);
 	} catch (e) {
+		if (initialValue.onParsedError) {
+			const newValue = initialValue.onParsedError(value as string);
+			setQueryFieldImmidiatly(name, newValue);
+			return newValue;
+		}
 		return {};
 	}
 };

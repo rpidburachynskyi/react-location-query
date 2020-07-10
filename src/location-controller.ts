@@ -12,3 +12,9 @@ export const setQueryField = (field: string, value: QueryValue) => {
 	queryValues[field] = value;
 	writeQuery({ ...(getInitialValues() as any), ...queryValues });
 };
+
+export const setQueryFieldImmidiatly = (field: string, value: string) => {
+	const queryValues = { ...readQuery() };
+	queryValues[field] = value;
+	writeQuery({ ...(getInitialValues() as any), ...queryValues });
+};

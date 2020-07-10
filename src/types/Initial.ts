@@ -10,6 +10,7 @@ export interface InitialExtendObjectString extends _InitialExtendObject {
 export interface InitialExtendObjectBoolean extends _InitialExtendObject {
 	type: 'boolean';
 	initial: boolean;
+	onParsedError?: (errorValue: string) => boolean;
 }
 
 export interface InitialExtendObjectNumber extends _InitialExtendObject {
@@ -28,18 +29,21 @@ export interface InitialExtendObjectArrayString
 	extends _InitialExtendObjectArray {
 	arrayType: 'string';
 	initial: Array<string>;
+	onParsedError?: (errorValues: string[]) => Array<string>;
 }
 
 export interface InitialExtendObjectArrayNumber
 	extends _InitialExtendObjectArray {
 	arrayType: 'number';
 	initial: Array<number>;
+	onParsedError?: (errorValues: string[]) => Array<number>;
 }
 
 export interface InitialExtendObjectArrayBoolean
 	extends _InitialExtendObjectArray {
 	arrayType: 'boolean';
 	initial: Array<boolean>;
+	onParsedError?: (errorValues: string[]) => Array<boolean>;
 }
 
 export type InitialExtendObjectArray =
@@ -50,6 +54,7 @@ export type InitialExtendObjectArray =
 export interface InitialExtendObjectJson extends _InitialExtendObject {
 	type: 'json';
 	initial: NonNullable<string | number | boolean | object>;
+	onParsedError?: (errorValue: string) => string;
 }
 
 export type InitialExtendObject =

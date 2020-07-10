@@ -24,7 +24,15 @@ const CreateQueryList = ({ queryItems }: Props) => {
 
 	const { query, fullQuery, setQueryField } = useLocationQueryExtend({
 		// @ts-ignore
-		bool: false,
+		bool: {
+			type: 'boolean',
+			initial: false,
+			//@ts-ignore
+			onParsedError: (value: string) => {
+				console.log(value);
+				return true;
+			}
+		},
 		age: {
 			type: 'number',
 			initial: 19,
@@ -36,18 +44,20 @@ const CreateQueryList = ({ queryItems }: Props) => {
 		},
 		name2: {
 			type: 'json',
+
 			initial: {
 				// @ts-ignore
 				name2: 'ss3'
+			},
+			//@ts-ignore
+			onParsedError: (value: string) => {
+				console.log(value);
+				return { name: 228 };
 			}
 		}
 	});
 	console.log(fullQuery);
 	useEffect(() => {
-		setQueryField('name2', {
-			//@ts-ignore
-			hello: 44
-		});
 		const newDefaultValues: any = {};
 
 		queryItems!.items.forEach((item) => {

@@ -23,10 +23,7 @@ const normalizeForLocation = (
 				locationValues[key] = normalizeJson(value as any);
 				break;
 			case 'number':
-				locationValues[key] = normalizeNumber(
-					value as any,
-					initialValue
-				);
+				locationValues[key] = normalizeNumber(value as any);
 				break;
 			case 'string':
 			default:
@@ -76,18 +73,11 @@ const normalizeString = (
 };
 
 const normalizeNumber = (
-	value: QueryValue | InitialExtendObjectNumber,
-	initialValue: InitialExtendObjectNumber
+	value: QueryValue | InitialExtendObjectNumber
 ): string => {
 	if (typeof value === 'object' && 'type' in value)
 		return value.initial.toString();
 
-	if (isNaN(+value)) {
-		return (initialValue.onParsedError
-			? initialValue.onParsedError(value as string)
-			: initialValue.initial
-		).toString();
-	}
 	return value as string;
 };
 
