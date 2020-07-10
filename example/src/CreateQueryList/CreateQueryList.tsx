@@ -20,6 +20,15 @@ const CreateQueryList = ({ queryItems }: Props) => {
 			initial: true,
 			hideIfInitial: true
 		},
+		age: {
+			type: 'number',
+			initial: 19,
+			//@ts-ignore
+			onParsedError: (value: string) => {
+				console.log(value);
+				return 228;
+			}
+		},
 		name2: {
 			type: 'json',
 			initial: {

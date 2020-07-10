@@ -15,6 +15,7 @@ export interface InitialExtendObjectBoolean extends _InitialExtendObject {
 export interface InitialExtendObjectNumber extends _InitialExtendObject {
 	type: 'number';
 	initial: number;
+	onParsedError?: (errorValue: string) => number;
 }
 
 export interface _InitialExtendObjectArray extends _InitialExtendObject {

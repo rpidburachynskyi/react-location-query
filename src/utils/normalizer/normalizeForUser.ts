@@ -1,11 +1,15 @@
 import {
 	InitialExtendValues,
 	InitialExtendObjectArray,
-	InitialExtendObject
+	InitialExtendObject,
+	InitialExtendObjectNumber
 } from '../../types/initial';
 import { QueryValues, QueryValue } from '../../types/Query';
 import { UserValues } from '../../types/User';
-import { getInitialValues } from '../../values-controller';
+import {
+	getInitialValues,
+	getInitialValueByFieldName
+} from '../../values-controller';
 
 const normalizeForUser = (
 	values: InitialExtendValues | QueryValues,
@@ -45,10 +49,22 @@ const normalizeBoolean = (value: QueryValue | InitialExtendObject): boolean => {
 	return value === 'true';
 };
 
-const normalizeNumber = (value: QueryValue | InitialExtendObject): number => {
+const normalizeNumber = (
+	value: QueryValue | InitialExtendObjectNumber
+): number => {
 	if (typeof value === 'object' && 'type' in value)
 		return value.initial as number;
-	return parseInt(value.toString());
+	try {
+		if (isNaN(+value)) throw new Error('');
+		return +value;
+	} catch (e) {
+		const initialValue = getInitialValueByFieldName(
+			'age'
+		) as InitialExtendObjectNumber;
+		return initialValue.onParsedError
+			? initialValue.onParsedError(value as string)
+			: 1;
+	}
 };
 
 const normalizeArray = (

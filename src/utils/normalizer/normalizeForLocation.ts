@@ -1,10 +1,14 @@
-import { getInitialValues } from '../../values-controller';
+import {
+	getInitialValues,
+	getInitialValueByFieldName
+} from '../../values-controller';
 import { QueryValue, QueryValues } from '../../types/Query';
 import {
 	InitialExtendField,
 	InitialExtendValues,
 	InitialExtendObjectString,
-	InitialExtendObjectJson
+	InitialExtendObjectJson,
+	InitialExtendObjectNumber
 } from '../../types/initial';
 
 const normalizeForLocation = (
@@ -19,6 +23,9 @@ const normalizeForLocation = (
 		switch (initialValue.type) {
 			case 'json':
 				locationValues[key] = normalizeJson(value as any);
+				break;
+			case 'number':
+				locationValues[key] = normalizeNumber(value as any);
 				break;
 			case 'string':
 			default:
@@ -59,6 +66,22 @@ const normalizeString = (
 	value: QueryValue | InitialExtendObjectString
 ): string => {
 	if (typeof value === 'object' && 'type' in value) return value.initial;
+	return value as string;
+};
+
+const normalizeNumber = (
+	value: QueryValue | InitialExtendObjectString
+): string => {
+	if (typeof value === 'object' && 'type' in value) return value.initial;
+	if (isNaN(+value)) {
+		const init = getInitialValueByFieldName(
+			'age'
+		) as InitialExtendObjectNumber;
+		return (init.onParsedError
+			? init.onParsedError(value as string)
+			: init.initial
+		).toString();
+	}
 	return value as string;
 };
 
