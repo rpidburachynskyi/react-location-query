@@ -1,19 +1,17 @@
 import { useHistory, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import {
-	normalizeValues,
-	normalizeValuesForUser,
 	addInitialValues,
 	removeInitialValues,
 	getInitialValues
 } from '../values-controller';
 import { calculateLocationPath, setQueryField } from '../location-controller';
 import { extractQueryByInitialValues, readQuery } from '../query-parser';
-import { InitialExtendValues, InitialExtendField } from '../types/initial';
+import { InitialExtendValues } from '../types/initial';
 import useIndex from '../useIndex';
 import { setHistory } from '../store';
+import { normalizeForUser } from '../utils/normalizer/normalizer';
 
-// it will be extended hook
 const useLocationQueryExtend = (initialValues: InitialExtendValues) => {
 	const index = useIndex(); // index for save order
 
@@ -31,8 +29,8 @@ const useLocationQueryExtend = (initialValues: InitialExtendValues) => {
 		};
 	}, [JSON.stringify(initialValues)]);
 
-	const currentInitialNormalizedValues = normalizeValues(initialValues);
-	const initialNormalizedValues = normalizeValues(getInitialValues());
+	const currentInitialNormalizedValues = initialValues;
+	const initialNormalizedValues = getInitialValues();
 
 	const locationQuery = readQuery();
 	const query = extractQueryByInitialValues(
@@ -40,12 +38,11 @@ const useLocationQueryExtend = (initialValues: InitialExtendValues) => {
 		currentInitialNormalizedValues
 	);
 	return {
-		fullQuery: extractQueryByInitialValues(
-			locationQuery,
-			initialNormalizedValues
+		fullQuery: normalizeForUser(
+			extractQueryByInitialValues(locationQuery, initialNormalizedValues)
 		),
-		query: normalizeValuesForUser(query, initialValues),
-		setQueryField: (field: string, value: InitialExtendField) =>
+		query: normalizeForUser(query, initialValues),
+		setQueryField: (field: string, value: any) =>
 			setQueryField(field, value)
 	};
 };

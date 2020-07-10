@@ -48,7 +48,7 @@ export type InitialExtendObjectArray =
 
 export interface InitialExtendObjectJson extends _InitialExtendObject {
 	type: 'json';
-	initial: NonNullable<string | number | boolean>;
+	initial: NonNullable<string | number | boolean | object>;
 }
 
 export type InitialExtendObject =
@@ -64,7 +64,7 @@ export type InitialExtendValue =
 	| number
 	| Array<string | boolean | number>;
 
-export type InitialExtendField = InitialExtendValue | InitialExtendObject;
+export type InitialExtendField = InitialExtendObject;
 
 export interface InitialExtendValues {
 	[path: string]: InitialExtendField;

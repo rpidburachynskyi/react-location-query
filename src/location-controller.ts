@@ -1,26 +1,14 @@
 import { getInitialValues } from './values-controller';
 import { writeQuery, readQuery } from './query-parser';
+import { QueryValue } from './types/Query';
 
 export const calculateLocationPath = () => {
 	const queryValues = readQuery();
-	writeQuery(joinValues(queryValues));
+	writeQuery({ ...(getInitialValues() as any), ...queryValues });
 };
 
-export const setQueryField = (field: string, value: any) => {
-	const values = { ...readQuery() };
-	values[field] = value;
-
-	writeQuery(joinValues(values));
-};
-
-const joinValues = (locationQuery: any) => {
-	const result = { ...getInitialValues() };
-	Object.keys(locationQuery).forEach((key) => {
-		const value = result[key] ? result[key] : true;
-		if (value) {
-			result[key] = locationQuery[key];
-		}
-	});
-
-	return result;
+export const setQueryField = (field: string, value: QueryValue) => {
+	const queryValues = { ...readQuery() };
+	queryValues[field] = value;
+	writeQuery({ ...(getInitialValues() as any), ...queryValues });
 };

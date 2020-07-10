@@ -3,7 +3,7 @@ import { inject, observer, Observer } from 'mobx-react';
 import { QueryItems } from '../mobx/models/QueryItems';
 import { List } from 'antd';
 import CreateQueryListItem from './CreateQueryListItem';
-import { useLocationQuery } from 'react-location-query';
+import { useLocationQuery, useLocationQueryExtend } from 'react-location-query';
 
 interface Props {
 	queryItems?: QueryItems;
@@ -13,7 +13,27 @@ const CreateQueryList = ({ queryItems }: Props) => {
 	const [defaultValues, setDefaultValues] = useState({});
 	const {} = useLocationQuery(defaultValues);
 
+	const { query, fullQuery, setQueryField } = useLocationQueryExtend({
+		// @ts-ignore
+		bool: {
+			type: 'boolean',
+			initial: true,
+			hideIfInitial: true
+		},
+		name2: {
+			type: 'json',
+			initial: {
+				// @ts-ignore
+				name2: 'ss3'
+			}
+		}
+	});
+	console.log(fullQuery);
 	useEffect(() => {
+		setQueryField('name2', {
+			//@ts-ignore
+			hello: 44
+		});
 		const newDefaultValues: any = {};
 
 		queryItems!.items.forEach((item) => {

@@ -1,13 +1,9 @@
 import qs from 'querystring';
-import {
-	normalizeValues,
-	getInitialValuesWrappers,
-	prepareValuesForLocation
-} from './values-controller';
 import { InitialExtendValues } from './types/initial';
 import { getLocation, getHistory } from './store';
-import { QueryObject, QueryValues } from './types/Query';
+import { QueryValues } from './types/Query';
 import { Location } from './types';
+import { normalizeForLocation } from './utils/normalizer/normalizer';
 
 export const extractQueryByInitialValues = (
 	query: any,
@@ -21,20 +17,20 @@ export const extractQueryByInitialValues = (
 	return result;
 };
 
-export const parseQuery = (query: string) => {
+export const parseQuery = (query: string): QueryValues => {
 	return qs.parse(query === '' ? '' : query.substring(1));
 };
 
-export const stringifyQuery = (query: QueryValues | InitialExtendValues) => {
-	return qs.stringify(normalizeValues(query));
+export const stringifyQuery = (query: QueryValues) => {
+	return qs.stringify(query as any);
 };
 
-export const readQuery = (): QueryObject => {
+export const readQuery = (): QueryValues => {
 	const location: Location = getLocation();
 	return parseQuery(location.search);
 };
 
-export const writeQuery = (query: InitialExtendValues) => {
+export const writeQuery = (query: InitialExtendValues | QueryValues) => {
 	const history = getHistory();
 	const location = getLocation();
 
@@ -43,30 +39,29 @@ export const writeQuery = (query: InitialExtendValues) => {
 	} else {
 		history.replace(
 			`${location.pathname}?${stringifyQuery(
-				prepareValuesForLocation(
-					sortFieldsInQuery(normalizeValues(query))
-				)
+				normalizeForLocation(query)
 			)}`
 		);
 	}
 };
 
-const sortFieldsInQuery = (query: object) => {
-	const defaultValues = getInitialValuesWrappers();
+// sort fileds in query, may be good in future
+// const sortFieldsInQuery = (query: object) => {
+// 	const defaultValues = getInitialValuesWrappers();
 
-	const result = {};
-	const keys = Object.keys(query);
-	const sortedKeys = keys.sort((a: string, b: string) => {
-		const indexA = defaultValues.find((value) => !!value[a]);
-		const indexB = defaultValues.find((value) => !!value[b]);
-		if (!indexA || !indexB) return 0;
+// 	const result = {};
+// 	const keys = Object.keys(query);
+// 	const sortedKeys = keys.sort((a: string, b: string) => {
+// 		const indexA = defaultValues.find((value) => !!value[a]);
+// 		const indexB = defaultValues.find((value) => !!value[b]);
+// 		if (!indexA || !indexB) return 0;
 
-		return indexA.index - indexB.index;
-	});
+// 		return indexA.index - indexB.index;
+// 	});
 
-	sortedKeys.forEach((key) => {
-		result[key] = query[key];
-	});
+// 	sortedKeys.forEach((key) => {
+// 		result[key] = query[key];
+// 	});
 
-	return result;
-};
+// 	return result;
+// };

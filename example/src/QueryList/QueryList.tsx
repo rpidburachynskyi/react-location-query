@@ -19,7 +19,7 @@ const QueryList = () => {
 						<Input
 							value={item.value.toString()}
 							onChange={(e) =>
-								setQueryField(item.name, e.target.value)
+								setQueryField(item.name, e.target.value as any)
 							}
 						/>
 					</Form.Item>
