@@ -7,12 +7,14 @@ import {
 	InitialExtendObjectJson,
 	InitialExtendObjectNumber
 } from '../../types/initial';
+import { getOptions } from '../../options';
 
 const normalizeForLocation = (
 	queryValues: QueryValues | InitialExtendValues
 ) => {
 	const initialValues = getInitialValues();
 	const locationValues: QueryValues = {};
+	console.log(queryValues);
 	Object.keys(initialValues).forEach((key) => {
 		const value = queryValues[key];
 		const initialValue = initialValues[key];
@@ -42,6 +44,11 @@ const normalizeForLocation = (
 			}
 		}
 	});
+
+	if (!getOptions().removeUnusedQueryFields) {
+		Object.assign(locationValues, { ...queryValues, ...locationValues });
+	}
+
 	return locationValues;
 };
 

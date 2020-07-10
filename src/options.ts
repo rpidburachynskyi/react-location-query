@@ -1,11 +1,13 @@
 interface Options {
 	sortingOptions: {
-		sortBy: 'index' | 'alphabet';
+		sortBy: 'index' | 'alphabet' | 'fieldLength';
 		sortOrder: 'asc' | 'desc';
 	};
 	defaultOptions: {
 		hideIfDefault: boolean;
 	};
+
+	removeUnusedQueryFields: boolean;
 }
 
 const _options: Options = {
@@ -15,7 +17,8 @@ const _options: Options = {
 	},
 	defaultOptions: {
 		hideIfDefault: false
-	}
+	},
+	removeUnusedQueryFields: false
 };
 
 export const setOptions = (options: Partial<Options>) => {

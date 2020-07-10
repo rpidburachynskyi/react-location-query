@@ -39,7 +39,6 @@ export const writeQuery = (query: InitialExtendValues | QueryValues) => {
 	const history = getHistory();
 	const location = getLocation();
 
-	console.log(normalizeForLocation(query), query);
 	if (Object.keys(query).length === 0) {
 		history.replace(location.pathname);
 	} else {
@@ -51,7 +50,6 @@ export const writeQuery = (query: InitialExtendValues | QueryValues) => {
 	}
 };
 
-// sort fileds in query, may be good in future
 const sortFieldsInQuery = (query: object) => {
 	const result = {};
 
@@ -72,6 +70,8 @@ const sortBy = (queryKeys: string[]): string[] => {
 			return queryKeys.sort(sortByIndex(getInitialValuesWrappers()));
 		case 'alphabet':
 			return queryKeys.sort(sortByAlphabet);
+		case 'fieldLength':
+			return queryKeys.sort(sortByFieldLength);
 	}
 };
 
@@ -93,4 +93,8 @@ const sortByIndex = (defaultValuesWrappers: InitialExtendValuesWrapper[]) => (
 const sortByAlphabet = (a: string, b: string) => {
 	if (a === b) return 0;
 	return a > b ? 1 : -1;
+};
+
+const sortByFieldLength = (a: string, b: string) => {
+	return a.length - b.length;
 };
