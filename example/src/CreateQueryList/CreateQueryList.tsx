@@ -15,11 +15,7 @@ const CreateQueryList = ({ queryItems }: Props) => {
 
 	const { query, fullQuery, setQueryField } = useLocationQueryExtend({
 		// @ts-ignore
-		bool: {
-			type: 'boolean',
-			initial: true,
-			hideIfInitial: true
-		},
+		bool: false,
 		age: {
 			type: 'number',
 			initial: 19,

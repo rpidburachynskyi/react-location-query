@@ -6,10 +6,7 @@ import {
 } from '../../types/initial';
 import { QueryValues, QueryValue } from '../../types/Query';
 import { UserValues } from '../../types/User';
-import {
-	getInitialValues,
-	getInitialValueByFieldName
-} from '../../values-controller';
+import { getInitialValues } from '../../values-controller';
 
 const normalizeForUser = (
 	values: InitialExtendValues | QueryValues,
@@ -24,7 +21,10 @@ const normalizeForUser = (
 				normalized[key] = normalizeBoolean(value as string);
 				break;
 			case 'number':
-				normalized[key] = normalizeNumber(value as string);
+				normalized[key] = normalizeNumber(
+					value as string,
+					initialValue
+				);
 				break;
 			case 'array':
 				normalized[key] = normalizeArray(value, initialValue);
@@ -50,7 +50,8 @@ const normalizeBoolean = (value: QueryValue | InitialExtendObject): boolean => {
 };
 
 const normalizeNumber = (
-	value: QueryValue | InitialExtendObjectNumber
+	value: QueryValue | InitialExtendObjectNumber,
+	initialValue: InitialExtendObjectNumber
 ): number => {
 	if (typeof value === 'object' && 'type' in value)
 		return value.initial as number;
@@ -58,9 +59,6 @@ const normalizeNumber = (
 		if (isNaN(+value)) throw new Error('');
 		return +value;
 	} catch (e) {
-		const initialValue = getInitialValueByFieldName(
-			'age'
-		) as InitialExtendObjectNumber;
 		return initialValue.onParsedError
 			? initialValue.onParsedError(value as string)
 			: 1;

@@ -2,6 +2,7 @@ import {
 	InitialExtendValues,
 	InitialExtendValuesWrapper
 } from './types/initial';
+import { getDefaultOptions } from './options';
 
 let initialValuesWrappers: InitialExtendValuesWrapper[] = [];
 
@@ -9,7 +10,10 @@ export const addInitialValues = (
 	initialValues: InitialExtendValues,
 	index: number
 ) => {
-	const wrapper: InitialExtendValuesWrapper = { initialValues, index };
+	const wrapper: InitialExtendValuesWrapper = {
+		initialValues: mutateValuesToObjectValues(initialValues),
+		index
+	};
 	initialValuesWrappers = [
 		...initialValuesWrappers.filter((v) => v.index !== index),
 		wrapper
@@ -42,3 +46,39 @@ export const getInitialValues = () => {
 
 export const getInitialValueByFieldName = (fieldName: string) =>
 	getInitialValues()[fieldName];
+
+const mutateValuesToObjectValues = (values: InitialExtendValues) => {
+	const result: InitialExtendValues = {};
+	Object.keys(values).forEach((key) => {
+		const value = values[key];
+
+		if (typeof value === 'object') {
+			result[key] = value;
+		} else {
+			switch (typeof value) {
+				case 'string':
+					result[key] = {
+						type: 'string',
+						initial: value,
+						hideIfInitial: getDefaultOptions().hideIfDefault
+					};
+					break;
+				case 'number':
+					result[key] = {
+						type: 'number',
+						initial: value,
+						hideIfInitial: getDefaultOptions().hideIfDefault
+					};
+					break;
+				case 'boolean':
+					result[key] = {
+						type: 'boolean',
+						initial: value,
+						hideIfInitial: getDefaultOptions().hideIfDefault
+					};
+					break;
+			}
+		}
+	});
+	return result;
+};
