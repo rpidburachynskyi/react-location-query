@@ -3,8 +3,17 @@ import { inject, observer, Observer } from 'mobx-react';
 import { QueryItems } from '../mobx/models/QueryItems';
 import { List } from 'antd';
 import CreateQueryListItem from './CreateQueryListItem';
-import { useLocationQuery, useLocationQueryExtend } from 'react-location-query';
-
+import {
+	useLocationQuery,
+	useLocationQueryExtend,
+	setOptions
+} from 'react-location-query';
+setOptions({
+	sortingOptions: {
+		sortBy: 'alphabet',
+		sortOrder: 'asc'
+	}
+});
 interface Props {
 	queryItems?: QueryItems;
 }
