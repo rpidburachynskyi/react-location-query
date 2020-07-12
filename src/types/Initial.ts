@@ -1,5 +1,6 @@
 export type _InitialExtendObject = {
 	hideIfInitial?: boolean;
+	replaceValueWhenParsedError: boolean;
 };
 
 export interface InitialExtendObjectString extends _InitialExtendObject {

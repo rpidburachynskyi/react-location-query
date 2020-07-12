@@ -5,6 +5,7 @@ interface Options {
 	};
 	defaultOptions: {
 		hideIfDefault: boolean;
+		replaceValueWhenParsedError: boolean;
 	};
 
 	removeUnusedQueryFields: boolean;
@@ -16,7 +17,8 @@ const _options: Options = {
 		sortOrder: 'asc'
 	},
 	defaultOptions: {
-		hideIfDefault: false
+		hideIfDefault: false,
+		replaceValueWhenParsedError: true
 	},
 	removeUnusedQueryFields: false
 };

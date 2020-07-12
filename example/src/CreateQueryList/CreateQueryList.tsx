@@ -10,9 +10,10 @@ import {
 } from 'react-location-query';
 setOptions({
 	sortingOptions: {
-		sortBy: 'alphabet',
+		sortBy: 'index',
 		sortOrder: 'asc'
-	}
+	},
+	removeUnusedQueryFields: true
 });
 interface Props {
 	queryItems?: QueryItems;
@@ -23,22 +24,27 @@ const CreateQueryList = ({ queryItems }: Props) => {
 	const {} = useLocationQuery(defaultValues);
 
 	const { query, fullQuery, setQueryField } = useLocationQueryExtend({
+		array: {
+			type: 'array',
+			arrayType: 'string',
+			initial: ['123'],
+			onParsedError: (a) => {
+				console.log(a);
+				return ['a'];
+			}
+		},
 		// @ts-ignore
 		bool: {
 			type: 'boolean',
 			initial: false,
-			//@ts-ignore
-			onParsedError: (value: string) => {
-				console.log(value);
-				return true;
-			}
+			// @ts-ignore
+			replaceValueWhenParsedError: true
 		},
 		age: {
 			type: 'number',
 			initial: 19,
 			//@ts-ignore
 			onParsedError: (value: string) => {
-				console.log(value);
 				return 228;
 			}
 		},
@@ -51,7 +57,6 @@ const CreateQueryList = ({ queryItems }: Props) => {
 			},
 			//@ts-ignore
 			onParsedError: (value: string) => {
-				console.log(value);
 				return { name: 228 };
 			}
 		}

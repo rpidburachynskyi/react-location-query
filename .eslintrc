@@ -30,6 +30,7 @@
 		"import/export": 0,
 		"semi": "off",
 		"no-unused-vars": "off",
-		"no-case-declarations": "off"
+		"no-case-declarations": "off",
+		"no-extra-boolean-cast": "off"
 	}
 }

@@ -2,7 +2,7 @@ import {
 	InitialExtendValues,
 	InitialExtendValuesWrapper
 } from './types/initial';
-import { getDefaultOptions } from './options';
+import { getDefaultOptions } from './options/options';
 
 let initialValuesWrappers: InitialExtendValuesWrapper[] = [];
 
@@ -60,21 +60,24 @@ const mutateValuesToObjectValues = (values: InitialExtendValues) => {
 					result[key] = {
 						type: 'string',
 						initial: value,
-						hideIfInitial: getDefaultOptions().hideIfDefault
+						hideIfInitial: getDefaultOptions().hideIfDefault,
+						replaceValueWhenParsedError: false
 					};
 					break;
 				case 'number':
 					result[key] = {
 						type: 'number',
 						initial: value,
-						hideIfInitial: getDefaultOptions().hideIfDefault
+						hideIfInitial: getDefaultOptions().hideIfDefault,
+						replaceValueWhenParsedError: false
 					};
 					break;
 				case 'boolean':
 					result[key] = {
 						type: 'boolean',
 						initial: value,
-						hideIfInitial: getDefaultOptions().hideIfDefault
+						hideIfInitial: getDefaultOptions().hideIfDefault,
+						replaceValueWhenParsedError: false
 					};
 					break;
 			}

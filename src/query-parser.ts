@@ -8,7 +8,7 @@ import { QueryValues } from './types/Query';
 import { Location } from './types';
 import { normalizeForLocation } from './utils/normalizer/normalizer';
 import { getInitialValuesWrappers } from './values-controller';
-import { getSortingOptions } from './options';
+import { getSortingOptions } from './options/options';
 
 export const extractQueryByInitialValues = (
 	query: any,

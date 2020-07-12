@@ -7,7 +7,7 @@ import {
 	InitialExtendObjectJson,
 	InitialExtendObjectNumber
 } from '../../types/initial';
-import { getOptions } from '../../options';
+import { getOptions } from '../../options/options';
 
 const normalizeForLocation = (
 	queryValues: QueryValues | InitialExtendValues
