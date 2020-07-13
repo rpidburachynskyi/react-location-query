@@ -1,8 +1,8 @@
-import useLocationQuery from '../useLocationQuery';
-import { InitialField } from '../useLocationQuery/types';
+import { InitialExtendValue } from '../types/Initial/Initial';
+import useLocationQueryExtend from '../useLocationQueryExtend';
 
-const useLocationField = (name: string, value?: InitialField) => {
-	const { fullQuery, setQueryField } = useLocationQuery(
+const useLocationField = (name: string, value?: InitialExtendValue) => {
+	const { fullQuery, setQueryField } = useLocationQueryExtend(
 		value ? { [name]: value } : {}
 	);
 	return [fullQuery[name], (value: any) => setQueryField(name, value)];
