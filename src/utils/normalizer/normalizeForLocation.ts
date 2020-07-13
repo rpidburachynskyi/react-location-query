@@ -1,13 +1,13 @@
 import { getInitialValues } from '../../values-controller';
 import { QueryValue, QueryValues } from '../../types/Query';
 import {
-	InitialExtendField,
-	InitialExtendValues,
-	InitialExtendObjectString,
-	InitialExtendObjectJson,
-	InitialExtendObjectNumber
-} from '../../types/initial';
+	InitialExtendValue,
+	InitialExtendValues
+} from '../../types/Initial/Initial';
 import { getOptions } from '../../options/options';
+import { InitialExtendObjectString } from '../../types/Initial/String';
+import { InitialExtendObjectNumber } from '../../types/Initial/Number';
+import { InitialExtendObjectJson } from '../../types/Initial/Json';
 
 const normalizeForLocation = (
 	queryValues: QueryValues | InitialExtendValues
@@ -50,7 +50,7 @@ const normalizeForLocation = (
 
 export const compareValues = (
 	value: QueryValue,
-	initialValue: InitialExtendField
+	initialValue: InitialExtendValue
 ) => {
 	switch (initialValue.type) {
 		case 'boolean':

@@ -1,8 +1,8 @@
 import qs from 'querystring';
 import {
 	InitialExtendValues,
-	InitialExtendValuesWrapper
-} from './types/initial';
+	InitialExtendValuesWrappers
+} from './types/Initial/Initial';
 import { getLocation, getHistory } from './store';
 import { QueryValues } from './types/Query';
 import { Location } from './types';
@@ -75,16 +75,12 @@ const sortBy = (queryKeys: string[]): string[] => {
 	}
 };
 
-const sortByIndex = (defaultValuesWrappers: InitialExtendValuesWrapper[]) => (
+const sortByIndex = (defaultValuesWrappers: InitialExtendValuesWrappers) => (
 	a: string,
 	b: string
 ) => {
-	const indexA = defaultValuesWrappers.find(
-		(value) => !!value.initialValues[a]
-	);
-	const indexB = defaultValuesWrappers.find(
-		(value) => !!value.initialValues[b]
-	);
+	const indexA = defaultValuesWrappers[a];
+	const indexB = defaultValuesWrappers[b];
 	if (!indexA || !indexB) return 0;
 
 	return indexA.index - indexB.index;

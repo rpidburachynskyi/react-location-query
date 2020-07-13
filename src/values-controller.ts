@@ -1,87 +1,92 @@
 import {
+	InitialExtendObject,
+	InitialExtendValue,
 	InitialExtendValues,
-	InitialExtendValuesWrapper
-} from './types/initial';
+	InitialExtendValuesWrappers
+} from './types/Initial/Initial';
 import { getDefaultOptions } from './options/options';
 
-let initialValuesWrappers: InitialExtendValuesWrapper[] = [];
+let initialValuesWrappers: InitialExtendValuesWrappers[] = [];
 
 export const addInitialValues = (
 	initialValues: InitialExtendValues,
 	index: number
 ) => {
-	const wrapper: InitialExtendValuesWrapper = {
-		initialValues: mutateValuesToObjectValues(initialValues),
-		index
-	};
-	initialValuesWrappers = [
-		...initialValuesWrappers.filter((v) => v.index !== index),
-		wrapper
-	];
+	const wrapper: InitialExtendValuesWrappers = {};
+	Object.keys(initialValues).forEach((key) => {
+		wrapper[key] = {
+			index,
+			initialValue: mutateValueToObjectValues(initialValues[key] as any),
+			name: key
+		};
+	});
+
+	initialValuesWrappers = [...initialValuesWrappers, wrapper];
 };
 
 export const removeInitialValues = (index: number) => {
 	initialValuesWrappers = initialValuesWrappers.filter(
-		(v) => v.index !== index
+		(v) => v[Object.keys(v)[0]].index !== index
 	);
 };
 
 export const getInitialValuesWrappers = () => {
-	return initialValuesWrappers;
+	let initialValuesWrappersArray: InitialExtendValuesWrappers = {};
+	initialValuesWrappers.forEach((initialValuesWrappersItem) => {
+		initialValuesWrappersArray = {
+			...initialValuesWrappersArray,
+			...Object.keys(initialValuesWrappersItem)
+				.map((key) => initialValuesWrappersItem[key])
+				.reduce((p, c) => ({ ...p, [c.name]: c }), {})
+		};
+	});
+	return initialValuesWrappersArray;
 };
 
 export const getInitialValues = () => {
 	let initialValues: InitialExtendValues = {};
-	initialValuesWrappers
-		.sort((a, b) => a.index - b.index)
-		.forEach((initialValuesWrapper) => {
-			initialValues = {
-				...initialValues,
-				...initialValuesWrapper.initialValues
-			};
-		});
-
+	initialValuesWrappers.forEach((initialValuesWrapper) => {
+		initialValues = {
+			...initialValues,
+			...Object.keys(initialValuesWrapper)
+				.map((key) => initialValuesWrapper[key])
+				.reduce((p, c) => ({ ...p, [c.name]: c.initialValue }), {})
+		};
+	});
 	return initialValues;
 };
 
 export const getInitialValueByFieldName = (fieldName: string) =>
 	getInitialValues()[fieldName];
 
-const mutateValuesToObjectValues = (values: InitialExtendValues) => {
-	const result: InitialExtendValues = {};
-	Object.keys(values).forEach((key) => {
-		const value = values[key];
-
-		if (typeof value === 'object') {
-			result[key] = value;
-		} else {
-			switch (typeof value) {
-				case 'string':
-					result[key] = {
-						type: 'string',
-						initial: value,
-						hideIfInitial: getDefaultOptions().hideIfDefault,
-						replaceValueWhenParsedError: false
-					};
-					break;
-				case 'number':
-					result[key] = {
-						type: 'number',
-						initial: value,
-						hideIfInitial: getDefaultOptions().hideIfDefault,
-						replaceValueWhenParsedError: false
-					};
-					break;
-				case 'boolean':
-					result[key] = {
-						type: 'boolean',
-						initial: value,
-						hideIfInitial: getDefaultOptions().hideIfDefault,
-						replaceValueWhenParsedError: false
-					};
-					break;
-			}
+const mutateValueToObjectValues = (
+	value: InitialExtendValue
+): InitialExtendObject => {
+	if (typeof value === 'object') {
+		return value;
+	} else {
+		switch (typeof value) {
+			case 'string':
+				return {
+					type: 'string',
+					initial: value,
+					hideIfInitial: getDefaultOptions().hideIfDefault,
+					replaceValueWhenParsedError: false
+				};
+			case 'number':
+				return {
+					type: 'number',
+					initial: value,
+					hideIfInitial: getDefaultOptions().hideIfDefault,
+					replaceValueWhenParsedError: false
+				};
+			case 'boolean':
+				return {
+					type: 'boolean',
+					initial: value,
+					hideIfInitial: getDefaultOptions().hideIfDefault,
+					replaceValueWhenParsedError: false
+				};
 		}
-	});
-	return result;
+	}
 };

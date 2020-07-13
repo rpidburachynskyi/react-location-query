@@ -7,10 +7,11 @@ import {
 } from '../values-controller';
 import { calculateLocationPath, setQueryField } from '../location-controller';
 import { extractQueryByInitialValues, readQuery } from '../query-parser';
-import { InitialExtendValues } from '../types/initial';
+import { InitialExtendValues } from '../types/Initial/Initial';
 import useIndex from '../useIndex';
 import { setHistory } from '../store';
 import { normalizeForUser } from '../utils/normalizer/normalizer';
+import { normalizeForUserByInitialValues } from '../utils/normalizer/normalizeForUser';
 
 const useLocationQueryExtend = (initialValues: InitialExtendValues) => {
 	const index = useIndex(); // index for save order
@@ -41,7 +42,7 @@ const useLocationQueryExtend = (initialValues: InitialExtendValues) => {
 		fullQuery: normalizeForUser(
 			extractQueryByInitialValues(locationQuery, initialNormalizedValues)
 		),
-		query: normalizeForUser(query, initialValues),
+		query: normalizeForUserByInitialValues(query, initialValues),
 		setQueryField: (field: string, value: any) =>
 			setQueryField(field, value)
 	};

@@ -1,33 +1,38 @@
 import {
 	InitialExtendValues,
-	InitialExtendObjectArray,
 	InitialExtendObject,
-	InitialExtendObjectNumber,
-	InitialExtendObjectJson,
-	InitialExtendObjectBoolean,
-	InitialExtendObjectString
-} from '../../types/initial';
+	InitialExtendValueWrapper,
+	InitialExtendValuesWrappers
+} from '../../types/Initial/Initial';
 import { QueryValues, QueryValue } from '../../types/Query';
 import { UserValues } from '../../types/User';
-import { getInitialValues } from '../../values-controller';
+import { getInitialValuesWrappers } from '../../values-controller';
 import { setQueryFieldImmidiatly } from '../../location-controller';
 import { defaultValueByInitialValue } from '../../options/defaultValues';
 import { getDefaultOptions } from '../../options/options';
+import { InitialExtendObjectBoolean } from '../../types/Initial/Boolean';
+import { InitialExtendObjectNumber } from '../../types/Initial/Number';
+import { InitialExtendObjectArray } from '../../types/Initial/Array';
+import { InitialExtendObjectJson } from '../../types/Initial/Json';
+import { InitialExtendObjectString } from '../../types/Initial/String';
 
-const normalizeForUser = (
+export const normalizeForUser = (
 	values: InitialExtendValues | QueryValues,
-	initialValues: InitialExtendValues = getInitialValues()
+	initialValuesWrappers: InitialExtendValuesWrappers = getInitialValuesWrappers()
 ): UserValues => {
 	const normalized: UserValues = {};
 	Object.keys(values).forEach((key) => {
 		const value = values[key];
-		const initialValue = initialValues[key];
+		console.log(value);
+		const initialValueWrapper = initialValuesWrappers[key];
+		const initialValue = initialValueWrapper.initialValue;
 		switch (initialValue.type) {
 			case 'boolean':
 				normalized[key] = normalizeBoolean(
 					value as string,
-					initialValue,
-					key
+					initialValueWrapper as InitialExtendValueWrapper<
+						InitialExtendObjectBoolean
+					>
 				);
 				break;
 			case 'number':
@@ -37,13 +42,19 @@ const normalizeForUser = (
 				);
 				break;
 			case 'array':
-				normalized[key] = normalizeArray(value, initialValue, key);
+				normalized[key] = normalizeArray(
+					value,
+					initialValueWrapper as InitialExtendValueWrapper<
+						InitialExtendObjectArray
+					>
+				);
 				break;
 			case 'json':
 				normalized[key] = normalizeJson(
 					value as string,
-					initialValue,
-					key
+					initialValueWrapper as InitialExtendValueWrapper<
+						InitialExtendObjectJson
+					>
 				);
 				break;
 			case 'string':
@@ -59,15 +70,14 @@ const normalizeForUser = (
 
 const normalizeBoolean = (
 	value: QueryValue | InitialExtendObject,
-	initialValue: InitialExtendObjectBoolean,
-	name: string
+	wrapper: InitialExtendValueWrapper<InitialExtendObjectBoolean>
 ): boolean => {
 	if (typeof value === 'object' && 'type' in value)
 		return value.initial as boolean;
 	if (value === 'true') return true;
 	if (value === 'false') return false;
 
-	return normalizeAny(value, initialValue, name) as boolean;
+	return normalizeAny(value, wrapper.initialValue, wrapper.name) as boolean;
 };
 
 const normalizeNumber = (
@@ -88,8 +98,7 @@ const normalizeNumber = (
 
 const normalizeArray = (
 	value: QueryValue | InitialExtendObject,
-	initialValue: InitialExtendObjectArray,
-	name: string
+	initialValueWrapper: InitialExtendValueWrapper<InitialExtendObjectArray>
 ) => {
 	if (typeof value === 'object' && 'type' in value)
 		return (value as InitialExtendObjectArray).initial;
@@ -119,24 +128,29 @@ const normalizeArray = (
 			if (func) return array.map(func);
 			return array;
 		} catch (e) {
-			return normalizeAny(array, initialValue, name);
+			return normalizeAny(
+				array,
+				initialValueWrapper.initialValue,
+				initialValueWrapper.name
+			);
 		}
 	};
 	const array = (Array.isArray(value) ? value : [value]) as any;
-	return normalizeArray(initialValue.arrayType, array);
+	return normalizeArray(initialValueWrapper.initialValue.arrayType, array);
 };
 
 const normalizeJson = (
 	value: QueryValue | InitialExtendObject,
-	initialValue: InitialExtendObjectJson,
-	name: string
+	wrapper: InitialExtendValueWrapper<InitialExtendObjectJson>
 ): object | string | number | boolean => {
 	try {
 		return JSON.parse(value as string);
 	} catch (e) {
-		if (initialValue.onParsedError) {
-			const newValue = initialValue.onParsedError(value as string);
-			setQueryFieldImmidiatly(name, newValue);
+		if (wrapper.initialValue.onParsedError) {
+			const newValue = wrapper.initialValue.onParsedError(
+				value as string
+			);
+			setQueryFieldImmidiatly(wrapper.name, newValue);
 			return newValue;
 		}
 		return {};
@@ -174,4 +188,17 @@ const normalizeAny = (
 	return newValue;
 };
 
-export default normalizeForUser;
+export const normalizeForUserByInitialValues = (
+	values: InitialExtendValues | QueryValues,
+	initialValues: InitialExtendValues
+) => {
+	const initialValuesWrappers = getInitialValuesWrappers();
+	const resultsWrappers: InitialExtendValuesWrappers = {};
+
+	Object.keys(initialValuesWrappers).forEach((key) => {
+		if (initialValues[key] !== undefined) {
+			resultsWrappers[key] = initialValuesWrappers[key];
+		}
+	});
+	return normalizeForUser(values, resultsWrappers);
+};

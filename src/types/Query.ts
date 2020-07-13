@@ -1,5 +1,3 @@
-import { type } from 'os';
-
 export type Query = string;
 
 export type QueryObjectItem = string | Array<string>;
