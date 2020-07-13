@@ -38,11 +38,7 @@ export const readQuery = (): QueryValues => {
 export const writeQuery = (query: InitialExtendValues | QueryValues) => {
 	const history = getHistory();
 	const location = getLocation();
-	console.log(
-		`${location.pathname}?${stringifyQuery(
-			sortFieldsInQuery(normalizeForLocation(query))
-		)}`
-	);
+
 	if (Object.keys(query).length === 0) {
 		history.replace(location.pathname);
 	} else {

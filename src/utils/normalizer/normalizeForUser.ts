@@ -90,7 +90,6 @@ const normalizeNumber = (
 	}
 	try {
 		if (isNaN(+value) || value === '') throw new Error('');
-		console.log(value);
 		return +value;
 	} catch (e) {
 		return normalizeAny(

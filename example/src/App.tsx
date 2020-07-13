@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Typography, Row, Col } from 'antd';
 import CreateQueryList from './CreateQueryList';
 import { inject, observer } from 'mobx-react';
 import { QueryItems } from './mobx/models/QueryItems';
 import AddQueryItemDialog from './AddQueryItemDialog';
 import QueryList from './QueryList';
+import { setOptions, useLocationQueryExtend } from 'react-location-query';
+
+setOptions({
+	removeUnusedQueryFields: true
+});
 
 interface Props {
 	queryItems?: QueryItems;
