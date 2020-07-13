@@ -14,29 +14,6 @@ declare module '*.svg' {
 	export { svgComponent as ReactComponent };
 }
 
-export type InitialValuesFieldValue =
-	| string
-	| boolean
-	| number
-	| Array<InitialValuesFieldValue>;
-
-export type InitialValuesField =
-	| InitialValuesFieldValue
-	| {
-			type: 'string' | 'boolean' | 'number' | 'array';
-			initial: InitialValuesFieldValue;
-			hideIfInitial?: boolean;
-	  };
-
-export interface InitialValues {
-	[path: string]: InitialValuesField;
-}
-
-export interface InitialValuesWrapper {
-	initialValues: InitialValues;
-	index: number;
-}
-
 export interface Options {
 	sort: 'alphabet';
 	sortOrder: 'asc' | 'desc';

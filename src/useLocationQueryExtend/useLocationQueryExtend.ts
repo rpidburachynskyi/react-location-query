@@ -10,8 +10,10 @@ import { extractQueryByInitialValues, readQuery } from '../query-parser';
 import { InitialExtendValues } from '../types/Initial/Initial';
 import useIndex from '../useIndex';
 import { setHistory } from '../store';
-import { normalizeForUser } from '../utils/normalizer/normalizer';
-import { normalizeForUserByInitialValues } from '../utils/normalizer/normalizeForUser';
+import {
+	normalizeForUser,
+	normalizeForUserByInitialValues
+} from '../utils/normalizer/normalizer';
 
 const useLocationQueryExtend = (initialValues: InitialExtendValues) => {
 	const index = useIndex(); // index for save order
