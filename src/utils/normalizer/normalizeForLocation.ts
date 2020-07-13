@@ -13,50 +13,72 @@ const normalizeForLocation = (
 	queryValues: QueryValues | InitialExtendValues
 ) => {
 	const initialValues = getInitialValues();
-	const locationValues: QueryValues = {};
+
+	let locationValues: QueryValues = {};
+
 	Object.keys(initialValues).forEach((key) => {
 		const value = queryValues[key];
 		const initialValue = initialValues[key];
-
 		switch (initialValue.type) {
 			case 'json':
-				locationValues[key] = normalizeJson(value as any);
+				locationValues[key] = normalizeJson(
+					value as QueryValue | InitialExtendObjectJson
+				);
 				break;
 			case 'number':
-				locationValues[key] = normalizeNumber(value as any);
+				locationValues[key] = normalizeNumber(
+					value as QueryValue | InitialExtendObjectNumber
+				);
 				break;
 			case 'string':
 			default:
-				locationValues[key] = normalizeString(value as any);
+				locationValues[key] = normalizeString(
+					value as QueryValue | InitialExtendObjectString
+				);
 				break;
 		}
+	});
 
+	removeUnusedQueryFields(queryValues, locationValues);
+	locationValues = removeInitialValues(locationValues);
+	return locationValues;
+};
+
+const removeInitialValues = (query: QueryValues) => {
+	const initialValues = getInitialValues();
+	const locationQuery = { ...query };
+	Object.keys(query).forEach((key) => {
+		const value = query[key];
+		const initialValue = initialValues[key];
+		if (!initialValue) return;
 		if (initialValue.hideIfInitial) {
 			if (
 				(typeof value === 'object' && !Array.isArray(value)) ||
 				compareValues(value, initialValue)
 			) {
-				delete locationValues[key];
+				delete locationQuery[key];
 			}
 		}
 	});
 
+	return locationQuery;
+};
+
+const removeUnusedQueryFields = (
+	queryValues: QueryValues | InitialExtendValues,
+	locationValues: QueryValues
+) => {
 	if (!getOptions().removeUnusedQueryFields) {
 		Object.assign(locationValues, { ...queryValues, ...locationValues });
 	}
-
-	return locationValues;
 };
 
-export const compareValues = (
-	value: QueryValue,
-	initialValue: InitialExtendValue
-) => {
+const compareValues = (value: QueryValue, initialValue: InitialExtendValue) => {
 	switch (initialValue.type) {
 		case 'boolean':
 			return initialValue.initial === (value === 'true');
 		case 'number':
-			return initialValue.initial === (+value as any);
+			return +initialValue.initial === (+value as any);
 		case 'json':
 			return JSON.stringify(initialValue.initial) === value;
 		case 'string':

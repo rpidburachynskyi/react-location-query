@@ -27,7 +27,11 @@ const AddQueryItemDialog = ({ queryItems, onClose }: Props) => {
 			name: '',
 			type: 'string',
 			defaultValue: '',
-			hideIfInitial: false
+			hideIfInitial: false,
+			replaceValueWhenParsedError: false,
+			onParsedError: () => {
+				return 123;
+			}
 		},
 		validate: ({ name }) => {
 			const errors: any = {};
@@ -54,7 +58,9 @@ const AddQueryItemDialog = ({ queryItems, onClose }: Props) => {
 					values.name,
 					values.type as any,
 					values.defaultValue,
-					values.hideIfInitial
+					values.hideIfInitial,
+					values.replaceValueWhenParsedError,
+					values.onParsedError.toString()
 				);
 				onClose();
 			}}

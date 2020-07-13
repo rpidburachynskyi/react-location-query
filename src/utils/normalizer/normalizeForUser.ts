@@ -23,7 +23,6 @@ export const normalizeForUser = (
 	const normalized: UserValues = {};
 	Object.keys(values).forEach((key) => {
 		const value = values[key];
-		console.log(value);
 		const initialValueWrapper = initialValuesWrappers[key];
 		const initialValue = initialValueWrapper.initialValue;
 		switch (initialValue.type) {
@@ -38,7 +37,9 @@ export const normalizeForUser = (
 			case 'number':
 				normalized[key] = normalizeNumber(
 					value as string,
-					initialValue
+					initialValueWrapper as InitialExtendValueWrapper<
+						InitialExtendObjectNumber
+					>
 				);
 				break;
 			case 'array':
@@ -82,17 +83,21 @@ const normalizeBoolean = (
 
 const normalizeNumber = (
 	value: QueryValue | InitialExtendObjectNumber,
-	initialValue: InitialExtendObjectNumber
+	wrapper: InitialExtendValueWrapper<InitialExtendObjectNumber>
 ): number => {
-	if (typeof value === 'object' && 'type' in value)
+	if (typeof value === 'object' && 'type' in value) {
 		return value.initial as number;
+	}
 	try {
-		if (isNaN(+value)) throw new Error('');
+		if (isNaN(+value) || value === '') throw new Error('');
+		console.log(value);
 		return +value;
 	} catch (e) {
-		return initialValue.onParsedError
-			? initialValue.onParsedError(value as string)
-			: 1;
+		return normalizeAny(
+			value,
+			wrapper.initialValue,
+			wrapper.name
+		) as number;
 	}
 };
 

@@ -1,12 +1,13 @@
 import React from 'react';
 import { List, Input, Form } from 'antd';
-import { useLocationQuery } from 'react-location-query';
+import { useLocationQuery, useLocationQueryExtend } from 'react-location-query';
 import { observer } from 'mobx-react';
 
 import classes from './QueryList.module.css';
 
 const QueryList = () => {
 	const { fullQuery, setQueryField } = useLocationQuery({});
+	console.log(fullQuery);
 	return (
 		<List
 			dataSource={Object.keys(fullQuery).map((key) => ({
@@ -16,8 +17,13 @@ const QueryList = () => {
 			renderItem={(item) => (
 				<List.Item key={item.name}>
 					<Form.Item style={{ width: '100%' }} label={item.name}>
+						{console.log(item)}
 						<Input
-							value={item.value.toString()}
+							value={
+								typeof item.value === 'object'
+									? JSON.stringify(item.value)
+									: item.value.toString()
+							}
 							onChange={(e) =>
 								setQueryField(item.name, e.target.value as any)
 							}

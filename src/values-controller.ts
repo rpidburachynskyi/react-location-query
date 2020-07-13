@@ -12,6 +12,7 @@ export const addInitialValues = (
 	initialValues: InitialExtendValues,
 	index: number
 ) => {
+	if (Object.keys(initialValues).length === 0) return;
 	const wrapper: InitialExtendValuesWrappers = {};
 	Object.keys(initialValues).forEach((key) => {
 		wrapper[key] = {

@@ -24,11 +24,15 @@ const useLocationQueryExtend = (initialValues: InitialExtendValues) => {
 	addInitialValues(initialValues, index);
 
 	useEffect(() => {
+		setTimeout(() => {
+			calculateLocationPath();
+		}, 0);
 		addInitialValues(initialValues, index);
-		calculateLocationPath();
 		return () => {
 			removeInitialValues(index);
-			calculateLocationPath();
+			setTimeout(() => {
+				calculateLocationPath();
+			}, 0);
 		};
 	}, [JSON.stringify(initialValues)]);
 

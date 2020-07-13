@@ -33,6 +33,28 @@ const CreateQueryListItem = ({ item }: Props) => {
 						Hide if initial
 					</Checkbox>
 				</Form.Item>
+				<Form.Item label='On parsed error'>
+					<Input
+						value={item.onParsedError.toString()}
+						onChange={(e) =>
+							item.setOnParsedError(() => {
+								return 123;
+							})
+						}
+					/>
+				</Form.Item>
+				<Form.Item label='Replace when parsed error'>
+					<Checkbox
+						checked={item.replaceValueWhenParsedError}
+						onChange={(e) =>
+							item.setReplaceValueWhenParsedError(
+								e.target.checked
+							)
+						}
+					>
+						Replace when parsed error
+					</Checkbox>
+				</Form.Item>
 			</Card>
 		</List.Item>
 	);

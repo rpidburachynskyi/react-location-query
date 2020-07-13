@@ -16,9 +16,9 @@ export const extractQueryByInitialValues = (
 ): QueryValues => {
 	const result: QueryValues = {};
 	Object.keys(defaultValues).forEach((key) => {
-		result[key] = query[key] ? query[key] : defaultValues[key];
+		result[key] =
+			query[key] !== undefined ? query[key] : defaultValues[key];
 	});
-
 	return result;
 };
 
@@ -38,7 +38,11 @@ export const readQuery = (): QueryValues => {
 export const writeQuery = (query: InitialExtendValues | QueryValues) => {
 	const history = getHistory();
 	const location = getLocation();
-
+	console.log(
+		`${location.pathname}?${stringifyQuery(
+			sortFieldsInQuery(normalizeForLocation(query))
+		)}`
+	);
 	if (Object.keys(query).length === 0) {
 		history.replace(location.pathname);
 	} else {
