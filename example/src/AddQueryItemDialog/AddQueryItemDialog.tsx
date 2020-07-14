@@ -56,7 +56,7 @@ const AddQueryItemDialog = ({ queryItems, onClose }: Props) => {
 			onOk={() => {
 				queryItems!.addQueryItem(
 					values.name,
-					values.type as any,
+					values.type as 'string' | 'number' | 'boolean',
 					values.defaultValue,
 					values.hideIfInitial,
 					values.replaceValueWhenParsedError,

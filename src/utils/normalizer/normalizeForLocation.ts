@@ -78,7 +78,7 @@ const compareValues = (value: QueryValue, initialValue: InitialExtendValue) => {
 		case 'boolean':
 			return initialValue.initial === (value === 'true');
 		case 'number':
-			return +initialValue.initial === (+value as any);
+			return +initialValue.initial === (+value as number);
 		case 'json':
 			return JSON.stringify(initialValue.initial) === value;
 		case 'string':

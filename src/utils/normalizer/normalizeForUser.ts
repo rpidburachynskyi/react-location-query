@@ -62,7 +62,7 @@ export const normalizeForUser = (
 				normalized[key] = normalizeString(value as string);
 				break;
 			default:
-				normalized[key] = value as any;
+				normalized[key] = value;
 				break;
 		}
 	});
@@ -139,7 +139,9 @@ const normalizeArray = (
 			);
 		}
 	};
-	const array = (Array.isArray(value) ? value : [value]) as any;
+	const array = (Array.isArray(value) ? value : [value]) as Array<
+		string | number | boolean
+	>;
 	return normalizeArray(initialValueWrapper.initialValue.arrayType, array);
 };
 
@@ -187,7 +189,7 @@ const normalizeAny = (
 			? getDefaultOptions().replaceValueWhenParsedError
 			: initialValue.replaceValueWhenParsedError
 	) {
-		setQueryFieldImmidiatly(name, newValue as any);
+		setQueryFieldImmidiatly(name, newValue);
 	}
 	return newValue;
 };

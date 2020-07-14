@@ -24,7 +24,7 @@ export const addInitialValues = (
 		}
 		wrapper[key] = {
 			index,
-			initialValue: mutateValueToObjectValues(initialValues[key] as any),
+			initialValue: mutateValueToObjectValues(initialValues[key]),
 			name: key
 		};
 	});

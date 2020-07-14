@@ -21,7 +21,7 @@ export const parseQuery = (query: string): QueryValues => {
 };
 
 export const stringifyQuery = (query: QueryValues) => {
-	return qs.stringify(query as any);
+	return qs.stringify(query as qs.ParsedUrlQueryInput);
 };
 
 export const readQuery = (): QueryValues => {
