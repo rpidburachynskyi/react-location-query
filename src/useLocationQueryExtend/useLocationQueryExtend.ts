@@ -15,7 +15,7 @@ import {
 	normalizeForUserByInitialValues
 } from '../utils/normalizer/normalizer';
 
-const useLocationQueryExtend = (initialValues: InitialExtendValues) => {
+const useLocationQueryExtend = (initialValues: InitialExtendValues = {}) => {
 	const index = useIndex(); // index for save order
 
 	setHistory(useHistory());
