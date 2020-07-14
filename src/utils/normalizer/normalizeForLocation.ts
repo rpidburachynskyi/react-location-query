@@ -1,10 +1,10 @@
-import { getInitialValues } from '../../values-controller';
+import { getInitialValues } from '../valuesController/valuesController';
 import { QueryValue, QueryValues } from '../../types/Query';
 import {
 	InitialExtendValue,
 	InitialExtendValues
 } from '../../types/Initial/Initial';
-import { getOptions } from '../../options/options';
+import { getOptions } from '../../stores/options/options';
 import { InitialExtendObjectString } from '../../types/Initial/String';
 import { InitialExtendObjectNumber } from '../../types/Initial/Number';
 import { InitialExtendObjectJson } from '../../types/Initial/Json';

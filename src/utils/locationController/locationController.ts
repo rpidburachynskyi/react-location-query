@@ -1,10 +1,10 @@
 import {
 	getInitialValues,
 	getInitialValuesWrappers
-} from '../../values-controller';
-import { writeQuery, readQuery } from '../../query-parser';
+} from '../valuesController/valuesController';
+import { writeQuery, readQuery } from '../queryParser/queryParser';
 import { QueryValue, QueryValues } from '../../types/Query';
-import { getSortingOptions } from '../../options/options';
+import { getSortingOptions } from '../../stores/options/options';
 import { InitialExtendValuesWrappers } from '../../types/Initial/Initial';
 import { normalizeForLocation } from '../normalizer/normalizer';
 

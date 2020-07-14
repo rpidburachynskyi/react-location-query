@@ -1,7 +1,7 @@
-import useLocationQuery from './useLocationQuery';
-import useLocationQueryExtend from './useLocationQueryExtend';
-import useLocationField from './useLocationField';
-import { setOptions, getOptions } from './options/options';
+import useLocationQuery from './hooks/useLocationQuery';
+import useLocationQueryExtend from './hooks/useLocationQueryExtend';
+import useLocationField from './hooks/useLocationField';
+import { setOptions, getOptions } from './stores/options/options';
 
 export {
 	useLocationQuery,

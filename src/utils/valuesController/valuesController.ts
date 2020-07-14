@@ -3,8 +3,8 @@ import {
 	InitialExtendValue,
 	InitialExtendValues,
 	InitialExtendValuesWrappers
-} from './types/Initial/Initial';
-import { getDefaultOptions } from './options/options';
+} from '../../types/Initial/Initial';
+import { getDefaultOptions } from '../../stores/options/options';
 
 let initialValuesWrappers: InitialExtendValuesWrappers[] = [];
 

@@ -6,10 +6,10 @@ import {
 } from '../../types/Initial/Initial';
 import { QueryValues, QueryValue } from '../../types/Query';
 import { UserValues } from '../../types/User';
-import { getInitialValuesWrappers } from '../../values-controller';
+import { getInitialValuesWrappers } from '../valuesController/valuesController';
 import { setQueryFieldImmidiatly } from '../locationController/locationController';
-import { defaultValueByInitialValue } from '../../options/defaultValues';
-import { getDefaultOptions } from '../../options/options';
+import { defaultValueByInitialValue } from '../../stores/options/defaultValues';
+import { getDefaultOptions } from '../../stores/options/options';
 import { InitialExtendObjectBoolean } from '../../types/Initial/Boolean';
 import { InitialExtendObjectNumber } from '../../types/Initial/Number';
 import { InitialExtendObjectArray } from '../../types/Initial/Array';

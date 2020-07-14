@@ -1,4 +1,4 @@
-import { InitialExtendValue } from '../types/Initial/Initial';
+import { InitialExtendValue } from '../../types/Initial/Initial';
 import useLocationQueryExtend from '../useLocationQueryExtend';
 
 const useLocationField = (name: string, value?: InitialExtendValue) => {

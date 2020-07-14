@@ -1,4 +1,4 @@
-import { History } from './types';
+import { History } from '../../types/HistoryLocation';
 
 let history: History;
 

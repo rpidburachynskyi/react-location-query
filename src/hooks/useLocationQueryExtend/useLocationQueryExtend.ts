@@ -4,16 +4,16 @@ import {
 	addInitialValues,
 	removeInitialValues,
 	getInitialValues
-} from '../values-controller';
-import { calculateLocationPath, setQueryField } from '../utils/locationController/locationController';
-import { extractQueryByInitialValues, readQuery } from '../query-parser';
-import { InitialExtendValues } from '../types/Initial/Initial';
+} from '../../utils/valuesController/valuesController';
+import { calculateLocationPath, setQueryField } from '../../utils/locationController/locationController';
+import { extractQueryByInitialValues, readQuery } from '../../utils/queryParser/queryParser';
+import { InitialExtendValues } from '../../types/Initial/Initial';
 import useIndex from '../useIndex';
-import { setHistory } from '../store';
+import { setHistory } from '../../stores/store/store';
 import {
 	normalizeForUser,
 	normalizeForUserByInitialValues
-} from '../utils/normalizer/normalizer';
+} from '../../utils/normalizer/normalizer';
 
 const useLocationQueryExtend = (initialValues: InitialExtendValues = {}) => {
 	const index = useIndex(); // index for save order

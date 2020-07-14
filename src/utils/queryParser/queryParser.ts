@@ -1,8 +1,8 @@
 import qs from 'querystring';
-import { InitialExtendValues } from './types/Initial/Initial';
-import { getLocation, getHistory } from './store';
-import { QueryValues } from './types/Query';
-import { Location } from './types';
+import { InitialExtendValues } from '../../types/Initial/Initial';
+import { getLocation, getHistory } from '../../stores/store/store';
+import { QueryValues } from '../../types/Query';
+import { Location } from '../../types/HistoryLocation';
 
 export const extractQueryByInitialValues = (
 	query: any,

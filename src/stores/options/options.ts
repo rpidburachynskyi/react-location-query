@@ -1,15 +1,4 @@
-interface Options {
-	sortingOptions: {
-		sortBy: 'index' | 'alphabet' | 'fieldLength';
-		sortOrder: 'asc' | 'desc';
-	};
-	defaultOptions: {
-		hideIfDefault: boolean;
-		replaceValueWhenParsedError: boolean;
-	};
-
-	removeUnusedQueryFields: boolean;
-}
+import { Options } from '../../types/Options';
 
 const _options: Options = {
 	sortingOptions: {
