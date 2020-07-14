@@ -7,7 +7,7 @@ import {
 import { QueryValues, QueryValue } from '../../types/Query';
 import { UserValues } from '../../types/User';
 import { getInitialValuesWrappers } from '../../values-controller';
-import { setQueryFieldImmidiatly } from '../../location-controller';
+import { setQueryFieldImmidiatly } from '../locationController/locationController';
 import { defaultValueByInitialValue } from '../../options/defaultValues';
 import { getDefaultOptions } from '../../options/options';
 import { InitialExtendObjectBoolean } from '../../types/Initial/Boolean';

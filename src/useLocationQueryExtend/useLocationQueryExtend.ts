@@ -5,7 +5,7 @@ import {
 	removeInitialValues,
 	getInitialValues
 } from '../values-controller';
-import { calculateLocationPath, setQueryField } from '../location-controller';
+import { calculateLocationPath, setQueryField } from '../utils/locationController/locationController';
 import { extractQueryByInitialValues, readQuery } from '../query-parser';
 import { InitialExtendValues } from '../types/Initial/Initial';
 import useIndex from '../useIndex';
