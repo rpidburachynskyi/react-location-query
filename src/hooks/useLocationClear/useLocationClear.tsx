@@ -1,4 +1,4 @@
-import { useLocationQueryExtend } from '../..';
+import useLocationQueryExtend from '../useLocationQueryExtend';
 
 const useLocationClear = () => {
 	return useLocationQueryExtend();

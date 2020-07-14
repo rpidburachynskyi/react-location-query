@@ -5,7 +5,11 @@ import { inject, observer } from 'mobx-react';
 import { QueryItems } from './mobx/models/QueryItems';
 import AddQueryItemDialog from './AddQueryItemDialog';
 import QueryList from './QueryList';
-import { setOptions, useLocationQueryExtend } from 'react-location-query';
+import {
+	setOptions,
+	useLocationField,
+	useLocationQueryExtend
+} from 'react-location-query';
 
 setOptions({
 	removeUnusedQueryFields: true
@@ -16,7 +20,11 @@ interface Props {
 }
 
 function App() {
-	useLocationQueryExtend({});
+	useLocationField('name', {
+		type: 'string',
+		initial: 'Rostyslav',
+		hideIfInitial: true
+	});
 	const [isIndex, setIsIndex] = useState(true);
 	return (
 		<div className='App'>
@@ -30,16 +38,8 @@ function App() {
 }
 
 const IndexComponent = () => {
-	const {
-		query: { name }
-	} = useLocationQueryExtend({
-		name: {
-			type: 'string',
-			initial: 'Rostyslav'
-		}
-	});
-
-	return <h1>My index is {}</h1>;
+	const [name] = useLocationField('name');
+	return <h1>My name is {name}</h1>;
 };
 
 const NonIndexComponent = () => {

@@ -5,8 +5,14 @@ import {
 	removeInitialValues,
 	getInitialValues
 } from '../../utils/valuesController/valuesController';
-import { calculateLocationPath, setQueryField } from '../../utils/locationController/locationController';
-import { extractQueryByInitialValues, readQuery } from '../../utils/queryParser/queryParser';
+import {
+	calculateLocationPath,
+	setQueryField
+} from '../../utils/locationController/locationController';
+import {
+	extractQueryByInitialValues,
+	readQuery
+} from '../../utils/queryParser/queryParser';
 import { InitialExtendValues } from '../../types/Initial/Initial';
 import useIndex from '../useIndex';
 import { setHistory } from '../../stores/store/store';
