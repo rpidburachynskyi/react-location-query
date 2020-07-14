@@ -26,8 +26,14 @@ export const addInitialValues = (
 };
 
 export const removeInitialValues = (index: number) => {
+	const removeIinitialValuesWrappers = initialValuesWrappers
+		.filter((v) => v[Object.keys(v)[0]].index === index)
+		.reduce((p, c) => ({ ...p, ...c }), {});
+
 	initialValuesWrappers = initialValuesWrappers.filter(
-		(v) => v[Object.keys(v)[0]].index !== index
+		(v) =>
+			v[Object.keys(v)[0]].index !== index &&
+			!Object.keys(v).find((k) => !!removeIinitialValuesWrappers[k])
 	);
 };
 

@@ -9,10 +9,12 @@ import { Provider } from 'mobx-react';
 import mobx from './mobx';
 
 ReactDOM.render(
-	<Provider queryItems={mobx.queryItems}>
-		<Router>
-			<App />
-		</Router>
-	</Provider>,
+	<React.StrictMode>
+		<Provider queryItems={mobx.queryItems}>
+			<Router>
+				<App />
+			</Router>
+		</Provider>
+	</React.StrictMode>,
 	document.getElementById('root')
 );

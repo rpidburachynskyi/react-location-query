@@ -15,30 +15,60 @@ interface Props {
 	queryItems?: QueryItems;
 }
 
-const App = ({ queryItems }: Props) => {
-	const [addQueryDialogVisible, setAddQueryDialogVisible] = useState(false);
-
+function App() {
+	const [isIndex, setIsIndex] = useState(true);
 	return (
-		<div>
-			<Typography.Title>React hook - useLocationQuery</Typography.Title>
-			<Row gutter={[8, 8]}>
-				<Col span={12}>
-					<CreateQueryList />
-					<Button onClick={() => setAddQueryDialogVisible(true)}>
-						Add query item
-					</Button>
-					{addQueryDialogVisible && (
-						<AddQueryItemDialog
-							onClose={() => setAddQueryDialogVisible(false)}
-						/>
-					)}
-				</Col>
-				<Col span={12}>
-					<QueryList />
-				</Col>
-			</Row>
+		<div className='App'>
+			{isIndex && <NonIndexComponent />}
+			{!isIndex && <IndexComponent />}
+			<button onClick={() => setIsIndex(!isIndex)}>
+				Toggle indexes components
+			</button>
 		</div>
 	);
+}
+
+const IndexComponent = () => {
+	const {
+		query: { name }
+	} = useLocationQueryExtend({
+		name: {
+			type: 'string',
+			initial: 'Rostyslav'
+		}
+	});
+
+	return <h1>My index is {}</h1>;
 };
+
+const NonIndexComponent = () => {
+	return <h1>I'm without index</h1>;
+};
+
+// const App = ({ queryItems }: Props) => {
+// 	const [addQueryDialogVisible, setAddQueryDialogVisible] = useState(false);
+
+// 	return (
+// 		<div>
+// 			<Typography.Title>React hook - useLocationQuery</Typography.Title>
+// 			<Row gutter={[8, 8]}>
+// 				<Col span={12}>
+// 					<CreateQueryList />
+// 					<Button onClick={() => setAddQueryDialogVisible(true)}>
+// 						Add query item
+// 					</Button>
+// 					{addQueryDialogVisible && (
+// 						<AddQueryItemDialog
+// 							onClose={() => setAddQueryDialogVisible(false)}
+// 						/>
+// 					)}
+// 				</Col>
+// 				<Col span={12}>
+// 					<QueryList />
+// 				</Col>
+// 			</Row>
+// 		</div>
+// 	);
+// };
 
 export default inject('queryItems')(observer(App));
