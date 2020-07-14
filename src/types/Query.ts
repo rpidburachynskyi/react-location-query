@@ -5,7 +5,7 @@ export interface QueryObject {
 	[x: string]: QueryObjectItem;
 }
 
-type AllowedQueryValues = string | number | boolean;
+type AllowedQueryValues = string | number | boolean | object;
 
 export type QueryValue = AllowedQueryValues | Array<AllowedQueryValues>;
 export interface QueryValues {

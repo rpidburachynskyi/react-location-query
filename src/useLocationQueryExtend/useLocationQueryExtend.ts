@@ -49,8 +49,7 @@ const useLocationQueryExtend = (initialValues: InitialExtendValues = {}) => {
 			extractQueryByInitialValues(locationQuery, initialNormalizedValues)
 		),
 		query: normalizeForUserByInitialValues(query, initialValues),
-		setQueryField: (field: string, value: any) =>
-			setQueryField(field, value)
+		setQueryField
 	};
 };
 
