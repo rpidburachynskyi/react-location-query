@@ -152,14 +152,11 @@ const normalizeJson = (
 	try {
 		return JSON.parse(value as string);
 	} catch (e) {
-		if (wrapper.initialValue.onParsedError) {
-			const newValue = wrapper.initialValue.onParsedError(
-				value as string
-			);
-			setQueryFieldImmidiatly(wrapper.name, newValue);
-			return newValue;
-		}
-		return {};
+		return normalizeAny(
+			value,
+			wrapper.initialValue,
+			wrapper.name
+		) as object;
 	}
 };
 

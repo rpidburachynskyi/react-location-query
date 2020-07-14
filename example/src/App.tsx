@@ -20,11 +20,16 @@ interface Props {
 }
 
 function App() {
-	useLocationField('name', {
-		type: 'string',
-		initial: 'Rostyslav',
-		hideIfInitial: true
+	const [name] = useLocationField('name', {
+		type: 'number',
+		initial: 123,
+		// @ts-ignore
+		onParsedError: (q) => {
+			return 32;
+		}
 	});
+	console.log(name);
+
 	const [isIndex, setIsIndex] = useState(true);
 	return (
 		<div className='App'>
@@ -38,8 +43,8 @@ function App() {
 }
 
 const IndexComponent = () => {
-	const [name] = useLocationField('name');
-	return <h1>My name is {name}</h1>;
+	const [name] = useLocationField<any>('name');
+	return <h1>My name is {name.value}</h1>;
 };
 
 const NonIndexComponent = () => {
