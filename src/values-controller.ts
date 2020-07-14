@@ -13,8 +13,15 @@ export const addInitialValues = (
 	index: number
 ) => {
 	if (Object.keys(initialValues).length === 0) return;
+	removeInitialValues(initialValues);
+
+	const currentInitialValues = getInitialValues();
+
 	const wrapper: InitialExtendValuesWrappers = {};
 	Object.keys(initialValues).forEach((key) => {
+		if (currentInitialValues[key]) {
+			alert(key);
+		}
 		wrapper[key] = {
 			index,
 			initialValue: mutateValueToObjectValues(initialValues[key] as any),
@@ -25,15 +32,9 @@ export const addInitialValues = (
 	initialValuesWrappers = [...initialValuesWrappers, wrapper];
 };
 
-export const removeInitialValues = (index: number) => {
-	const removeIinitialValuesWrappers = initialValuesWrappers
-		.filter((v) => v[Object.keys(v)[0]].index === index)
-		.reduce((p, c) => ({ ...p, ...c }), {});
-
+export const removeInitialValues = (initialValues: InitialExtendValues) => {
 	initialValuesWrappers = initialValuesWrappers.filter(
-		(v) =>
-			v[Object.keys(v)[0]].index !== index &&
-			!Object.keys(v).find((k) => !!removeIinitialValuesWrappers[k])
+		(v) => !Object.keys(v).find((k) => !!initialValues[k])
 	);
 };
 

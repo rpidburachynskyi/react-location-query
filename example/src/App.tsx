@@ -16,6 +16,7 @@ interface Props {
 }
 
 function App() {
+	useLocationQueryExtend({});
 	const [isIndex, setIsIndex] = useState(true);
 	return (
 		<div className='App'>

@@ -29,7 +29,7 @@ const useLocationQueryExtend = (initialValues: InitialExtendValues) => {
 		}, 0);
 		addInitialValues(initialValues, index);
 		return () => {
-			removeInitialValues(index);
+			removeInitialValues(initialValues);
 			setTimeout(() => {
 				calculateLocationPath();
 			}, 0);
