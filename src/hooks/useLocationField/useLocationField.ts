@@ -5,7 +5,7 @@ import useLocationQueryExtend from '../useLocationQueryExtend';
 const useLocationField = <T = QueryValue>(
 	name: string,
 	value?: InitialExtendValue
-) => {
+): [T, (value: any) => void] => {
 	const { fullQuery, setQueryField } = useLocationQueryExtend(
 		value ? { [name]: value } : {}
 	);
