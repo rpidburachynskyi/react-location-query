@@ -1,6 +1,6 @@
 {
 	"name": "react-location-query",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Package for manipulation location query",
 	"author": "kitsoRik",
 	"license": "MIT",
