@@ -28,6 +28,7 @@ function App() {
 			return 32;
 		}
 	});
+
 	console.log(name);
 
 	const [isIndex, setIsIndex] = useState(true);

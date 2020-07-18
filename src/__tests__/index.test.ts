@@ -65,7 +65,7 @@ describe('useLocationQuery', () => {
 				(location.search = query.substring(location.pathname.length))
 		);
 		const location = {
-			search: '?name=Rostyslav',
+			search: '',
 			pathname: '/'
 		};
 		// @ts-ignore
@@ -93,12 +93,6 @@ describe('useLocationQuery', () => {
 
 		expect(replaceMock).toBeCalledWith(
 			`${location.pathname}?name=Rostik&age=19&married=false`
-		);
-
-		setQueryField('name', '');
-
-		expect(replaceMock).toBeCalledWith(
-			`${location.pathname}?name=&age=19&married=false`
 		);
 	});
 });
