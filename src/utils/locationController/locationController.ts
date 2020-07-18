@@ -7,13 +7,14 @@ import { QueryValue, QueryValues } from '../../types/Query';
 import { getSortingOptions } from '../../stores/options/options';
 import { InitialExtendValuesWrappers } from '../../types/Initial/Initial';
 import { normalizeForLocation } from '../normalizer/normalizer';
+import { compareObjects } from '../objects';
 
 export const pushQuery = (queryValues: QueryValues) => {
 	const normalizedQuery: QueryValues = normalizeForLocation({
 		...getInitialValues(),
 		...queryValues
 	});
-	console.log(normalizedQuery);
+	if (compareObjects(queryValues, normalizedQuery)) return;
 	writeQuery(sortFieldsInQuery(normalizedQuery));
 };
 

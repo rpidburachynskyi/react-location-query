@@ -20,6 +20,7 @@ import {
 	normalizeForUser,
 	normalizeForUserByInitialValues
 } from '../../utils/normalizer/normalizer';
+import { hashFromObject } from '../../utils/objects';
 
 const useLocationQueryExtend = (initialValues: InitialExtendValues = {}) => {
 	const index = useIndex(); // index for save order
@@ -40,7 +41,7 @@ const useLocationQueryExtend = (initialValues: InitialExtendValues = {}) => {
 				calculateLocationPath();
 			}, 0);
 		};
-	}, [JSON.stringify(initialValues)]);
+	}, [hashFromObject(initialValues)]);
 
 	const currentInitialNormalizedValues = initialValues;
 	const initialNormalizedValues = getInitialValues();
