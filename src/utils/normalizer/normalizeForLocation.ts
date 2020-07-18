@@ -30,6 +30,7 @@ const normalizeForLocation = (
 					value as QueryValue | InitialExtendObjectNumber
 				);
 				break;
+			case 'boolean':
 			case 'string':
 			default:
 				locationValues[key] = normalizeString(
@@ -76,7 +77,9 @@ const removeUnusedQueryFields = (
 const compareValues = (value: QueryValue, initialValue: InitialExtendValue) => {
 	switch (initialValue.type) {
 		case 'boolean':
-			return initialValue.initial === (value === 'true');
+			return (
+				initialValue.initial === (value === 'true' || value === true)
+			);
 		case 'number':
 			return +initialValue.initial === (+value as number);
 		case 'json':

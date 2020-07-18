@@ -13,6 +13,7 @@ export const pushQuery = (queryValues: QueryValues) => {
 		...getInitialValues(),
 		...queryValues
 	});
+	console.log(normalizedQuery);
 	writeQuery(sortFieldsInQuery(normalizedQuery));
 };
 
