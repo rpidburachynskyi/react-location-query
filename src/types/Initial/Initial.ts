@@ -16,7 +16,11 @@ export type InitialExtendObject =
 	| InitialExtendObjectArray
 	| InitialExtendObjectJson;
 
-export type InitialExtendValue = InitialExtendObject;
+export type InitialExtendValue =
+	| InitialExtendObject
+	| string
+	| boolean
+	| number;
 
 export interface InitialExtendValues {
 	[path: string]: InitialExtendValue;
