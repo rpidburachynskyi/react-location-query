@@ -20,7 +20,7 @@ interface Props {
 }
 
 function App() {
-	const [name] = useLocationField('name', {
+	const [name, setName] = useLocationField('name', {
 		type: 'number',
 		initial: 123,
 		// @ts-ignore
@@ -28,6 +28,10 @@ function App() {
 			return 32;
 		}
 	});
+
+	useEffect(() => {
+		setName(228);
+	}, []);
 
 	console.log(name);
 

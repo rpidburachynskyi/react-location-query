@@ -30,14 +30,15 @@ export const readQuery = (): QueryValues => {
 };
 
 export const writeQuery = (query: QueryValues) => {
+	const preparedQuery = stringifyQuery(query);
+	if (preparedQuery === stringifyQuery(readQuery())) return;
+
 	const history = getHistory();
 	const location = getLocation();
-
-	if (query === readQuery()) return;
 
 	if (Object.keys(query).length === 0) {
 		history.replace(location.pathname);
 	} else {
-		history.replace(`${location.pathname}?${stringifyQuery(query)}`);
+		history.replace(`${location.pathname}?${preparedQuery}`);
 	}
 };
