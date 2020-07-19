@@ -2,6 +2,10 @@
 
 Set of hooks for easier manipulation with location query
 
+#### Examples
+
+-   [codesandbox.io](https://codesandbox.io/s/react-location-query-low-2ohwl 'codesandbox.io')
+
 #### How to install
 
 `npm install react-location-query --save`
