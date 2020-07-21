@@ -107,8 +107,14 @@ First argument - `name` of field, second - `value`. It returns couple as `[value
 const [name, setName] = useLocationField('name', {
 	type: 'string',
 	initial: 'Rostyslav',
-	hideIfInitial: true
+	hideIfInitial: false
 });
+```
+
+or identical with JavaScript value
+
+```ts
+const [name, setName] = useLocationField('name', 'Rostyslav');
 ```
 
 # useLocationClear
