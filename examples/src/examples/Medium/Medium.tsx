@@ -2,19 +2,13 @@ import React from 'react';
 import { useLocationField } from 'react-location-query';
 
 const Medium = () => {
-	const [name, setName] = useLocationField<string>(
-		'name',
-		'Rostyslav' as any
-	);
-	const [age, setAge] = useLocationField<number>('age', {
+	const [name, setName] = useLocationField('name', 'Rostyslav');
+	const [age, setAge] = useLocationField('age', {
 		type: 'number',
 		initial: 19,
 		onParsedError: () => 0
 	});
-	const [married, setMarried] = useLocationField<boolean>(
-		'married',
-		false as any
-	);
+	const [married, setMarried] = useLocationField('married', false);
 	return (
 		<div>
 			<div>
