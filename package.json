@@ -20,8 +20,8 @@
 		"test:lint": "eslint .",
 		"test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
 		"test:watch": "jest --watch",
-		"predeploy": "cd example && npm install && npm run build",
-		"deploy": "gh-pages -d example/build"
+		"predeploy": "cd gh-page && npm install && npm run build",
+		"deploy": "gh-pages -d gh-page/build"
 	},
 	"peerDependencies": {
 		"react": "^16.0.0"

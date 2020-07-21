@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Modal, Form, Input, Select, Checkbox } from 'antd';
 import { inject, observer } from 'mobx-react';
 import { QueryItems } from '../mobx/models/QueryItems';
 import { useFormik } from 'formik';
+import { Checkbox, Form, Input, Modal, Select } from 'antd';
 
 interface Props {
 	queryItems?: QueryItems;
