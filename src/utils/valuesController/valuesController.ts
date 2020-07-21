@@ -15,13 +15,8 @@ export const addInitialValues = (
 	if (Object.keys(initialValues).length === 0) return;
 	removeInitialValues(initialValues);
 
-	const currentInitialValues = getInitialValues();
-
 	const wrapper: InitialExtendValuesWrappers = {};
 	Object.keys(initialValues).forEach((key) => {
-		if (currentInitialValues[key]) {
-			alert(key);
-		}
 		wrapper[key] = {
 			index,
 			initialValue: mutateValueToObjectValues(initialValues[key]),
