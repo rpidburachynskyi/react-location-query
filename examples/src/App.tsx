@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import Medium from './examples/Medium';
 import Simple from './examples/Simple';
