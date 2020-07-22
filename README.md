@@ -168,9 +168,19 @@ this.props = { push }
 with pass name
 
 ```ts
-withHistoryPush("historyPush");
+withHistoryPush("historyPush")(Component);
 ...
 this.props = { historyPush }
+```
+
+## withLocationClear
+
+Hoc which wrapped useLocationClear. Nothing change in component;
+
+#### Example
+
+```ts
+withLocationClear(Component);
 ```
 
 # Options
