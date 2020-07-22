@@ -11,7 +11,7 @@ import useLocationQueryExtend from '../useLocationQueryExtend';
 
 function useLocationField(
 	name: string,
-	value?: InitialExtendObjectString | string
+	value: InitialExtendObjectString | string
 ): [string, (value: string) => void];
 
 function useLocationField(
@@ -26,7 +26,7 @@ function useLocationField(
 
 function useLocationField(
 	name: string,
-	value?: InitialExtendObjectJson | object
+	value?: InitialExtendObjectJson
 ): [object, (value: object) => void];
 
 function useLocationField(
