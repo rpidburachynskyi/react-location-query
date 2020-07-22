@@ -24,9 +24,9 @@ Set of hooks for easier manipulation with location query
 -   work with all standart types (string | number | boolean | array)
 -   work with non-standart types (json)
 
-## Hooks
+# Hooks
 
-# useLocationQuery
+## useLocationQuery
 
 Hook for work with standart types.
 To use - pass object where `key` - field name, `value` - value. Value can be object or JavaScript value which automaticly will transform to object.
@@ -67,7 +67,7 @@ Object can provide next options:
 | onParsedError               | callback for get value if it cannot be parsed        | -              |
 | replaceValueWhenParsedError | option to replace value in query after onParsedError | true           |
 
-# useLocationQueryExtend
+## useLocationQueryExtend
 
 Hook for work with standart and non-standart types.
 Extended all functional from useLocationQuery hook. Provide next additional types:
@@ -99,7 +99,7 @@ const {
 const setData = (data: object) => setQueryField('data', data);
 ```
 
-# useLocationField
+## useLocationField
 
 Wrapped hook on useLocationQueryExtend to easier get/set single field value.
 First argument - `name` of field, second - `value`. It returns couple as `[value, setValue]`;
@@ -120,7 +120,7 @@ or identical with JavaScript value
 const [name, setName] = useLocationField('name', 'Rostyslav');
 ```
 
-# useLocationClear
+## useLocationClear
 
 Just add this hook in the root component of your app to clear unused query fields (look options)
 
@@ -128,6 +128,49 @@ Just add this hook in the root component of your app to clear unused query field
 
 ```ts
 useLocationClear();
+```
+
+#Hocs
+Hocs in this package just wrapped hooks.
+
+## withLocationField
+
+Hoc which wrapped useLocationField, first and seconds paratemer as in useLocationField. Third parameter is name of variable whick will pass to `this.props`, fourth parameter is name for settable function whick will pass to `this.props`. Two last parameters are optionals, if don't pass them, names will be by default and depends on field name (function will be with preffix set and started with uppercase);
+
+#### Example
+
+```ts
+withLocationField('name', "Rostyslav", "myName", "setMyName");
+...
+this.props = { myName, setMyName }
+```
+
+without pass third and fourth parameters
+
+```ts
+withLocationField('name', "Rostyslav");
+...
+this.props = { name, setName } // `couse field has named by 'name'
+```
+
+## withHistoryPush
+
+Hoc which wrapped useHistoryPush and returns it, but can change name from first parameter of hoc;
+
+#### Example
+
+```ts
+withHistoryPush();
+...
+this.props = { push }
+```
+
+with pass name
+
+```ts
+withHistoryPush("historyPush");
+...
+this.props = { historyPush }
 ```
 
 # Options
