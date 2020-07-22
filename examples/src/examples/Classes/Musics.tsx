@@ -11,7 +11,9 @@ class Musics extends React.Component<{
 			<div>
 				<div>Page: {page}</div>
 				<div>
-					<button>-1</button>
+					<button onClick={() => this.props.setPage(page - 1)}>
+						-1
+					</button>
 					<button onClick={() => this.props.setPage(page + 1)}>
 						+1
 					</button>
