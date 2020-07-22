@@ -29,7 +29,7 @@ export const addInitialValues = (
 
 export const removeInitialValues = (initialValues: InitialExtendValues) => {
 	initialValuesWrappers = initialValuesWrappers.filter(
-		(v) => !Object.keys(v).find((k) => !!initialValues[k])
+		(v) => !Object.keys(v).find((k) => initialValues[k] !== undefined)
 	);
 };
 
