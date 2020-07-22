@@ -26,7 +26,10 @@ const useLocationQueryExtend = (initialValues: InitialExtendValues = {}) => {
 	const index = useIndex(); // index for save order
 
 	setHistory(useHistory());
-	useLocation(); // NO DELETE, using for rerender when change location
+	const location = useLocation(); // NO DELETE, using for rerender when change location
+	useEffect(() => {
+		calculateLocationPath();
+	}, [location.search]);
 
 	addInitialValues(initialValues, index);
 
