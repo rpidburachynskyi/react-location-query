@@ -102,7 +102,7 @@ const normalizeNumber = (
 ): string => {
 	if (typeof value === 'object' && 'type' in value)
 		return value.initial.toString();
-
+	if (isNaN(value as number)) return '0';
 	return value as string;
 };
 

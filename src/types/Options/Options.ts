@@ -1,3 +1,5 @@
+import CryptoOption from './CryptoOption';
+
 export interface Options {
 	sortingOptions: {
 		sortBy: 'index' | 'alphabet' | 'fieldLength';
@@ -9,4 +11,5 @@ export interface Options {
 	};
 
 	removeUnusedQueryFields: boolean;
+	crypto: CryptoOption;
 }

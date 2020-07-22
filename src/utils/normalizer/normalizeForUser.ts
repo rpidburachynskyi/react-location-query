@@ -75,8 +75,10 @@ const normalizeBoolean = (
 ): boolean => {
 	if (typeof value === 'object' && 'type' in value)
 		return value.initial as boolean;
+
 	if (value === 'true') return true;
 	if (value === 'false') return false;
+	if (typeof value === 'boolean') return value;
 
 	return normalizeAny(value, wrapper.initialValue, wrapper.name) as boolean;
 };
@@ -85,7 +87,7 @@ const normalizeNumber = (
 	value: QueryValue | InitialExtendObjectNumber,
 	wrapper: InitialExtendValueWrapper<InitialExtendObjectNumber>
 ): number => {
-	if (typeof value === 'object' && 'type' in value) {
+	if (value !== null && typeof value === 'object' && 'type' in value) {
 		return value.initial as number;
 	}
 	try {

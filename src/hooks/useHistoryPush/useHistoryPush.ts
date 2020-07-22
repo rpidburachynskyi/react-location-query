@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import qs from 'querystring';
+import { stringifyQuery } from '../../utils/queryParser/queryParser';
 
 const useHistoryPush = () => {
 	const history = useHistory();
@@ -8,7 +8,7 @@ const useHistoryPush = () => {
 		if (Object.keys(values).length === 0) {
 			return history.push(path);
 		}
-		const query = qs.stringify(values);
+		const query = stringifyQuery(values);
 		return history.push(`${path}?${query}`);
 	};
 

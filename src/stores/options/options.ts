@@ -1,4 +1,4 @@
-import { Options } from '../../types/Options';
+import { Options } from '../../types/Options/Options';
 
 const _options: Options = {
 	sortingOptions: {
@@ -9,7 +9,8 @@ const _options: Options = {
 		hideIfDefault: false,
 		replaceValueWhenParsedError: true
 	},
-	removeUnusedQueryFields: false
+	removeUnusedQueryFields: false,
+	crypto: false
 };
 
 export const setOptions = (options: Partial<Options>) => {

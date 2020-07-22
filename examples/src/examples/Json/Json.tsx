@@ -11,7 +11,7 @@ const Json = () => {
 	});
 
 	const [objectValue, setObjectValue] = useState(JSON.stringify(json));
-
+	console.log(json);
 	useEffect(() => {
 		let error = false;
 		try {

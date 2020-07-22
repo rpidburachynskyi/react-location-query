@@ -3,6 +3,9 @@ import { InitialExtendValues } from '../../types/Initial/Initial';
 import { getLocation, getHistory } from '../../stores/store/store';
 import { QueryValues } from '../../types/Query';
 import { Location } from '../../types/HistoryLocation';
+import encryptQuery from '../crypto/encryptQuery';
+import decryptQuery from '../crypto/decryptQuery';
+import { getOptions } from '../../stores/options/options';
 
 export const extractQueryByInitialValues = (
 	query: any,
@@ -16,23 +19,14 @@ export const extractQueryByInitialValues = (
 	return result;
 };
 
-export const parseQuery = (query: string): QueryValues => {
-	return qs.parse(query === '' ? '' : query.substring(1));
-};
-
-export const stringifyQuery = (query: QueryValues) => {
-	return qs.stringify(query as qs.ParsedUrlQueryInput);
-};
-
 export const readQuery = (): QueryValues => {
 	const location: Location = getLocation();
 	return parseQuery(location.search);
 };
 
 export const writeQuery = (query: QueryValues) => {
+	if (query === readQuery()) return;
 	const preparedQuery = stringifyQuery(query);
-	if (preparedQuery === stringifyQuery(readQuery())) return;
-
 	const history = getHistory();
 	const location = getLocation();
 
@@ -41,4 +35,26 @@ export const writeQuery = (query: QueryValues) => {
 	} else {
 		history.replace(`${location.pathname}?${preparedQuery}`);
 	}
+};
+
+const parseQuery = (query: string): QueryValues => {
+	try {
+		const q = qs.parse(query === '' ? '' : query.substring(1));
+		if (getOptions().crypto) {
+			if (q.q as any) return decryptQuery(q.q as any);
+			return {};
+		}
+		return q;
+	} catch (e) {
+		return {};
+	}
+};
+
+export const stringifyQuery = (query: QueryValues) => {
+	if (getOptions().crypto) {
+		const encryptedQuery = encryptQuery(query);
+		const q = qs.stringify({ q: encryptedQuery } as qs.ParsedUrlQueryInput);
+		return q;
+	}
+	return qs.stringify(query as qs.ParsedUrlQueryInput);
 };

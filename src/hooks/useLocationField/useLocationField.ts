@@ -49,7 +49,12 @@ function useLocationField(name: string, value?: any) {
 		value !== undefined ? { [name]: value } : {}
 	);
 
-	return [fullQuery[name], (value: any) => setQueryField(name, value)] as any;
+	return [
+		fullQuery[name],
+		(value: any) => {
+			setQueryField(name, value);
+		}
+	] as any;
 }
 
 export default useLocationField;
