@@ -4,9 +4,9 @@ import { useLocationField } from 'react-location-query';
 const Enum = () => {
 	const [type, setType] = useLocationField('type', {
 		type: 'string',
-		initial: 'asd',
-		enum: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'],
-		onParsedEnumError: () => 'a'
+		initial: 'qwe',
+		enum: ['first', 'second', 'third', 'fourth', 'fifth'],
+		onParsedEnumError: () => 'first'
 	});
 	return (
 		<div>
@@ -16,6 +16,26 @@ const Enum = () => {
 				<div>
 					<button onClick={() => setType('first')}>
 						set 'first'
+					</button>
+					<button onClick={() => setType('second')}>
+						set 'second'
+					</button>
+					<button onClick={() => setType('third')}>
+						set 'third'
+					</button>
+					<button onClick={() => setType('fourth')}>
+						set 'fourth'
+					</button>
+					<button onClick={() => setType('fifth')}>
+						set 'fifth'
+					</button>
+				</div>
+			</div>
+			<div>
+				<h2>Not allow types (will replace to 'first')</h2>
+				<div>
+					<button onClick={() => setType('sixth')}>
+						set 'sixth'
 					</button>
 				</div>
 			</div>
