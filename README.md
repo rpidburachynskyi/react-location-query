@@ -6,6 +6,8 @@ Set of hooks for easier manipulation with location query
 
 -   Simple - [codesandbox.io](https://codesandbox.io/s/react-location-query-low-2ohwl 'codesandbox.io')
 -   Medium - [codesandbox.io](https://codesandbox.io/s/react-location-query-examples-medium-3j0je 'codesandbox.io')
+-   With push - [codesandbox.io](https://codesandbox.io/s/react-location-query-examples-with-push-qgb6s 'codesandbox.io')
+-   Classes - [codesandbox.io](https://codesandbox.io/s/react-location-query-examples-classes-ed6x8 'codesandbox.io')
 
 #### How to install
 
