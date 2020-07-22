@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import Classes from './examples/Classes';
+import Enum from './examples/Enum';
 import Json from './examples/Json';
 import Medium from './examples/Medium';
 import Simple from './examples/Simple';
@@ -15,6 +16,7 @@ const App = () => {
 				<Link to='/examples/withPush'>With push</Link>
 				<Link to='/examples/classes'>Classes</Link>
 				<Link to='/examples/json'>JSON</Link>
+				<Link to='/examples/enum'>JSON</Link>
 			</header>
 			<div>
 				<Switch>
@@ -23,6 +25,7 @@ const App = () => {
 					<Route path='/examples/withPush' component={WithPush} />
 					<Route path='/examples/classes' component={Classes} />
 					<Route path='/examples/json' component={Json} />
+					<Route path='/examples/enum' component={Enum} />
 				</Switch>
 			</div>
 		</div>

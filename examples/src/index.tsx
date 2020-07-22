@@ -7,12 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { setOptions } from 'react-location-query';
 
 setOptions({
-	removeUnusedQueryFields: true,
-	crypto: {
-		method: 'xor',
-		key: 'qwe',
-		compessedToBase64: true
-	}
+	removeUnusedQueryFields: true
 });
 ReactDOM.render(
 	<React.StrictMode>

@@ -6,6 +6,7 @@ import { Location } from '../../types/HistoryLocation';
 import encryptQuery from '../crypto/encryptQuery';
 import decryptQuery from '../crypto/decryptQuery';
 import { getOptions } from '../../stores/options/options';
+import { compareObjects } from '../objects';
 
 export const extractQueryByInitialValues = (
 	query: any,
@@ -25,11 +26,10 @@ export const readQuery = (): QueryValues => {
 };
 
 export const writeQuery = (query: QueryValues) => {
-	if (query === readQuery()) return;
+	if (compareObjects(query, readQuery())) return;
 	const preparedQuery = stringifyQuery(query);
 	const history = getHistory();
 	const location = getLocation();
-
 	if (Object.keys(query).length === 0) {
 		history.replace(location.pathname);
 	} else {

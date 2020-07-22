@@ -59,7 +59,12 @@ export const normalizeForUser = (
 				);
 				break;
 			case 'string':
-				normalized[key] = normalizeString(value as string);
+				normalized[key] = normalizeString(
+					value as string,
+					initialValueWrapper as InitialExtendValueWrapper<
+						InitialExtendObjectString
+					>
+				);
 				break;
 			default:
 				normalized[key] = value;
@@ -162,9 +167,25 @@ const normalizeJson = (
 	}
 };
 
-const normalizeString = (value: QueryValue | InitialExtendObject) => {
+const normalizeString = (
+	value: QueryValue | InitialExtendObject,
+	wrapper: InitialExtendValueWrapper<InitialExtendObjectString>
+) => {
 	if (typeof value === 'object' && 'type' in value)
 		return value.initial as string;
+	if (wrapper.initialValue.enum) {
+		if (!wrapper.initialValue.enum.includes(value as string)) {
+			let newValue: string;
+			if (wrapper.initialValue.onParsedEnumError) {
+				newValue = wrapper.initialValue.onParsedEnumError(
+					value as string
+				);
+			} else {
+				newValue = wrapper.initialValue.enum[0];
+			}
+			setQueryFieldImmidiatly(wrapper.name, newValue);
+		}
+	}
 	return value;
 };
 
