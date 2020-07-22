@@ -16,7 +16,7 @@ const App = () => {
 				<Link to='/examples/withPush'>With push</Link>
 				<Link to='/examples/classes'>Classes</Link>
 				<Link to='/examples/json'>JSON</Link>
-				<Link to='/examples/enum'>JSON</Link>
+				<Link to='/examples/enum'>Enum</Link>
 			</header>
 			<div>
 				<Switch>
