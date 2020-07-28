@@ -9,6 +9,8 @@ import { InitialExtendObjectNumber } from '../../types/Initial/Number';
 import { InitialExtendObjectString } from '../../types/Initial/String';
 import useLocationQueryExtend from '../useLocationQueryExtend';
 
+function useLocationField<T>(name: string): [T, (value: T) => void];
+
 function useLocationField(
 	name: string,
 	value: InitialExtendObjectString | string
@@ -16,32 +18,32 @@ function useLocationField(
 
 function useLocationField(
 	name: string,
-	value?: InitialExtendObjectNumber | number
+	value: InitialExtendObjectNumber | number
 ): [number, (value: number) => void];
 
 function useLocationField(
 	name: string,
-	value?: InitialExtendObjectBoolean | boolean
+	value: InitialExtendObjectBoolean | boolean
 ): [boolean, (value: boolean) => void];
 
 function useLocationField(
 	name: string,
-	value?: InitialExtendObjectJson
+	value: InitialExtendObjectJson
 ): [object, (value: object) => void];
 
 function useLocationField(
 	name: string,
-	value?: InitialExtendObjectArrayBoolean
+	value: InitialExtendObjectArrayBoolean
 ): [boolean[], (value: boolean[]) => void];
 
 function useLocationField(
 	name: string,
-	value?: InitialExtendObjectArrayNumber
+	value: InitialExtendObjectArrayNumber
 ): [number[], (value: number[]) => void];
 
 function useLocationField(
 	name: string,
-	value?: InitialExtendObjectArrayString
+	value: InitialExtendObjectArrayString
 ): [string[], (value: string[]) => void];
 
 function useLocationField(name: string, value?: any) {
