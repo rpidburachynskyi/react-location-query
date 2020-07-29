@@ -1,4 +1,4 @@
-import { _InitialExtendObject } from "./Initial";
+import { _InitialExtendObject } from './Initial';
 
 interface _InitialExtendObjectArray extends _InitialExtendObject {
 	type: 'array';
@@ -18,6 +18,7 @@ export interface InitialExtendObjectArrayNumber
 	arrayType: 'number';
 	initial: Array<number>;
 	onParsedError?: (errorValues: string[]) => Array<number>;
+	onParsedItemError?: (errorValue: string) => number;
 }
 
 export interface InitialExtendObjectArrayBoolean
@@ -25,6 +26,7 @@ export interface InitialExtendObjectArrayBoolean
 	arrayType: 'boolean';
 	initial: Array<boolean>;
 	onParsedError?: (errorValues: string[]) => Array<boolean>;
+	onParsedItemError?: (errorValue: string) => boolean;
 }
 
 export type InitialExtendObjectArray =
