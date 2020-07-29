@@ -10,6 +10,7 @@ const Enum = () => {
 	});
 
 	const [type] = useLocationField<string>('type');
+	const [] = useLocationField('name', { type: 'boolean', initial: true });
 
 	return (
 		<div>

@@ -8,12 +8,12 @@ import { getOptions } from '../../stores/options/options';
 import { InitialExtendObjectString } from '../../types/Initial/String';
 import { InitialExtendObjectNumber } from '../../types/Initial/Number';
 import { InitialExtendObjectJson } from '../../types/Initial/Json';
+import { InitialExtendObjectBoolean } from '../../types/Initial/Boolean';
 
 const normalizeForLocation = (
 	queryValues: QueryValues | InitialExtendValues
 ) => {
 	const initialValues = getInitialValues();
-
 	let locationValues: QueryValues = {};
 
 	Object.keys(initialValues).forEach((key) => {
@@ -21,22 +21,19 @@ const normalizeForLocation = (
 		const initialValue = initialValues[key];
 		switch (initialValue.type) {
 			case 'json':
-				locationValues[key] = normalizeJson(
-					value as QueryValue | InitialExtendObjectJson
-				);
+				locationValues[key] = normalizeJson(value);
 				break;
 			case 'number':
-				locationValues[key] = normalizeNumber(
-					value as QueryValue | InitialExtendObjectNumber
-				);
+				locationValues[key] = normalizeNumber(value);
 				break;
 			case 'boolean':
-			case 'string':
-			default:
-				locationValues[key] = normalizeString(
-					value as QueryValue | InitialExtendObjectString
-				);
+				locationValues[key] = normalizeBoolean(value);
 				break;
+			case 'string':
+				locationValues[key] = normalizeString(value);
+				break;
+			default:
+				throw new Error('Unknown behavior error: unknown value');
 		}
 	});
 
@@ -91,26 +88,57 @@ const compareValues = (value: QueryValue, initialValue: InitialExtendValue) => {
 };
 
 const normalizeString = (
-	value: QueryValue | InitialExtendObjectString
+	value: string | QueryValue | InitialExtendObjectString
 ): string => {
+	console.log(value);
+
 	if (typeof value === 'object' && 'type' in value) return value.initial;
-	return value as string;
+
+	if (typeof value === 'string') return value;
+
+	throw new Error('Unknown behavior error: Value is not an string');
 };
 
 const normalizeNumber = (
-	value: QueryValue | InitialExtendObjectNumber
+	value: string | QueryValue | InitialExtendObjectNumber
 ): string => {
 	if (typeof value === 'object' && 'type' in value)
 		return value.initial.toString();
-	if (isNaN(value as number)) return '0';
-	return value as string;
+	if (typeof value === 'string') return value;
+
+	if (typeof value === 'number') {
+		if (isNaN(value)) return '0';
+		return value.toString();
+	}
+
+	throw new Error('Unknown behavior error: Value is not an number');
 };
 
-const normalizeJson = (value: QueryValue | InitialExtendObjectJson): string => {
+const normalizeBoolean = (
+	value: string | QueryValue | InitialExtendObjectBoolean
+): string => {
+	if (typeof value === 'object' && 'type' in value)
+		return value.initial ? 'true' : 'false';
+
+	if (typeof value === 'string')
+		if (value === 'true' || value === 'false') return value;
+
+	if (typeof value === 'boolean') return value ? 'true' : 'false';
+
+	throw new Error('Unknown behavior error: Value is not an boolean');
+};
+
+const normalizeJson = (
+	value: string | QueryValue | InitialExtendObjectJson
+): string => {
+	if (typeof value !== 'object')
+		throw new Error('Unknown behavior error: Value is not an object');
+
 	if (typeof value === 'object' && 'type' in value)
 		return JSON.stringify(value.initial);
+
 	if (typeof value === 'object') return JSON.stringify(value);
-	return value as string;
+	return value;
 };
 
 export default normalizeForLocation;
