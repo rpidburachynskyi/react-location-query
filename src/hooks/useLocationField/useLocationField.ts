@@ -7,7 +7,21 @@ import { InitialExtendObjectBoolean } from '../../types/Initial/Boolean';
 import { InitialExtendObjectJson } from '../../types/Initial/Json';
 import { InitialExtendObjectNumber } from '../../types/Initial/Number';
 import { InitialExtendObjectString } from '../../types/Initial/String';
-import useLocationQueryExtend from '../useLocationQueryExtend';
+import useIndex from '../useIndex';
+import { setHistory } from '../../stores/store/store';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import {
+	calculateLocationPath,
+	setQueryField
+} from '../../utils/locationController/locationController';
+import {
+	addInitialValues,
+	removeInitialValues
+} from '../../utils/valuesController/valuesController';
+import { hashFromObject } from '../../utils/objects';
+import { extractQueryValueByName } from '../../utils/queryParser/queryParser';
+import { normalizeForUser } from '../../utils/normalizer/normalizer';
 
 function useLocationField(
 	name: string,
@@ -27,7 +41,7 @@ function useLocationField(
 function useLocationField(
 	name: string,
 	value: InitialExtendObjectJson
-): [object, (value: object) => void];
+): [any, (value: any) => void];
 
 function useLocationField(
 	name: string,
@@ -48,16 +62,35 @@ function useLocationField<T>(name: string): [any, (value: any) => void];
 function useLocationField(name: string): [any, (value: any) => void];
 
 function useLocationField(name: string, value?: any) {
-	const { fullQuery, setQueryField } = useLocationQueryExtend(
-		value !== undefined ? { [name]: value } : {}
-	);
+	const initialValues = value !== undefined ? { [name]: value } : {};
+
+	const index = useIndex(); // index for save order
+
+	setHistory(useHistory());
+	const location = useLocation(); // NO DELETE, using for rerender when change location
+	useEffect(() => {
+		calculateLocationPath();
+	}, [location.search]);
+
+	addInitialValues(initialValues, index);
+
+	useEffect(() => {
+		setTimeout(() => {
+			calculateLocationPath();
+		}, 0);
+		addInitialValues(initialValues, index);
+		return () => {
+			removeInitialValues(initialValues);
+			setTimeout(() => {
+				calculateLocationPath();
+			}, 0);
+		};
+	}, [hashFromObject(initialValues)]);
 
 	return [
-		fullQuery[name],
-		(value: any) => {
-			setQueryField(name, value);
-		}
-	] as any;
+		normalizeForUser(extractQueryValueByName(name))[name],
+		(a: any) => setQueryField(name, a)
+	];
 }
 
 export default useLocationField;

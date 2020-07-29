@@ -5,6 +5,7 @@ import {
 	InitialExtendValuesWrappers
 } from '../../types/Initial/Initial';
 import { getDefaultOptions } from '../../stores/options/options';
+import checkInitialValue from './checkInitialValue';
 
 let initialValuesWrappers: InitialExtendValuesWrappers[] = [];
 
@@ -17,9 +18,13 @@ export const addInitialValues = (
 
 	const wrapper: InitialExtendValuesWrappers = {};
 	Object.keys(initialValues).forEach((key) => {
+		const initialValue = mutateValueToObjectValues(initialValues[key]);
+
+		checkInitialValue(initialValue);
+
 		wrapper[key] = {
 			index,
-			initialValue: mutateValueToObjectValues(initialValues[key]),
+			initialValue,
 			name: key
 		};
 	});

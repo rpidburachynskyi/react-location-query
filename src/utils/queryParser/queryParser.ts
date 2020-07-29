@@ -7,6 +7,18 @@ import encryptQuery from '../crypto/encryptQuery';
 import decryptQuery from '../crypto/decryptQuery';
 import { getOptions } from '../../stores/options/options';
 import { compareObjects } from '../objects';
+import { getInitialValueByFieldName } from '../valuesController/valuesController';
+
+export const extractQueryValueByName = (name: string): QueryValues => {
+	const query = readQuery();
+	const initialValue = getInitialValueByFieldName(name);
+	const result: QueryValues = {};
+	result[name] =
+		query[name] !== undefined
+			? query[name]
+			: { [name]: initialValue }[name];
+	return result;
+};
 
 export const extractQueryByInitialValues = (
 	query: any,

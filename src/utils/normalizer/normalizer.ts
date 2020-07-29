@@ -1,7 +1,7 @@
 import {
 	normalizeForUser,
 	normalizeForUserByInitialValues
-} from './normalizeForUser';
+} from './normalizeForUser/normalizeForUser';
 import normalizeForLocation from './normalizeForLocation';
 
 export {
