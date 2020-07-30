@@ -27,6 +27,9 @@ const compareObjectRecursive = (obj1: object, obj2: object): boolean => {
 			}
 
 			flag = compareObjectRecursive(v1, v2);
+		} else if (typeof v1 === 'function') {
+			if (typeof v2 !== 'function') return false;
+			flag = v1.toString() === v2.toString();
 		} else {
 			flag = v1 === v2;
 		}
@@ -37,8 +40,10 @@ const compareObjectRecursive = (obj1: object, obj2: object): boolean => {
 	return true;
 };
 
-export const hashFromObject = (obj: object) => {
-	return JSON.stringify(hashFromObjectRecursive(obj));
+export const hashFromObject = (obj: object | undefined) => {
+	return JSON.stringify(
+		hashFromObjectRecursive(obj !== undefined ? obj : {})
+	);
 };
 
 const hashFromObjectRecursive = (obj: object) => {

@@ -1,6 +1,6 @@
 import { QueryValue } from '../../types/Query';
 import readQuery from './readQuery';
-import { getInitialValueByFieldName } from '../valuesController/valuesController';
+import { getInitialValueByFieldName } from '../valuesController/valuesController/valuesController';
 
 const extractQueryValueByName = (name: string): QueryValue => {
 	const queryField = readQuery()[name];

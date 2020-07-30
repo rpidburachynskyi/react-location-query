@@ -1,75 +1,23 @@
-import {
-	getInitialValues,
-	getInitialValuesWrappers
-} from '../valuesController/valuesController';
 import { QueryValue, QueryValues } from '../../types/Query';
-import { getSortingOptions } from '../../stores/options/options';
 import { normalizeForLocation } from '../normalizer/normalizer';
-import { InitialExtendValuesWrappers } from '../../types/Initial/Wrapper';
 import readQuery from '../queryParser/readQuery';
-import writeQuery from '../queryParser/writeQuery';
-import debounce from '../debounce';
+import writeQuery from './writeQuery';
 
-const pushQuery = (queryValues: QueryValues) => {
-	const normalizedQuery: QueryValues = normalizeForLocation({
-		...getInitialValues(),
-		...queryValues
-	}); 
-	writeQuery(sortFieldsInQuery(normalizedQuery));
-};
-
-export const calculateLocationPath = debounce(() => {
+export const calculateLocationPath = (context: object) => {
 	const queryValues = readQuery();
-	pushQuery(queryValues);
-});
-
-export const setQueryField = (field: string, value: QueryValue) => {
-	const queryValues = { ...readQuery() };
-	queryValues[field] = value;
-	pushQuery(queryValues);
-};
-
-const sortFieldsInQuery = (query: object) => {
-	const result = {};
-
-	const sortedKeys = sortBy(Object.keys(query));
-	(getSortingOptions().sortOrder === 'asc'
-		? sortedKeys
-		: sortedKeys.reverse()
-	).forEach((key) => {
-		result[key] = query[key];
+	const normalizedQuery: QueryValues = normalizeForLocation({
+		...queryValues,
+		...context
 	});
 
-	return result;
+	writeQuery(normalizedQuery);
 };
 
-const sortBy = (queryKeys: string[]): string[] => {
-	switch (getSortingOptions().sortBy) {
-		case 'index':
-			return queryKeys.sort(sortByIndex(getInitialValuesWrappers()));
-		case 'alphabet':
-			return queryKeys.sort(sortByAlphabet);
-		case 'fieldLength':
-			return queryKeys.sort(sortByFieldLength);
-	}
-};
-
-const sortByIndex = (defaultValuesWrappers: InitialExtendValuesWrappers) => (
-	a: string,
-	b: string
+export const setQueryField = (
+	field: string,
+	value: QueryValue,
+	context: object
 ) => {
-	const indexA = defaultValuesWrappers[a];
-	const indexB = defaultValuesWrappers[b];
-	if (!indexA || !indexB) return 0;
-
-	return indexA.index - indexB.index;
-};
-
-const sortByAlphabet = (a: string, b: string) => {
-	if (a === b) return 0;
-	return a > b ? 1 : -1;
-};
-
-const sortByFieldLength = (a: string, b: string) => {
-	return a.length - b.length;
+	context[field] = value;
+	calculateLocationPath(context);
 };

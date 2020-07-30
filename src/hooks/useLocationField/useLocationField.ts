@@ -9,18 +9,13 @@ import { ObjectNumber } from '../../types/Initial/Number';
 import { ObjectString } from '../../types/Initial/String';
 import useIndex from '../useIndex';
 import { useEffect, useContext } from 'react';
-import {
-	calculateLocationPath,
-	setQueryField
-} from '../../utils/locationController/locationController';
-import {
-	addInitialValues,
-	removeInitialValues
-} from '../../utils/valuesController/valuesController';
+import { setQueryField } from '../../utils/locationController/locationController';
+import {} from '../../utils/valuesController/valuesController/valuesController';
 import { hashFromObject } from '../../utils/objects';
-import { normalizeForUser } from '../../utils/normalizer/normalizer';
-import extractQueryValueByName from '../../utils/queryParser/extractQueryValueByName';
 import Context from '../../context/context';
+import { normalizeValueForUser } from '../../utils/normalizer/normalizeForUser/normalizeForUser';
+import { addInitialValue } from '../../utils/valuesController/valuesController/addInitialValues';
+import { removeInitialValue } from '../../utils/valuesController/valuesController/removeInitialValues';
 
 function useLocationField(
 	name: string,
@@ -61,25 +56,22 @@ function useLocationField<T>(name: string): [any, (value: any) => void];
 function useLocationField(name: string): [any, (value: any) => void];
 
 function useLocationField(name: string, value?: any) {
-	const initialValues = value !== undefined ? { [name]: value } : {};
-
 	const index = useIndex();
 	const contect = useContext(Context);
-	console.log(contect);
-	addInitialValues(initialValues, index);
-
+	const initialValue = addInitialValue(name, value, index);
 	useEffect(() => {
-		calculateLocationPath();
+		if (!initialValue) return;
 		return () => {
-			removeInitialValues(initialValues);
-			calculateLocationPath();
+			console.log(initialValue);
+			removeInitialValue(name, initialValue);
 		};
-	}, [hashFromObject(initialValues)]);
+	}, [hashFromObject(initialValue)]);
 
-	return [
-		normalizeForUser({ [name]: extractQueryValueByName(name) })[name],
-		(a: any) => setQueryField(name, a)
-	];
+	if (initialValue !== undefined) {
+		contect[name] = normalizeValueForUser(contect[name], initialValue);
+	}
+
+	return [contect[name], (a: any) => setQueryField(name, a, contect)];
 }
 
 export default useLocationField;

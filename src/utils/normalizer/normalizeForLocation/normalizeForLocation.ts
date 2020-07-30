@@ -1,4 +1,4 @@
-import { getInitialValues } from '../../valuesController/valuesController';
+import { getInitialValues } from '../../valuesController/valuesController/valuesController';
 import {
 	InitialExtendValue,
 	InitialExtendValues
@@ -17,7 +17,6 @@ const normalizeForLocation = (
 ) => {
 	const initialValues = getInitialValues();
 	let locationValues: QueryValues = {};
-
 	Object.keys(initialValues).forEach((key) => {
 		const value = queryValues[key];
 		const initialValue = initialValues[key];
@@ -55,7 +54,6 @@ const normalizeForLocation = (
 				throw new Error('Unknown behavior error: unknown value');
 		}
 	});
-
 	removeUnusedQueryFields(queryValues, locationValues);
 	locationValues = removeInitialValues(locationValues);
 	return locationValues;

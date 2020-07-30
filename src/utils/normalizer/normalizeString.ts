@@ -8,7 +8,6 @@ const normalizeString = (
 		return value.initial as string;
 
 	if (Array.isArray(value)) return normalizeString(value[0], initialValue);
-
 	if (initialValue.enum) {
 		if (!initialValue.enum.includes(value)) {
 			if (initialValue.onParsedEnumError) {

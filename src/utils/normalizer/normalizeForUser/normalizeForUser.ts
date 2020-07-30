@@ -1,14 +1,40 @@
-import { InitialExtendValues } from '../../../types/Initial/Initial';
+import {
+	InitialExtendValues,
+	InitialExtendValue
+} from '../../../types/Initial/Initial';
 import { UserValues } from '../../../types/User';
-import { getInitialValuesWrappers } from '../../valuesController/valuesController';
+import { getInitialValuesWrappers } from '../../valuesController/valuesController/valuesController';
 import normalizeBoolean from '../normalizeBoolean';
 import normalizeJson from './normalizeJson';
 import normalizeArray from './normalizeArray';
-import { QueryValues } from '../../../types/Query';
+import { QueryValues, QueryValue } from '../../../types/Query';
 import { InitialExtendValuesWrappers } from '../../../types/Initial/Wrapper';
 import normalizeCustom from './normalizeCustom';
 import normalizeNumber from '../normalizeNumber';
 import normalizeString from '../normalizeString';
+
+export const normalizeValueForUser = (
+	value: InitialExtendValue | QueryValue | undefined,
+	initialValue: InitialExtendValue
+) => {
+	if (value === undefined) return initialValue.initial;
+	switch (initialValue.type) {
+		case 'boolean':
+			return normalizeBoolean(value as string, initialValue);
+		case 'number':
+			return normalizeNumber(value as string, initialValue);
+		case 'array':
+			return normalizeArray(value as string[] | string, initialValue);
+		case 'json':
+			return normalizeJson(value as string, initialValue);
+		case 'custom':
+			return normalizeCustom(value, initialValue);
+		case 'string':
+			return normalizeString(value as string, initialValue);
+		default:
+			return value;
+	}
+};
 
 export const normalizeForUser = (
 	values: InitialExtendValues | QueryValues,

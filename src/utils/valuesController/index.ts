@@ -1,3 +1,3 @@
-import * as valuesController from './valuesController';
+import * as valuesController from './valuesController/valuesController';
 
 export default valuesController;
