@@ -2,13 +2,15 @@ import {
 	getInitialValues,
 	getInitialValuesWrappers
 } from '../valuesController/valuesController';
-import { writeQuery, readQuery } from '../queryParser/queryParser';
 import { QueryValue, QueryValues } from '../../types/Query';
 import { getSortingOptions } from '../../stores/options/options';
 import { normalizeForLocation } from '../normalizer/normalizer';
 import { InitialExtendValuesWrappers } from '../../types/Initial/Wrapper';
+import readQuery from '../queryParser/readQuery';
+import writeQuery from '../queryParser/writeQuery';
+import debounce from '../debounce';
 
-export const pushQuery = (queryValues: QueryValues) => {
+const pushQuery = (queryValues: QueryValues) => {
 	const normalizedQuery: QueryValues = normalizeForLocation({
 		...getInitialValues(),
 		...queryValues
@@ -16,18 +18,12 @@ export const pushQuery = (queryValues: QueryValues) => {
 	writeQuery(sortFieldsInQuery(normalizedQuery));
 };
 
-export const calculateLocationPath = () => {
+export const calculateLocationPath = debounce(() => {
 	const queryValues = readQuery();
 	pushQuery(queryValues);
-};
+}, 0);
 
 export const setQueryField = (field: string, value: QueryValue) => {
-	const queryValues = { ...readQuery() };
-	queryValues[field] = value;
-	pushQuery(queryValues);
-};
-
-export const setQueryFieldImmidiatly = (field: string, value: QueryValue) => {
 	const queryValues = { ...readQuery() };
 	queryValues[field] = value;
 	pushQuery(queryValues);

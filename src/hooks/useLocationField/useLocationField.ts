@@ -20,8 +20,8 @@ import {
 	removeInitialValues
 } from '../../utils/valuesController/valuesController';
 import { hashFromObject } from '../../utils/objects';
-import { extractQueryValueByName } from '../../utils/queryParser/queryParser';
 import { normalizeForUser } from '../../utils/normalizer/normalizer';
+import extractQueryValueByName from '../../utils/queryParser/extractQueryValueByName';
 
 function useLocationField(
 	name: string,
@@ -30,7 +30,7 @@ function useLocationField(
 
 function useLocationField(
 	name: string,
-	value: ObjectNumber
+	value: ObjectNumber | number
 ): [number, (value: number) => void];
 
 function useLocationField(
@@ -88,7 +88,7 @@ function useLocationField(name: string, value?: any) {
 	}, [hashFromObject(initialValues)]);
 
 	return [
-		normalizeForUser(extractQueryValueByName(name))[name],
+		normalizeForUser({ [name]: extractQueryValueByName(name) })[name],
 		(a: any) => setQueryField(name, a)
 	];
 }

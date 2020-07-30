@@ -11,7 +11,6 @@ import {
 } from '../../utils/locationController/locationController';
 import {
 	extractQueryByInitialValues,
-	readQuery
 } from '../../utils/queryParser/queryParser';
 import { InitialExtendValues } from '../../types/Initial/Initial';
 import useIndex from '../useIndex';
@@ -21,6 +20,7 @@ import {
 	normalizeForUserByInitialValues
 } from '../../utils/normalizer/normalizer';
 import { hashFromObject } from '../../utils/objects';
+import readQuery from '../../utils/queryParser/readQuery';
 
 const useLocationQueryExtend = (initialValues: InitialExtendValues = {}) => {
 	const index = useIndex(); // index for save order
