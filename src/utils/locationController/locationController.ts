@@ -20,8 +20,9 @@ const pushQuery = (queryValues: QueryValues) => {
 
 export const calculateLocationPath = debounce(() => {
 	const queryValues = readQuery();
+	console.log('A');
 	pushQuery(queryValues);
-}, 0);
+});
 
 export const setQueryField = (field: string, value: QueryValue) => {
 	const queryValues = { ...readQuery() };
