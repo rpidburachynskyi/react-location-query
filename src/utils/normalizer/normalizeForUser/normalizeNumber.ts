@@ -1,13 +1,15 @@
-import { QueryValue } from '../../../types/Query';
 import { ObjectNumber } from '../../../types/Initial/Number';
 
 const normalizeNumber = (
-	value: QueryValue | ObjectNumber,
+	value: number | string | string[] | ObjectNumber,
 	initialValue: ObjectNumber
 ): number => {
 	if (value !== null && typeof value === 'object' && 'type' in value) {
 		return value.initial as number;
 	}
+
+	if (Array.isArray(value)) return normalizeNumber(value[0], initialValue);
+
 	if (isNaN(+value)) {
 		if (initialValue.onParsedError) {
 			const newValue = initialValue.onParsedError(value as string);

@@ -27,12 +27,15 @@ const normalizeForLocation = (
 				break;
 			case 'number':
 				locationValues[key] = normalizeNumber(
-					value as string | number,
+					value as number | string,
 					initialValue
 				);
 				break;
 			case 'boolean':
-				locationValues[key] = normalizeBoolean(value, initialValue);
+				locationValues[key] = normalizeBoolean(
+					value as boolean | string,
+					initialValue
+				);
 				break;
 			case 'string':
 				locationValues[key] = normalizeString(value, initialValue);

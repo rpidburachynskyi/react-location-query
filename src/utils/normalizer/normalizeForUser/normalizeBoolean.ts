@@ -1,10 +1,8 @@
-import { QueryValue } from '../../../types/Query';
 import { ObjectBoolean } from '../../../types/Initial/Boolean';
-import { InitialObjectType } from '../../../types/Initial/Initial';
 // import { defaultValueByInitialValue } from '../../../stores/options/defaultValues';
 
 const normalizeBoolean = (
-	value: QueryValue | InitialObjectType,
+	value: boolean | string | string[] | ObjectBoolean,
 	initialValue: ObjectBoolean
 ): boolean => {
 	if (typeof value === 'object' && 'type' in value)

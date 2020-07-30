@@ -2,11 +2,13 @@ import { ObjectString } from '../../../types/Initial/String';
 import { InitialExtendValueWrapper } from '../../../types/Initial/Wrapper';
 
 const normalizeString = (
-	value: string | ObjectString,
+	value: string | string[] | ObjectString,
 	wrapper: InitialExtendValueWrapper<ObjectString>
-) => {
+): string => {
 	if (typeof value === 'object' && 'type' in value)
 		return value.initial as string;
+
+	if (Array.isArray(value)) return normalizeString(value[0], wrapper);
 
 	if (wrapper.initialValue.enum) {
 		if (!wrapper.initialValue.enum.includes(value)) {

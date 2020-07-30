@@ -1,11 +1,12 @@
-import { QueryValue } from '../../../types/Query';
 import { ObjectJson } from '../../../types/Initial/Json';
 import { InitialExtendValueWrapper } from '../../../types/Initial/Wrapper';
 
 const normalizeJson = (
-	value: QueryValue | ObjectJson,
+	value: string | string[] | ObjectJson,
 	wrapper: InitialExtendValueWrapper<ObjectJson>
 ): object | string | number | boolean => {
+	if (Array.isArray(value)) return normalizeJson(value[0], wrapper);
+
 	try {
 		return JSON.parse(value as string);
 	} catch (e) {
