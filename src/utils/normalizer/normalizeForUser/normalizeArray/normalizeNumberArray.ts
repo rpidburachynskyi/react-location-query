@@ -1,8 +1,8 @@
-import { InitialExtendObjectArrayNumber } from '../../../../types/Initial/Array';
+import { ObjectArrayNumber } from '../../../../types/Initial/Array';
 
 const normalizeNumberArray = (
 	array: string[],
-	initialValue: InitialExtendObjectArrayNumber
+	initialValue: ObjectArrayNumber
 ) => {
 	let flag: 'parseAll' | 'setInitial' | null = null;
 

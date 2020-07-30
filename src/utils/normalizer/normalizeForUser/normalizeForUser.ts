@@ -1,18 +1,19 @@
-import {
-	InitialExtendValues,
-	InitialExtendValueWrapper,
-	InitialExtendValuesWrappers
-} from '../../../types/Initial/Initial';
+import { InitialExtendValues } from '../../../types/Initial/Initial';
 import { UserValues } from '../../../types/User';
 import { getInitialValuesWrappers } from '../../valuesController/valuesController';
-import { InitialExtendObjectJson } from '../../../types/Initial/Json';
-import { InitialExtendObjectString } from '../../../types/Initial/String';
+import { ObjectJson } from '../../../types/Initial/Json';
+import { ObjectString } from '../../../types/Initial/String';
 import normalizeBoolean from './normalizeBoolean';
 import normalizeNumber from './normalizeNumber';
 import normalizeJson from './normalizeJson';
 import normalizeString from './normalizeString';
 import normalizeArray from './normalizeArray';
 import { QueryValues } from '../../../types/Query';
+import {
+	InitialExtendValuesWrappers,
+	InitialExtendValueWrapper
+} from '../../../types/Initial/Wrapper';
+import normalizeCustom from './normalizeCustom';
 
 export const normalizeForUser = (
 	values: InitialExtendValues | QueryValues,
@@ -45,16 +46,17 @@ export const normalizeForUser = (
 			case 'json':
 				normalized[key] = normalizeJson(
 					value as string,
-					initialValueWrapper as InitialExtendValueWrapper<
-						InitialExtendObjectJson
-					>
+					initialValueWrapper as InitialExtendValueWrapper<ObjectJson>
 				);
+				break;
+			case 'custom':
+				normalized[key] = normalizeCustom(value, initialValue);
 				break;
 			case 'string':
 				normalized[key] = normalizeString(
 					value as string,
 					initialValueWrapper as InitialExtendValueWrapper<
-						InitialExtendObjectString
+						ObjectString
 					>
 				);
 				break;

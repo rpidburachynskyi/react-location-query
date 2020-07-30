@@ -1,13 +1,13 @@
-import { InitialExtendObjectArray } from '../../../../types/Initial/Array';
+import { ObjectArray } from '../../../../types/Initial/Array';
 import normalizeNumberArray from './normalizeNumberArray';
 import normalizeBooleanArray from './normalizeBooleanArray';
 
 const normalizeArray = (
-	value: string | string[] | InitialExtendObjectArray,
-	initialValue: InitialExtendObjectArray
+	value: string | string[] | ObjectArray,
+	initialValue: ObjectArray
 ) => {
 	if (typeof value === 'object' && 'type' in value)
-		return (value as InitialExtendObjectArray).initial;
+		return (value as ObjectArray).initial;
 	const arrayValue = Array.isArray(value) ? value : [value];
 	switch (initialValue.arrayType) {
 		case 'number':

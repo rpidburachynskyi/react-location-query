@@ -1,12 +1,12 @@
 import {
-	InitialExtendObjectArrayBoolean,
-	InitialExtendObjectArrayNumber,
-	InitialExtendObjectArrayString
+	ObjectArrayBoolean,
+	ObjectArrayNumber,
+	ObjectArrayString
 } from '../../types/Initial/Array';
-import { InitialExtendObjectBoolean } from '../../types/Initial/Boolean';
-import { InitialExtendObjectJson } from '../../types/Initial/Json';
-import { InitialExtendObjectNumber } from '../../types/Initial/Number';
-import { InitialExtendObjectString } from '../../types/Initial/String';
+import { ObjectBoolean } from '../../types/Initial/Boolean';
+import { ObjectJson } from '../../types/Initial/Json';
+import { ObjectNumber } from '../../types/Initial/Number';
+import { ObjectString } from '../../types/Initial/String';
 import useIndex from '../useIndex';
 import { setHistory } from '../../stores/store/store';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -25,37 +25,37 @@ import { normalizeForUser } from '../../utils/normalizer/normalizer';
 
 function useLocationField(
 	name: string,
-	value?: InitialExtendObjectString | string
+	value?: ObjectString | string
 ): [string, (value: string) => void];
 
 function useLocationField(
 	name: string,
-	value: InitialExtendObjectNumber
+	value: ObjectNumber
 ): [number, (value: number) => void];
 
 function useLocationField(
 	name: string,
-	value: InitialExtendObjectBoolean | boolean
+	value: ObjectBoolean | boolean
 ): [boolean, (value: boolean) => void];
 
 function useLocationField(
 	name: string,
-	value: InitialExtendObjectJson
+	value: ObjectJson
 ): [any, (value: any) => void];
 
 function useLocationField(
 	name: string,
-	value: InitialExtendObjectArrayBoolean
+	value: ObjectArrayBoolean
 ): [boolean[], (value: boolean[]) => void];
 
 function useLocationField(
 	name: string,
-	value: InitialExtendObjectArrayNumber
+	value: ObjectArrayNumber
 ): [number[], (value: number[]) => void];
 
 function useLocationField(
 	name: string,
-	value: InitialExtendObjectArrayString
+	value: ObjectArrayString
 ): [string[], (value: string[]) => void];
 
 function useLocationField<T>(name: string): [any, (value: any) => void];

@@ -39,6 +39,7 @@ export const readQuery = (): QueryValues => {
 
 export const writeQuery = (query: QueryValues) => {
 	if (compareObjects(query, readQuery())) return;
+	console.log(query, readQuery());
 	const preparedQuery = stringifyQuery(query);
 	const history = getHistory();
 	const location = getLocation();

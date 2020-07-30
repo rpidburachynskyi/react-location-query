@@ -1,9 +1,9 @@
 import { QueryValue } from '../../../types/Query';
-import { InitialExtendObjectString } from '../../../types/Initial/String';
+import { ObjectString } from '../../../types/Initial/String';
 
 const normalizeString = (
-	value: string | QueryValue | InitialExtendObjectString,
-	initialValue: InitialExtendObjectString
+	value: string | QueryValue | ObjectString,
+	initialValue: ObjectString
 ): string => {
 	if (typeof value === 'object' && 'type' in value) {
 		return initialValue.initial;
@@ -15,7 +15,7 @@ const normalizeString = (
 			throw new Error('Unknown behavior error: Value is not an string');
 		}
 	}
-	
+
 	if (initialValue.enum !== undefined) {
 		if (!initialValue.enum.includes(value)) {
 			if (initialValue.onParsedEnumError) {

@@ -1,9 +1,9 @@
-import { InitialExtendValueWrapper } from '../../../types/Initial/Initial';
-import { InitialExtendObjectString } from '../../../types/Initial/String';
+import { ObjectString } from '../../../types/Initial/String';
+import { InitialExtendValueWrapper } from '../../../types/Initial/Wrapper';
 
 const normalizeString = (
-	value: string | InitialExtendObjectString,
-	wrapper: InitialExtendValueWrapper<InitialExtendObjectString>
+	value: string | ObjectString,
+	wrapper: InitialExtendValueWrapper<ObjectString>
 ) => {
 	if (typeof value === 'object' && 'type' in value)
 		return value.initial as string;

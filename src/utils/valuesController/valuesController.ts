@@ -1,11 +1,11 @@
 import {
-	InitialExtendObject,
 	InitialExtendValue,
 	InitialExtendValues,
-	InitialExtendValuesWrappers
+	InitialObjectType
 } from '../../types/Initial/Initial';
 import { getDefaultOptions } from '../../stores/options/options';
 import checkInitialValue from './checkInitialValue';
+import { InitialExtendValuesWrappers } from '../../types/Initial/Wrapper';
 
 let initialValuesWrappers: InitialExtendValuesWrappers[] = [];
 
@@ -69,7 +69,7 @@ export const getInitialValueByFieldName = (fieldName: string) =>
 
 const mutateValueToObjectValues = (
 	value: InitialExtendValue
-): InitialExtendObject => {
+): InitialObjectType => {
 	if (typeof value === 'object') {
 		return value;
 	} else {

@@ -1,8 +1,8 @@
-import { InitialExtendObjectArrayBoolean } from '../../../../types/Initial/Array';
+import { ObjectArrayBoolean } from '../../../../types/Initial/Array';
 
 const normalizeBooleanArray = (
 	array: string[],
-	initialValue: InitialExtendObjectArrayBoolean
+	initialValue: ObjectArrayBoolean
 ) => {
 	let flag: 'parseAll' | 'setInitial' | null = null;
 

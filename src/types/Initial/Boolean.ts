@@ -1,6 +1,6 @@
-import { _InitialExtendObject } from './Initial';
+import { InitialObject } from './Initial';
 
-export interface InitialExtendObjectBoolean extends _InitialExtendObject {
+export interface ObjectBoolean extends InitialObject {
 	type: 'boolean';
 	initial: boolean;
 	onParsedError?: (errorValue: string) => boolean;

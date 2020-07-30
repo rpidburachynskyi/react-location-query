@@ -1,9 +1,9 @@
-import { InitialExtendObjectNumber } from '../../../types/Initial/Number';
+import { ObjectNumber } from '../../../types/Initial/Number';
 import normalizeNumber from '../normalizeForUser/normalizeNumber';
 
 const normalizeNumber1 = (
-	value: string | number | InitialExtendObjectNumber,
-	initialValue: InitialExtendObjectNumber
+	value: string | number | ObjectNumber,
+	initialValue: ObjectNumber
 ): string => {
 	return normalizeNumber(value, initialValue).toString();
 };

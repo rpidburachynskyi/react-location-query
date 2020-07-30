@@ -1,6 +1,6 @@
-import { InitialExtendObjectString } from '../../../types/Initial/String';
+import { ObjectString } from '../../../types/Initial/String';
 
-const checkInitialValueString = (initialValue: InitialExtendObjectString) => {
+const checkInitialValueString = (initialValue: ObjectString) => {
 	if (typeof initialValue.initial !== 'string')
 		throw new Error('Initial value must be a string');
 

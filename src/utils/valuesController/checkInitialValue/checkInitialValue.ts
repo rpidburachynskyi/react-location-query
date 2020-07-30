@@ -1,9 +1,9 @@
-import { InitialExtendObject } from '../../../types/Initial/Initial';
 import checkInitialValueString from './checkInitialValueString';
 import checkInitialValueBoolean from './checkInitialValueBoolean';
 import checkInitialValueNumber from './checkInitialValueNumber';
+import { InitialObjectType } from '../../../types/Initial/Initial';
 
-const checkInitialValue = (initialValue: InitialExtendObject) => {
+const checkInitialValue = (initialValue: InitialObjectType) => {
 	switch (initialValue.type) {
 		case 'string':
 			return checkInitialValueString(initialValue);

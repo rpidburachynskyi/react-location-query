@@ -1,6 +1,6 @@
-import { InitialExtendObject } from '../../types/Initial/Initial';
+import { Object } from '../../types/Initial/Initial';
 
-export const defaultValueByInitialValue = (value: InitialExtendObject) => {
+export const defaultValueByInitialValue = (value: Object) => {
 	switch (value.type) {
 		case 'string':
 			return '';

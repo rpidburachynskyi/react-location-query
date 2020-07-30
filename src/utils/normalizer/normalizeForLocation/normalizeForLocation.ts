@@ -10,6 +10,7 @@ import normalizeBoolean from './normalizeBoolean';
 import normalizeNumber from './normalizeNumber';
 import normalizeJson from './normalizeJson';
 import normalizeArray from './normalizeArray';
+import normalizeCustom from './normalizeCustom';
 
 const normalizeForLocation = (
 	queryValues: QueryValues | InitialExtendValues
@@ -38,6 +39,9 @@ const normalizeForLocation = (
 				break;
 			case 'array':
 				locationValues[key] = normalizeArray(value, initialValue);
+				break;
+			case 'custom':
+				locationValues[key] = normalizeCustom(value, initialValue);
 				break;
 			default:
 				throw new Error('Unknown behavior error: unknown value');

@@ -1,9 +1,9 @@
 import { QueryValue } from '../../../types/Query';
-import { InitialExtendObjectNumber } from '../../../types/Initial/Number';
+import { ObjectNumber } from '../../../types/Initial/Number';
 
 const normalizeNumber = (
-	value: QueryValue | InitialExtendObjectNumber,
-	initialValue: InitialExtendObjectNumber
+	value: QueryValue | ObjectNumber,
+	initialValue: ObjectNumber
 ): number => {
 	if (value !== null && typeof value === 'object' && 'type' in value) {
 		return value.initial as number;

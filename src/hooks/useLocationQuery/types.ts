@@ -1,13 +1,13 @@
-import { InitialExtendObjectBoolean } from '../../types/Initial/Boolean';
-import { InitialExtendObjectString } from '../../types/Initial/String';
-import { InitialExtendObjectNumber } from '../../types/Initial/Number';
-import { InitialExtendObjectArray } from '../../types/Initial/Array';
+import { ObjectBoolean } from '../../types/Initial/Boolean';
+import { ObjectString } from '../../types/Initial/String';
+import { ObjectNumber } from '../../types/Initial/Number';
+import { ObjectArray } from '../../types/Initial/Array';
 
 export type InitialValue =
-	| InitialExtendObjectBoolean
-	| InitialExtendObjectString
-	| InitialExtendObjectNumber
-	| InitialExtendObjectArray;
+	| ObjectBoolean
+	| ObjectString
+	| ObjectNumber
+	| ObjectArray;
 
 export interface InitialValues {
 	[path: string]: InitialValue;

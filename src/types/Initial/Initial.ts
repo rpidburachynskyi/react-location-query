@@ -1,33 +1,25 @@
-import { InitialExtendObjectArray } from './Array';
-import { InitialExtendObjectBoolean } from './Boolean';
-import { InitialExtendObjectJson } from './Json';
-import { InitialExtendObjectNumber } from './Number';
-import { InitialExtendObjectString } from './String';
+import { ObjectArray } from './Array';
+import { ObjectBoolean } from './Boolean';
+import { ObjectJson } from './Json';
+import { ObjectNumber } from './Number';
+import { ObjectString } from './String';
+import { ObjectCustom } from './Custom';
 
-export type _InitialExtendObject = {
+export type InitialObject = {
 	hideIfInitial?: boolean;
 	replaceValueWhenParsedError?: boolean;
 };
 
-export type InitialExtendObject =
-	| InitialExtendObjectString
-	| InitialExtendObjectBoolean
-	| InitialExtendObjectNumber
-	| InitialExtendObjectArray
-	| InitialExtendObjectJson;
+export type InitialObjectType =
+	| ObjectString
+	| ObjectBoolean
+	| ObjectNumber
+	| ObjectArray
+	| ObjectJson
+	| ObjectCustom;
 
-export type InitialExtendValue = InitialExtendObject;
+export type InitialExtendValue = InitialObjectType;
 
 export interface InitialExtendValues {
 	[path: string]: InitialExtendValue;
-}
-
-export interface InitialExtendValueWrapper<T> {
-	index: number;
-	name: string;
-	initialValue: T;
-}
-
-export interface InitialExtendValuesWrappers {
-	[name: string]: InitialExtendValueWrapper<InitialExtendValue>;
 }

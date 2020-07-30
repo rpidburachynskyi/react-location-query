@@ -1,60 +1,60 @@
 import React, { useState } from 'react';
 import { useLocationField } from '../..';
 import {
-	InitialExtendObjectArrayBoolean,
-	InitialExtendObjectArrayNumber,
-	InitialExtendObjectArrayString
+	ObjectArrayBoolean,
+	ObjectArrayNumber,
+	ObjectArrayString
 } from '../../types/Initial/Array';
-import { InitialExtendObjectBoolean } from '../../types/Initial/Boolean';
-import { InitialExtendObjectJson } from '../../types/Initial/Json';
-import { InitialExtendObjectNumber } from '../../types/Initial/Number';
-import { InitialExtendObjectString } from '../../types/Initial/String';
+import { ObjectBoolean } from '../../types/Initial/Boolean';
+import { ObjectJson } from '../../types/Initial/Json';
+import { ObjectNumber } from '../../types/Initial/Number';
+import { ObjectString } from '../../types/Initial/String';
 
 function withLocationField(
 	name: string,
-	value?: InitialExtendObjectString | string,
+	value?: ObjectString | string,
 	fieldName?: string,
 	setFieldName?: string
 ): any;
 
 function withLocationField(
 	name: string,
-	value?: InitialExtendObjectNumber | number,
+	value?: ObjectNumber | number,
 	fieldName?: string,
 	setFieldName?: string
 ): any;
 
 function withLocationField(
 	name: string,
-	value?: InitialExtendObjectBoolean | boolean,
+	value?: ObjectBoolean | boolean,
 	fieldName?: string,
 	setFieldName?: string
 ): any;
 
 function withLocationField(
 	name: string,
-	value?: InitialExtendObjectJson | object,
+	value?: ObjectJson | object,
 	fieldName?: string,
 	setFieldName?: string
 ): any;
 
 function withLocationField(
 	name: string,
-	value?: InitialExtendObjectArrayBoolean,
+	value?: ObjectArrayBoolean,
 	fieldName?: string,
 	setFieldName?: string
 ): any;
 
 function withLocationField(
 	name: string,
-	value?: InitialExtendObjectArrayNumber,
+	value?: ObjectArrayNumber,
 	fieldName?: string,
 	setFieldName?: string
 ): any;
 
 function withLocationField(
 	name: string,
-	value?: InitialExtendObjectArrayString,
+	value?: ObjectArrayString,
 	fieldName?: string,
 	setFieldName?: string
 ): any;

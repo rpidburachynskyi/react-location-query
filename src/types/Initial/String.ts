@@ -1,6 +1,6 @@
-import { _InitialExtendObject } from './Initial';
+import { InitialObject } from './Initial';
 
-export interface InitialExtendObjectString extends _InitialExtendObject {
+export interface ObjectString extends InitialObject {
 	type: 'string';
 	initial: string;
 	enum?: string[];

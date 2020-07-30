@@ -1,11 +1,11 @@
-import { InitialExtendObjectArray } from '../../../types/Initial/Array';
+import { ObjectArray } from '../../../types/Initial/Array';
 import { QueryValue } from '../../../types/Query';
 import normalizeBooleanArray from '../normalizeForUser/normalizeArray/normalizeBooleanArray';
 import normalizeNumberArray from '../normalizeForUser/normalizeArray/normalizeNumberArray';
 
 const normalizeArray1 = (
-	value: QueryValue | InitialExtendObjectArray,
-	initialValue: InitialExtendObjectArray
+	value: QueryValue | ObjectArray,
+	initialValue: ObjectArray
 ) => {
 	if (typeof value === 'object' && 'type' in value) return value.initial;
 	switch (initialValue.arrayType) {

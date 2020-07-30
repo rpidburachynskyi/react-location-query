@@ -5,8 +5,8 @@ import {
 import { writeQuery, readQuery } from '../queryParser/queryParser';
 import { QueryValue, QueryValues } from '../../types/Query';
 import { getSortingOptions } from '../../stores/options/options';
-import { InitialExtendValuesWrappers } from '../../types/Initial/Initial';
 import { normalizeForLocation } from '../normalizer/normalizer';
+import { InitialExtendValuesWrappers } from '../../types/Initial/Wrapper';
 
 export const pushQuery = (queryValues: QueryValues) => {
 	const normalizedQuery: QueryValues = normalizeForLocation({

@@ -1,6 +1,6 @@
-import { _InitialExtendObject } from './Initial';
+import { InitialObject } from './Initial';
 
-export interface InitialExtendObjectJson extends _InitialExtendObject {
+export interface ObjectJson extends InitialObject {
 	type: 'json';
 	initial: NonNullable<string | number | boolean | object>;
 	onParsedError?: (

@@ -1,6 +1,6 @@
-import { _InitialExtendObject } from './Initial';
+import { InitialObject } from './Initial';
 
-export interface InitialExtendObjectNumber extends _InitialExtendObject {
+export interface ObjectNumber extends InitialObject {
 	type: 'number';
 	initial: number;
 	onParsedError?: (errorValue: string) => number;
