@@ -1,17 +1,24 @@
 import { ObjectJson } from '../../../types/Initial/Json';
-import { InitialExtendValueWrapper } from '../../../types/Initial/Wrapper';
 
 const normalizeJson = (
-	value: string | string[] | ObjectJson,
-	wrapper: InitialExtendValueWrapper<ObjectJson>
+	value: string | string[] | object | number | boolean | ObjectJson,
+	initialValue: ObjectJson
 ): object | string | number | boolean => {
-	if (Array.isArray(value)) return normalizeJson(value[0], wrapper);
+	if (Array.isArray(value)) return normalizeJson(value[0], initialValue);
+
+	if (typeof value === 'object') {
+		if ('type' in value) return initialValue.initial;
+		return value;
+	}
 
 	try {
-		return JSON.parse(value as string);
+		if (!isNaN(+value) || value === 'true' || value === 'false')
+			return JSON.parse(`${value}`);
+
+		return JSON.parse(value as any);
 	} catch (e) {
-		if (wrapper.initialValue.onParsedError) {
-			const obj = wrapper.initialValue.onParsedError(value as any);
+		if (initialValue.onParsedError) {
+			const obj = initialValue.onParsedError(value as any);
 			try {
 				const newValue = obj;
 
@@ -22,7 +29,7 @@ const normalizeJson = (
 				);
 			}
 		} else {
-			return wrapper.initialValue.initial;
+			return initialValue.initial;
 		}
 	}
 };

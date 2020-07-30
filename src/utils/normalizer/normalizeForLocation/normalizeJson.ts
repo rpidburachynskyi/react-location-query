@@ -7,7 +7,7 @@ const normalizeJson = (value: string | QueryValue | ObjectJson): string => {
 
 	if (typeof value === 'object') return JSON.stringify(value);
 
-	return value.toString();
+	return JSON.stringify(value);
 };
 
 export default normalizeJson;

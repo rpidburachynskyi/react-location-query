@@ -1,5 +1,3 @@
-import { ObjectNumber } from '../../../types/Initial/Number';
-import normalizeNumber from '../../../utils/normalizer/normalizeNumber';
 import { ObjectString } from '../../../types/Initial/String';
 import normalizeString from '../../../utils/normalizer/normalizeString';
 
