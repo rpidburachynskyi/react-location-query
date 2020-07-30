@@ -1,14 +1,11 @@
 import { QueryValue } from '../../../types/Query';
-import {
-	InitialExtendObject,
-	InitialExtendValueWrapper
-} from '../../../types/Initial/Initial';
+import { InitialExtendObject } from '../../../types/Initial/Initial';
 import { InitialExtendObjectBoolean } from '../../../types/Initial/Boolean';
 // import { defaultValueByInitialValue } from '../../../stores/options/defaultValues';
 
 const normalizeBoolean = (
 	value: QueryValue | InitialExtendObject,
-	wrapper: InitialExtendValueWrapper<InitialExtendObjectBoolean>
+	initialValue: InitialExtendObjectBoolean
 ): boolean => {
 	if (typeof value === 'object' && 'type' in value)
 		return value.initial as boolean;
@@ -16,9 +13,9 @@ const normalizeBoolean = (
 	if (value === 'true') return true;
 	if (value === 'false') return false;
 	if (typeof value === 'boolean') return value;
+	if (Array.isArray(value)) return normalizeBoolean(value[0], initialValue);
 
-	let newValue: typeof wrapper.initialValue.initial;
-	const initialValue = wrapper.initialValue;
+	let newValue: typeof initialValue.initial;
 
 	if (initialValue.onParsedError) {
 		newValue = initialValue.onParsedError(value as string);

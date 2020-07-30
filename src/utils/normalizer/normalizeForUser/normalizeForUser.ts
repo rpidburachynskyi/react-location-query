@@ -5,8 +5,6 @@ import {
 } from '../../../types/Initial/Initial';
 import { UserValues } from '../../../types/User';
 import { getInitialValuesWrappers } from '../../valuesController/valuesController';
-import { InitialExtendObjectBoolean } from '../../../types/Initial/Boolean';
-import { InitialExtendObjectNumber } from '../../../types/Initial/Number';
 import { InitialExtendObjectJson } from '../../../types/Initial/Json';
 import { InitialExtendObjectString } from '../../../types/Initial/String';
 import normalizeBoolean from './normalizeBoolean';
@@ -29,17 +27,13 @@ export const normalizeForUser = (
 			case 'boolean':
 				normalized[key] = normalizeBoolean(
 					value as string,
-					initialValueWrapper as InitialExtendValueWrapper<
-						InitialExtendObjectBoolean
-					>
+					initialValue
 				);
 				break;
 			case 'number':
 				normalized[key] = normalizeNumber(
 					value as string,
-					initialValueWrapper as InitialExtendValueWrapper<
-						InitialExtendObjectNumber
-					>
+					initialValue
 				);
 				break;
 			case 'array':
