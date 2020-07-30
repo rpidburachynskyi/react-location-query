@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { setOptions } from 'react-location-query';
+import { setOptions, BrowserLocationQuery } from 'react-location-query';
 
 setOptions({
 	removeUnusedQueryFields: true
@@ -12,7 +12,9 @@ setOptions({
 ReactDOM.render(
 	<React.StrictMode>
 		<Router>
-			<App />
+			<BrowserLocationQuery>
+				<App />
+			</BrowserLocationQuery>
 		</Router>
 	</React.StrictMode>,
 	document.getElementById('root')

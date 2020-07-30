@@ -1,4 +1,3 @@
-import { useHistory, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import {
 	addInitialValues,
@@ -9,12 +8,9 @@ import {
 	calculateLocationPath,
 	setQueryField
 } from '../../utils/locationController/locationController';
-import {
-	extractQueryByInitialValues,
-} from '../../utils/queryParser/queryParser';
+import { extractQueryByInitialValues } from '../../utils/queryParser/queryParser';
 import { InitialExtendValues } from '../../types/Initial/Initial';
 import useIndex from '../useIndex';
-import { setHistory } from '../../stores/store/store';
 import {
 	normalizeForUser,
 	normalizeForUserByInitialValues
@@ -25,24 +21,14 @@ import readQuery from '../../utils/queryParser/readQuery';
 const useLocationQueryExtend = (initialValues: InitialExtendValues = {}) => {
 	const index = useIndex(); // index for save order
 
-	setHistory(useHistory());
-	const location = useLocation(); // NO DELETE, using for rerender when change location
-	useEffect(() => {
-		calculateLocationPath();
-	}, [location.search]);
-
 	addInitialValues(initialValues, index);
 
 	useEffect(() => {
-		setTimeout(() => {
-			calculateLocationPath();
-		}, 0);
+		calculateLocationPath();
 		addInitialValues(initialValues, index);
 		return () => {
 			removeInitialValues(initialValues);
-			setTimeout(() => {
-				calculateLocationPath();
-			}, 0);
+			calculateLocationPath();
 		};
 	}, [hashFromObject(initialValues)]);
 

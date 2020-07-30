@@ -8,9 +8,7 @@ import { ObjectJson } from '../../types/Initial/Json';
 import { ObjectNumber } from '../../types/Initial/Number';
 import { ObjectString } from '../../types/Initial/String';
 import useIndex from '../useIndex';
-import { setHistory } from '../../stores/store/store';
-import { useHistory, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import {
 	calculateLocationPath,
 	setQueryField
@@ -22,6 +20,7 @@ import {
 import { hashFromObject } from '../../utils/objects';
 import { normalizeForUser } from '../../utils/normalizer/normalizer';
 import extractQueryValueByName from '../../utils/queryParser/extractQueryValueByName';
+import Context from '../../context/context';
 
 function useLocationField(
 	name: string,
@@ -64,26 +63,16 @@ function useLocationField(name: string): [any, (value: any) => void];
 function useLocationField(name: string, value?: any) {
 	const initialValues = value !== undefined ? { [name]: value } : {};
 
-	const index = useIndex(); // index for save order
-
-	setHistory(useHistory());
-	const location = useLocation(); // NO DELETE, using for rerender when change location
-	useEffect(() => {
-		calculateLocationPath();
-	}, [location.search]);
-
+	const index = useIndex();
+	const contect = useContext(Context);
+	console.log(contect);
 	addInitialValues(initialValues, index);
 
 	useEffect(() => {
-		setTimeout(() => {
-			calculateLocationPath();
-		}, 0);
-		addInitialValues(initialValues, index);
+		calculateLocationPath();
 		return () => {
 			removeInitialValues(initialValues);
-			setTimeout(() => {
-				calculateLocationPath();
-			}, 0);
+			calculateLocationPath();
 		};
 	}, [hashFromObject(initialValues)]);
 

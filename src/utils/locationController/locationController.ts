@@ -14,7 +14,7 @@ const pushQuery = (queryValues: QueryValues) => {
 	const normalizedQuery: QueryValues = normalizeForLocation({
 		...getInitialValues(),
 		...queryValues
-	});
+	}); 
 	writeQuery(sortFieldsInQuery(normalizedQuery));
 };
 
