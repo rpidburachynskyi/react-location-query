@@ -2,11 +2,8 @@ import { InitialExtendValues } from '../../../types/Initial/Initial';
 import { UserValues } from '../../../types/User';
 import { getInitialValuesWrappers } from '../../valuesController/valuesController';
 import { ObjectJson } from '../../../types/Initial/Json';
-import { ObjectString } from '../../../types/Initial/String';
-import normalizeBoolean from './normalizeBoolean';
-import normalizeNumber from './normalizeNumber';
+import normalizeBoolean from '../normalizeBoolean';
 import normalizeJson from './normalizeJson';
-import normalizeString from './normalizeString';
 import normalizeArray from './normalizeArray';
 import { QueryValues } from '../../../types/Query';
 import {
@@ -14,6 +11,8 @@ import {
 	InitialExtendValueWrapper
 } from '../../../types/Initial/Wrapper';
 import normalizeCustom from './normalizeCustom';
+import normalizeNumber from '../normalizeNumber';
+import normalizeString from '../normalizeString';
 
 export const normalizeForUser = (
 	values: InitialExtendValues | QueryValues,
@@ -55,9 +54,7 @@ export const normalizeForUser = (
 			case 'string':
 				normalized[key] = normalizeString(
 					value as string,
-					initialValueWrapper as InitialExtendValueWrapper<
-						ObjectString
-					>
+					initialValue
 				);
 				break;
 			default:

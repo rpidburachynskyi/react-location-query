@@ -4,13 +4,13 @@ import {
 	InitialExtendValues
 } from '../../../types/Initial/Initial';
 import { getOptions } from '../../../stores/options/options';
-import normalizeString from './normalizeString';
 import { QueryValues, QueryValue } from '../../../types/Query';
-import normalizeBoolean from './normalizeBoolean';
-import normalizeNumber from './normalizeNumber';
 import normalizeJson from './normalizeJson';
 import normalizeArray from './normalizeArray';
 import normalizeCustom from './normalizeCustom';
+import normalizeBoolean from '../normalizeBoolean';
+import normalizeNumber from '../normalizeNumber';
+import normalizeString from '../normalizeString';
 
 const normalizeForLocation = (
 	queryValues: QueryValues | InitialExtendValues
@@ -27,18 +27,23 @@ const normalizeForLocation = (
 				break;
 			case 'number':
 				locationValues[key] = normalizeNumber(
-					value as number | string,
+					value as any,
 					initialValue
-				);
+				).toString();
 				break;
 			case 'boolean':
 				locationValues[key] = normalizeBoolean(
-					value as boolean | string,
+					value as any,
 					initialValue
-				);
+				)
+					? 'true'
+					: 'false';
 				break;
 			case 'string':
-				locationValues[key] = normalizeString(value, initialValue);
+				locationValues[key] = normalizeString(
+					value as any,
+					initialValue
+				);
 				break;
 			case 'array':
 				locationValues[key] = normalizeArray(value, initialValue);

@@ -1,4 +1,4 @@
-import { ObjectBoolean } from '../../../types/Initial/Boolean';
+import { ObjectBoolean } from '../../types/Initial/Boolean';
 // import { defaultValueByInitialValue } from '../../../stores/options/defaultValues';
 
 const normalizeBoolean = (

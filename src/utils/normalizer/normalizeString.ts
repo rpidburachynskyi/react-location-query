@@ -1,25 +1,19 @@
-import { QueryValue } from '../../../types/Query';
-import { ObjectString } from '../../../types/Initial/String';
+import { ObjectString } from '../../types/Initial/String';
 
 const normalizeString = (
-	value: string | QueryValue | ObjectString,
+	value: string | string[] | ObjectString,
 	initialValue: ObjectString
 ): string => {
-	if (typeof value === 'object' && 'type' in value) {
-		return initialValue.initial;
-	}
-	if (typeof value !== 'string') {
-		if (Array.isArray(value)) {
-			return normalizeString(value[0], initialValue);
-		} else {
-			throw new Error('Unknown behavior error: Value is not an string');
-		}
-	}
+	if (typeof value === 'object' && 'type' in value)
+		return value.initial as string;
 
-	if (initialValue.enum !== undefined) {
+	if (Array.isArray(value)) return normalizeString(value[0], initialValue);
+
+	if (initialValue.enum) {
 		if (!initialValue.enum.includes(value)) {
 			if (initialValue.onParsedEnumError) {
 				const newValue = initialValue.onParsedEnumError(value);
+
 				if (!initialValue.enum.includes(newValue))
 					throw new Error(
 						`'${newValue}' not contains in enum array ${initialValue.enum}, but you passed it`
@@ -30,6 +24,7 @@ const normalizeString = (
 			}
 		}
 	}
+
 	return value;
 };
 
