@@ -20,7 +20,6 @@ const pushQuery = (queryValues: QueryValues) => {
 
 export const calculateLocationPath = debounce(() => {
 	const queryValues = readQuery();
-	console.log('A');
 	pushQuery(queryValues);
 });
 
