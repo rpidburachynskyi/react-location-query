@@ -2,8 +2,8 @@ import React, { useEffect, useContext } from 'react';
 import Context from './context';
 import { useHistory, useLocation } from 'react-router-dom';
 import { setHistory } from '../stores/store/store';
-import readQuery from '../utils/queryParser/readQuery';
 import { calculateLocationPath } from '../utils/locationController/locationController';
+import readQuery from '../utils/locationController/readQuery';
 
 interface Props {
 	children: any;
@@ -15,9 +15,10 @@ const Provider = ({ children }: Props) => {
 
 	setHistory(history);
 
-	const currentQuery = readQuery();
 	return (
-		<Context.Provider value={currentQuery}>
+		<Context.Provider
+			value={{ query: readQuery(), initialValuesWrappers: [] }}
+		>
 			<InsideProvider>{children}</InsideProvider>
 		</Context.Provider>
 	);

@@ -1,17 +1,17 @@
 import { InitialExtendValues } from '../../../types/Initial/Initial';
 import { InitialExtendValuesWrappers } from '../../../types/Initial/Wrapper';
-
-export let initialValuesWrappers: InitialExtendValuesWrappers[] = [];
+import { Context } from '../../../context/context';
 
 export const setInitialValuesWrappers = (
-	newInitialExtendValuesWrappers: InitialExtendValuesWrappers[]
+	newInitialExtendValuesWrappers: InitialExtendValuesWrappers[],
+	context: Context
 ) => {
-	initialValuesWrappers = newInitialExtendValuesWrappers;
+	context.initialValuesWrappers = newInitialExtendValuesWrappers;
 };
 
-export const getInitialValuesWrappers = () => {
+export const getInitialValuesWrappers = (context: Context) => {
 	let initialValuesWrappersArray: InitialExtendValuesWrappers = {};
-	initialValuesWrappers.forEach((initialValuesWrappersItem) => {
+	context.initialValuesWrappers.forEach((initialValuesWrappersItem) => {
 		initialValuesWrappersArray = {
 			...initialValuesWrappersArray,
 			...Object.keys(initialValuesWrappersItem)
@@ -22,9 +22,9 @@ export const getInitialValuesWrappers = () => {
 	return initialValuesWrappersArray;
 };
 
-export const getInitialValues = () => {
+export const getInitialValues = (context: Context) => {
 	let initialValues: InitialExtendValues = {};
-	initialValuesWrappers.forEach((initialValuesWrapper) => {
+	context.initialValuesWrappers.forEach((initialValuesWrapper) => {
 		initialValues = {
 			...initialValues,
 			...Object.keys(initialValuesWrapper)
@@ -35,5 +35,7 @@ export const getInitialValues = () => {
 	return initialValues;
 };
 
-export const getInitialValueByFieldName = (fieldName: string) =>
-	getInitialValues()[fieldName];
+export const getInitialValueByFieldName = (
+	fieldName: string,
+	context: Context
+) => getInitialValues(context)[fieldName];

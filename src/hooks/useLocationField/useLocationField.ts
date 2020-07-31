@@ -9,7 +9,7 @@ import { ObjectNumber } from '../../types/Initial/Number';
 import { ObjectString } from '../../types/Initial/String';
 import useIndex from '../useIndex';
 import { useEffect, useContext } from 'react';
-import { setQueryField } from '../../utils/locationController/locationController';
+import { setQueryFieldValue } from '../../utils/locationController/locationController';
 import {} from '../../utils/valuesController/valuesController/valuesController';
 import { hashFromObject } from '../../utils/objects';
 import Context from '../../context/context';
@@ -57,21 +57,26 @@ function useLocationField(name: string): [any, (value: any) => void];
 
 function useLocationField(name: string, value?: any) {
 	const index = useIndex();
-	const contect = useContext(Context);
-	const initialValue = addInitialValue(name, value, index);
+	const context = useContext(Context);
+	const initialValue = addInitialValue(name, value, index, context);
 	useEffect(() => {
 		if (!initialValue) return;
 		return () => {
-			console.log(initialValue);
-			removeInitialValue(name, initialValue);
+			removeInitialValue(name, initialValue, context);
 		};
 	}, [hashFromObject(initialValue)]);
 
 	if (initialValue !== undefined) {
-		contect[name] = normalizeValueForUser(contect[name], initialValue);
+		context.query[name] = normalizeValueForUser(
+			context.query[name],
+			initialValue
+		);
 	}
 
-	return [contect[name], (a: any) => setQueryField(name, a, contect)];
+	return [
+		context.query[name],
+		(newValue: any) => setQueryFieldValue(name, newValue, context)
+	];
 }
 
 export default useLocationField;

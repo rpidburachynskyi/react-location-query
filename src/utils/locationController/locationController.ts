@@ -1,23 +1,27 @@
 import { QueryValue, QueryValues } from '../../types/Query';
 import { normalizeForLocation } from '../normalizer/normalizer';
-import readQuery from '../queryParser/readQuery';
+import readQuery from './readQuery';
 import writeQuery from './writeQuery';
+import { Context } from '../../context/context';
 
-export const calculateLocationPath = (context: object) => {
+export const calculateLocationPath = (context: Context) => {
 	const queryValues = readQuery();
-	const normalizedQuery: QueryValues = normalizeForLocation({
-		...queryValues,
-		...context
-	});
+	const normalizedQuery: QueryValues = normalizeForLocation(
+		{
+			...queryValues,
+			...context.query
+		},
+		context
+	);
 
-	writeQuery(normalizedQuery);
+	writeQuery(normalizedQuery, context);
 };
 
-export const setQueryField = (
+export const setQueryFieldValue = (
 	field: string,
 	value: QueryValue,
-	context: object
+	context: Context
 ) => {
-	context[field] = value;
+	context.query[field] = value;
 	calculateLocationPath(context);
 };

@@ -12,6 +12,7 @@ import { InitialExtendValuesWrappers } from '../../../types/Initial/Wrapper';
 import normalizeCustom from './normalizeCustom';
 import normalizeNumber from '../normalizeNumber';
 import normalizeString from '../normalizeString';
+import { Context } from '../../../context/context';
 
 export const normalizeValueForUser = (
 	value: InitialExtendValue | QueryValue | undefined,
@@ -38,7 +39,10 @@ export const normalizeValueForUser = (
 
 export const normalizeForUser = (
 	values: InitialExtendValues | QueryValues,
-	initialValuesWrappers: InitialExtendValuesWrappers = getInitialValuesWrappers()
+	context: Context,
+	initialValuesWrappers: InitialExtendValuesWrappers = getInitialValuesWrappers(
+		context
+	)
 ): UserValues => {
 	const normalized: UserValues = {};
 	Object.keys(values).forEach((key) => {
@@ -86,9 +90,10 @@ export const normalizeForUser = (
 
 export const normalizeForUserByInitialValues = (
 	values: InitialExtendValues | QueryValues,
-	initialValues: InitialExtendValues
+	initialValues: InitialExtendValues,
+	context: Context
 ) => {
-	const initialValuesWrappers = getInitialValuesWrappers();
+	const initialValuesWrappers = getInitialValuesWrappers(context);
 	const resultsWrappers: InitialExtendValuesWrappers = {};
 
 	Object.keys(initialValuesWrappers).forEach((key) => {
@@ -96,5 +101,5 @@ export const normalizeForUserByInitialValues = (
 			resultsWrappers[key] = initialValuesWrappers[key];
 		}
 	});
-	return normalizeForUser(values, resultsWrappers);
+	return normalizeForUser(values, context, resultsWrappers);
 };

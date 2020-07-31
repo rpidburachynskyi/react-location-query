@@ -11,14 +11,16 @@ import normalizeCustom from './normalizeCustom';
 import normalizeBoolean from '../normalizeBoolean';
 import normalizeNumber from '../normalizeNumber';
 import normalizeString from '../normalizeString';
+import { Context } from '../../../context/context';
 
 const normalizeForLocation = (
-	queryValues: QueryValues | InitialExtendValues
+	queryValues: QueryValues | InitialExtendValues,
+	context: Context
 ) => {
-	const initialValues = getInitialValues();
+	const initialValues = getInitialValues(context);
 	let locationValues: QueryValues = {};
 	Object.keys(initialValues).forEach((key) => {
-		const value = queryValues[key];
+		const value = queryValues[key] ? queryValues[key] : initialValues[key];
 		const initialValue = initialValues[key];
 		switch (initialValue.type) {
 			case 'json':
@@ -55,12 +57,12 @@ const normalizeForLocation = (
 		}
 	});
 	removeUnusedQueryFields(queryValues, locationValues);
-	locationValues = removeInitialValues(locationValues);
+	locationValues = removeInitialValues(locationValues, context);
 	return locationValues;
 };
 
-const removeInitialValues = (query: QueryValues) => {
-	const initialValues = getInitialValues();
+const removeInitialValues = (query: QueryValues, context: Context) => {
+	const initialValues = getInitialValues(context);
 	const locationQuery = { ...query };
 	Object.keys(query).forEach((key) => {
 		const value = query[key];

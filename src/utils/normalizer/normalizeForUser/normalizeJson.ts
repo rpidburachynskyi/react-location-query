@@ -10,7 +10,6 @@ const normalizeJson = (
 		if ('type' in value) return initialValue.initial;
 		return value;
 	}
-
 	try {
 		if (!isNaN(+value) || value === 'true' || value === 'false')
 			return JSON.parse(`${value}`);
