@@ -2,9 +2,9 @@ import { QueryValues } from '../../types/Query';
 import readQuery from './readQuery';
 import { stringifyQuery } from '../queryParser/queryParser';
 import { getLocation, getHistory } from '../../stores/store/store';
-import { sortFieldsInQuery } from './sort';
 import { Context } from '../../context/context';
 import { ActionOnChange } from '../../types/ActionOnChange';
+import { sortFieldsInQuery } from './sort/sort';
 
 export const writeQuery = (
 	query: QueryValues,

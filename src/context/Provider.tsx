@@ -17,7 +17,12 @@ interface Props {
 	options?: Options;
 }
 
-const Provider = ({ children, options, defaultOptions }: Props) => {
+const Provider = ({
+	children,
+	options,
+	defaultOptions,
+	sortOptions
+}: Props) => {
 	const history = useHistory();
 	useLocation();
 
@@ -36,8 +41,9 @@ const Provider = ({ children, options, defaultOptions }: Props) => {
 	};
 
 	const newSortOptions: SortOptions = {
-		sortBy: 'index',
-		sortOrder: 'asc'
+		sortBy: 'order',
+		sortOrder: 'asc',
+		...sortOptions
 	};
 
 	const context: ContextType = {

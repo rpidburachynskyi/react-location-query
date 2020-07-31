@@ -1,4 +1,4 @@
 export interface SortOptions {
-	sortBy: 'index' | 'alphabet' | 'fieldLength';
+	sortBy: 'order' | 'alphabet' | 'fieldLength';
 	sortOrder: 'asc' | 'desc';
 }

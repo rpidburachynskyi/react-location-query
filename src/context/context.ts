@@ -17,7 +17,7 @@ const InitialContextType: Context = {
 	initialValuesWrappers: [],
 	query: {},
 	sortOptions: {
-		sortBy: 'index',
+		sortBy: 'order',
 		sortOrder: 'asc'
 	},
 	defaultOptions: {

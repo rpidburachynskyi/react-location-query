@@ -9,7 +9,10 @@ import { BrowserLocationQuery } from 'react-location-query';
 ReactDOM.render(
 	<React.StrictMode>
 		<Router>
-			<BrowserLocationQuery>
+			<BrowserLocationQuery
+				// @ts-ignore
+				sortOptions={{ sortBy: 'order', sortOrder: 'asc' }}
+			>
 				<App />
 			</BrowserLocationQuery>
 		</Router>
