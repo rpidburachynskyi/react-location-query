@@ -4,7 +4,7 @@ import { useLocationField } from 'react-location-query';
 const Enum = () => {
 	const [, setType] = useLocationField('type', {
 		type: 'string',
-		initial: 'qwe',
+		initial: 'first',
 		enum: ['first', 'second', 'third', 'fourth', 'fifth'],
 		onParsedEnumError: () => 'first'
 	});

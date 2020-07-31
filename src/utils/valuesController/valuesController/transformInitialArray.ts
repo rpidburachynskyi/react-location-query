@@ -1,6 +1,4 @@
 import { ObjectArray } from '../../../types/Initial/Array';
-import { getDefaultOptions } from '../../../stores/options/options';
-import { ActionOnChange } from '../../../types/ActionOnChange';
 
 const transformInitialArray = <T>(array: Array<T>): ObjectArray => {
 	checkAllItemsType(array, typeof array[0]);
@@ -10,28 +8,19 @@ const transformInitialArray = <T>(array: Array<T>): ObjectArray => {
 			return {
 				type: 'array',
 				arrayType: 'string',
-				initial: (array as any) as Array<string>,
-				hideIfInitial: getDefaultOptions().hideIfDefault,
-				replaceValueWhenParsedError: false,
-				actionOnChange: ActionOnChange.Push
+				initial: (array as any) as Array<string>
 			};
 		case 'number':
 			return {
 				type: 'array',
 				arrayType: 'number',
-				initial: (array as any) as Array<number>,
-				hideIfInitial: getDefaultOptions().hideIfDefault,
-				replaceValueWhenParsedError: false,
-				actionOnChange: ActionOnChange.Push
+				initial: (array as any) as Array<number>
 			};
 		case 'boolean':
 			return {
 				type: 'array',
 				arrayType: 'boolean',
-				initial: (array as any) as Array<boolean>,
-				hideIfInitial: getDefaultOptions().hideIfDefault,
-				replaceValueWhenParsedError: false,
-				actionOnChange: ActionOnChange.Push
+				initial: (array as any) as Array<boolean>
 			};
 		default:
 			throw new Error('Unsupported array type');
