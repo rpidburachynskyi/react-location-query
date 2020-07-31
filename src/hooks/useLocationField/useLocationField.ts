@@ -77,7 +77,10 @@ function useLocationField(name: string, value?: any) {
 			initialValue
 		);
 	}
-	if (!context.query[name]) throw new Error(`Unknown field: '${name}'`);
+
+	if (context.query[name] === undefined && value === undefined)
+		throw new Error(`Unknown field: '${name}'`);
+
 	return [
 		context.query[name],
 		(newValue: any, actionOnChange: ActionOnChange = ActionOnChange.Push) =>
