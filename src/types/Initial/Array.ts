@@ -10,6 +10,7 @@ export interface ObjectArrayString extends InitialObjectArray {
 	arrayType: 'string';
 	initial: Array<string>;
 	onParsedError?: (errorValues: string[]) => Array<string>;
+	validate?: (array: Array<string>) => Array<string>;
 }
 
 export interface ObjectArrayNumber extends InitialObjectArray {
@@ -17,6 +18,7 @@ export interface ObjectArrayNumber extends InitialObjectArray {
 	initial: Array<number>;
 	onParsedError?: (errorValues: string[]) => Array<number>;
 	onParsedItemError?: (errorValue: string) => number;
+	validate?: (array: Array<number>) => Array<number>;
 }
 
 export interface ObjectArrayBoolean extends InitialObjectArray {
@@ -24,6 +26,7 @@ export interface ObjectArrayBoolean extends InitialObjectArray {
 	initial: Array<boolean>;
 	onParsedError?: (errorValues: string[]) => Array<boolean>;
 	onParsedItemError?: (errorValue: string) => boolean;
+	validate?: (array: Array<number>) => Array<number>;
 }
 
 export type ObjectArray =

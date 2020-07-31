@@ -6,4 +6,7 @@ export interface ObjectJson extends InitialObject {
 	onParsedError?: (
 		errorValue: string
 	) => NonNullable<string | number | boolean | object>;
+	validate?: (
+		value: NonNullable<string | number | boolean | object>
+	) => NonNullable<string | number | boolean | object>;
 }

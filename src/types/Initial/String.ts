@@ -5,4 +5,5 @@ export interface ObjectString extends InitialObject {
 	initial: string;
 	enum?: string[];
 	onParsedEnumError?: (value: string) => string;
+	validate?: (value: string) => string;
 }

@@ -20,7 +20,7 @@ import { InitialObjectType } from '../../types/Initial/Initial';
 
 function useLocationField(
 	name: string,
-	value?: ObjectString | string
+	value: ObjectString | string
 ): [string, (value: string, actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(
@@ -53,12 +53,13 @@ function useLocationField(
 	value: ObjectArrayString | string[]
 ): [string[], (value: string[], actionOnChange?: ActionOnChange) => void];
 
-function useLocationField<T>(
-	name: string
-): [any, (value: any, actionOnChange?: ActionOnChange) => void];
 function useLocationField(
 	name: string
-): [any, (value: any, actionOnChange?: ActionOnChange) => void];
+): [any, (value: any, actionOnChange?: keyof ActionOnChange) => void];
+
+// function useLocationField<T = any>( // -- not working correctly
+// 	name: string
+// ): [T, (value: T, actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(name: string, value?: any) {
 	const index = useIndex();

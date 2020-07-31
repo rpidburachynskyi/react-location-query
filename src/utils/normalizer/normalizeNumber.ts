@@ -4,52 +4,72 @@ const normalizeNumber = (
 	value: number | string | string[] | ObjectNumber,
 	initialValue: ObjectNumber
 ): number => {
-	if (value !== null && typeof value === 'object' && 'type' in value) {
-		return value.initial as number;
-	}
-
 	if (Array.isArray(value)) return normalizeNumber(value[0], initialValue);
 
-	if (isNaN(+value)) {
-		const newValue = parse(value, initialValue);
-		return validate(newValue, initialValue);
-	}
+	let newValue = validateInitial(value, initialValue);
+	newValue = validateNumber(newValue, initialValue);
+	newValue = validateEnum(newValue, initialValue);
+	newValue = validate(newValue, initialValue);
 
-	return validate(+value, initialValue);
+	return newValue;
 };
 
 export default normalizeNumber;
 
-const parse = (value: number | string, initialValue: ObjectNumber): number => {
-	if (initialValue.onParsedError) {
-		const newValue = initialValue.onParsedError(value as string);
-		if (isNaN(newValue) || typeof newValue !== 'number')
-			throw new Error(
-				`onParsedError for type 'number' must returns number, but return '${newValue}'`
-			);
-		return newValue;
-	} else {
+const validateInitial = (
+	value: string | number | ObjectNumber,
+	initialValue: ObjectNumber
+): string | number => {
+	if (typeof value === 'object' && 'type' in value)
 		return initialValue.initial;
-	}
+	return value;
 };
 
-const validate = (value: number, initialValue: ObjectNumber): number => {
-	if (initialValue.validate) {
-		if (!initialValue.validate(+value)) {
-			if (initialValue.onValidateError) {
-				const newValue = initialValue.onValidateError(value as never);
-				if (isNaN(newValue) || typeof newValue !== 'number')
+const validateNumber = (
+	value: number | string,
+	initialValue: ObjectNumber
+): number => {
+	if (isNaN(+value)) {
+		if (initialValue.onParsedError) {
+			const newValue = initialValue.onParsedError(value as string);
+			if (isNaN(newValue) || typeof newValue !== 'number')
+				throw new Error(
+					`onParsedError for type 'number' must returns number, but return '${newValue}'`
+				);
+			return newValue;
+		} else {
+			return initialValue.initial;
+		}
+	}
+
+	return +value;
+};
+
+const validateEnum = (value: number, initialValue: ObjectNumber) => {
+	if ('enum' in initialValue) {
+		if (!initialValue.enum.includes(value)) {
+			if (initialValue.onParsedEnumError) {
+				const newValue = initialValue.onParsedEnumError(value);
+
+				if (!initialValue.enum.includes(newValue)) {
 					throw new Error(
-						`onParsedError for type 'number' must returns number, but return '${newValue}'`
+						`'${newValue}' not contains in enum array ${initialValue.enum}, but you passed it`
 					);
+				}
+
 				return newValue;
 			} else {
 				return initialValue.initial;
 			}
-		} else {
-			return value;
 		}
 	}
 
+	return value;
+};
+
+const validate = (value: number, initialValue: ObjectNumber): number => {
+	if (initialValue.validate) {
+		return initialValue.validate(value);
+	}
 	return value;
 };

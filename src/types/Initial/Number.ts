@@ -1,9 +1,17 @@
 import { InitialObject } from './Initial';
 
-export interface ObjectNumber extends InitialObject {
+interface InitialObjectNumber extends InitialObject {
 	type: 'number';
 	initial: number;
 	onParsedError?: (errorValue: string) => number;
-	onValidateError?: (errorValue: number) => number;
-	validate?: (value: number) => boolean;
+	validate?: (value: number) => number;
 }
+
+interface InitialObjectNumberWithEnum
+	extends InitialObjectNumber,
+		InitialObjectNumber {
+	enum: number[];
+	onParsedEnumError?: (value: number) => number;
+}
+
+export type ObjectNumber = InitialObjectNumber | InitialObjectNumberWithEnum;
