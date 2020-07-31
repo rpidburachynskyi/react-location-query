@@ -1,10 +1,7 @@
 import { getInitialValues } from '../../valuesController/valuesController/valuesController';
-import {
-	InitialExtendValue,
-	InitialExtendValues
-} from '../../../types/Initial/Initial';
+import { InitialExtendValues } from '../../../types/Initial/Initial';
 import { getOptions } from '../../../stores/options/options';
-import { QueryValues, QueryValue } from '../../../types/Query';
+import { QueryValues } from '../../../types/Query';
 import normalizeJson from './normalizeJson';
 import normalizeArray from './normalizeArray';
 import normalizeCustom from './normalizeCustom';
@@ -12,6 +9,7 @@ import normalizeBoolean from '../normalizeBoolean';
 import normalizeNumber from '../normalizeNumber';
 import normalizeString from '../normalizeString';
 import { Context } from '../../../context/context';
+import removeInitialValues from './removeInitialValues';
 
 const normalizeForLocation = (
 	queryValues: QueryValues | InitialExtendValues,
@@ -56,29 +54,10 @@ const normalizeForLocation = (
 				throw new Error('Unknown behavior error: unknown value');
 		}
 	});
+
 	removeUnusedQueryFields(queryValues, locationValues);
 	locationValues = removeInitialValues(locationValues, context);
 	return locationValues;
-};
-
-const removeInitialValues = (query: QueryValues, context: Context) => {
-	const initialValues = getInitialValues(context);
-	const locationQuery = { ...query };
-	Object.keys(query).forEach((key) => {
-		const value = query[key];
-		const initialValue = initialValues[key];
-		if (!initialValue) return;
-		if (initialValue.hideIfInitial) {
-			if (
-				(typeof value === 'object' && !Array.isArray(value)) ||
-				compareValues(value, initialValue)
-			) {
-				delete locationQuery[key];
-			}
-		}
-	});
-
-	return locationQuery;
 };
 
 const removeUnusedQueryFields = (
@@ -87,22 +66,6 @@ const removeUnusedQueryFields = (
 ) => {
 	if (!getOptions().removeUnusedQueryFields) {
 		Object.assign(locationValues, { ...queryValues, ...locationValues });
-	}
-};
-
-const compareValues = (value: QueryValue, initialValue: InitialExtendValue) => {
-	switch (initialValue.type) {
-		case 'boolean':
-			return (
-				initialValue.initial === (value === 'true' || value === true)
-			);
-		case 'number':
-			return +initialValue.initial === (+value as number);
-		case 'json':
-			return JSON.stringify(initialValue.initial) === value;
-		case 'string':
-		default:
-			return initialValue.initial === value;
 	}
 };
 

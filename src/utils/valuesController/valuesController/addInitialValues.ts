@@ -1,28 +1,21 @@
-import { InitialExtendValue } from '../../../types/Initial/Initial';
+import { InitialObjectType } from '../../../types/Initial/Initial';
 import { setInitialValuesWrappers } from './valuesController';
 import { InitialExtendValuesWrappers } from '../../../types/Initial/Wrapper';
-import mutateValueToObjectValues from './mutateValueToObjectValues';
 import checkInitialValue from '../checkInitialValue';
-import { removeInitialValue } from './removeInitialValues';
 import { Context } from '../../../context/context';
 
 export const addInitialValue = (
 	name: string,
-	initialValue: InitialExtendValue,
+	initialValue: InitialObjectType,
 	index: number,
 	context: Context
-): InitialExtendValue | undefined => {
-	if (initialValue === undefined) return;
-
+): void => {
 	const wrapper: InitialExtendValuesWrappers = {};
-	const newInitialValue = mutateValueToObjectValues(initialValue);
-	removeInitialValue(name, newInitialValue, context);
-
-	checkInitialValue(newInitialValue);
+	checkInitialValue(initialValue);
 
 	wrapper[name] = {
 		index,
-		initialValue: newInitialValue,
+		initialValue,
 		name
 	};
 
@@ -30,6 +23,4 @@ export const addInitialValue = (
 		[...context.initialValuesWrappers, wrapper],
 		context
 	);
-
-	return newInitialValue;
 };

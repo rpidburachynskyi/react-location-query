@@ -8,14 +8,14 @@ import { ObjectJson } from '../../types/Initial/Json';
 import { ObjectNumber } from '../../types/Initial/Number';
 import { ObjectString } from '../../types/Initial/String';
 import useIndex from '../useIndex';
-import { useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { setQueryFieldValue } from '../../utils/locationController/locationController';
 import {} from '../../utils/valuesController/valuesController/valuesController';
-import { hashFromObject } from '../../utils/objects';
 import Context from '../../context/context';
 import { normalizeValueForUser } from '../../utils/normalizer/normalizeForUser/normalizeForUser';
 import { addInitialValue } from '../../utils/valuesController/valuesController/addInitialValues';
-import { removeInitialValue } from '../../utils/valuesController/valuesController/removeInitialValues';
+import transformToInitialValue from '../../utils/valuesController/valuesController/transformInitialValues';
+// import { removeInitialValue } from '../../utils/valuesController/valuesController/removeInitialValues';
 
 function useLocationField(
 	name: string,
@@ -58,15 +58,10 @@ function useLocationField(name: string): [any, (value: any) => void];
 function useLocationField(name: string, value?: any) {
 	const index = useIndex();
 	const context = useContext(Context);
-	const initialValue = addInitialValue(name, value, index, context);
-	useEffect(() => {
-		if (!initialValue) return;
-		return () => {
-			removeInitialValue(name, initialValue, context);
-		};
-	}, [hashFromObject(initialValue)]);
+	const initialValue = transformToInitialValue(value);
 
 	if (initialValue !== undefined) {
+		addInitialValue(name, initialValue, index, context);
 		context.query[name] = normalizeValueForUser(
 			context.query[name],
 			initialValue
