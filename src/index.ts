@@ -3,9 +3,7 @@ import useHistoryPush from './hooks/useHistoryPush';
 
 import withLocationField from './hocs/withLocationField';
 import withHistoryPush from './hocs/withHistoryPush';
-import withLocationClear from './hocs/withLocationClear';
 
-import { setOptions, getOptions } from './stores/options/options';
 import BrowserLocationQuery from './context/Provider';
 
 export {
@@ -13,8 +11,5 @@ export {
 	useHistoryPush,
 	withLocationField,
 	withHistoryPush,
-	withLocationClear,
-	setOptions,
-	getOptions,
 	BrowserLocationQuery
 };

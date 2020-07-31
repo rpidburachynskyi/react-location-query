@@ -12,8 +12,12 @@ export const writeQuery = (
 	actionOnChange: ActionOnChange
 ) => {
 	const sorted = sortFieldsInQuery(query, context);
-	if (stringifyQuery(sorted) === stringifyQuery(readQuery())) return;
-	const preparedQuery = stringifyQuery(sorted);
+	if (
+		stringifyQuery(sorted, context.options) ===
+		stringifyQuery(readQuery(context.options), context.options)
+	)
+		return;
+	const preparedQuery = stringifyQuery(sorted, context.options);
 
 	const history = getHistory();
 	const location = getLocation();

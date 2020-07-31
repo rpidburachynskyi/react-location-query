@@ -1,4 +1,3 @@
-import { getSortingOptions } from '../../stores/options/options';
 import { getInitialValuesWrappers } from '../valuesController/valuesController/valuesController';
 import { InitialExtendValuesWrappers } from '../../types/Initial/Wrapper';
 import { Context } from '../../context/context';
@@ -7,7 +6,7 @@ export const sortFieldsInQuery = (query: object, context: Context) => {
 	const result = {};
 
 	const sortedKeys = sortBy(Object.keys(query), context);
-	(getSortingOptions().sortOrder === 'asc'
+	(context.sortOptions.sortOrder === 'asc'
 		? sortedKeys
 		: sortedKeys.reverse()
 	).forEach((key) => {
@@ -18,7 +17,7 @@ export const sortFieldsInQuery = (query: object, context: Context) => {
 };
 
 const sortBy = (queryKeys: string[], context: Context): string[] => {
-	switch (getSortingOptions().sortBy) {
+	switch (context.sortOptions.sortBy) {
 		case 'index':
 			return queryKeys.sort(
 				sortByIndex(getInitialValuesWrappers(context))

@@ -9,7 +9,7 @@ const Enum = () => {
 		onParsedEnumError: () => 'first'
 	});
 
-	const [type] = useLocationField<string>('type');
+	const [type] = useLocationField('type');
 
 	return (
 		<div>

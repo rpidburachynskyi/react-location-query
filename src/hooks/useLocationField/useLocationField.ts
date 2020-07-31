@@ -64,7 +64,10 @@ function useLocationField(
 function useLocationField(name: string, value?: any) {
 	const index = useIndex();
 	const context = useContext(Context);
-	const initialValue: InitialObjectType = transformToInitialValue(value);
+	const initialValue: InitialObjectType = transformToInitialValue(
+		value,
+		context
+	);
 
 	if (initialValue !== undefined) {
 		addInitialValue(name, initialValue, index, context);

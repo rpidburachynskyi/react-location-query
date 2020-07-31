@@ -2,12 +2,13 @@ import {
 	InitialExtendValue,
 	InitialObjectType
 } from '../../../types/Initial/Initial';
-import { getDefaultOptions } from '../../../stores/options/options';
 import { ActionOnChange } from '../../../types/ActionOnChange';
 import transformInitialArray from './transformInitialArray';
+import { Context } from '../../../context/context';
 
 const transformToInitialValue = (
-	value: InitialExtendValue
+	value: InitialExtendValue,
+	context: Context
 ): InitialObjectType => {
 	let initialValue: InitialObjectType;
 
@@ -47,7 +48,7 @@ const transformToInitialValue = (
 
 	initialValue = {
 		...initialValue,
-		hideIfInitial: getDefaultOptions().hideIfDefault,
+		hideIfInitial: context.defaultOptions.hideIfDefault,
 		replaceValueWhenParsedError: false,
 		actionOnChange: ActionOnChange.Push
 	};

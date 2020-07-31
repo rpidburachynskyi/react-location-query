@@ -2,7 +2,7 @@ import qs from 'querystring';
 import { InitialExtendValues } from '../../types/Initial/Initial';
 import { QueryValues } from '../../types/Query';
 import encryptQuery from '../crypto/encryptQuery';
-import { getOptions } from '../../stores/options/options';
+import Options from '../../types/Options';
 
 export const extractQueryByInitialValues = (
 	query: any,
@@ -16,9 +16,9 @@ export const extractQueryByInitialValues = (
 	return result;
 };
 
-export const stringifyQuery = (query: QueryValues) => {
-	if (getOptions().crypto) {
-		const encryptedQuery = encryptQuery(query);
+export const stringifyQuery = (query: QueryValues, options: Options) => {
+	if (options.crypto) {
+		const encryptedQuery = encryptQuery(query, options);
 		const q = qs.stringify({ q: encryptedQuery } as qs.ParsedUrlQueryInput);
 		return q;
 	}

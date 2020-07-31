@@ -9,7 +9,7 @@ export const calculateLocationPath = (
 	context: Context,
 	actionOnChange: ActionOnChange
 ) => {
-	const queryValues = readQuery();
+	const queryValues = readQuery(context.options);
 	const normalizedQuery: QueryValues = normalizeForLocation(
 		{
 			...queryValues,

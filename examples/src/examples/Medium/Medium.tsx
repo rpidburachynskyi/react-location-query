@@ -6,6 +6,8 @@ const Medium = () => {
 	const [age, setAge] = useLocationField('age', {
 		type: 'number',
 		initial: 19,
+		enum: [1, 2, 3, 19],
+		onParsedEnumError: () => 2,
 		onParsedError: () => 0
 	});
 	const [married, setMarried] = useLocationField('married', false);

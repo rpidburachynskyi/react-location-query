@@ -1,13 +1,13 @@
-import { getOptions } from '../../stores/options/options';
 import CryptoOption from '../../types/Options/CryptoOption';
 import compressWithBase64 from './compres/base64/compressWithBase64';
 import base64Encrypt from './methods/base64/base64Encrypt';
 import xorEncrypt from './methods/xor/xorEncrypt';
+import Options from '../../types/Options';
 
-const encryptQuery = (query: object) => {
+const encryptQuery = (query: object, options: Options) => {
 	const jsoned = JSON.stringify(query);
 
-	const option = getOptions().crypto as Exclude<CryptoOption, false>;
+	const option = options.crypto as Exclude<CryptoOption, false>;
 
 	let encrypted = '';
 	switch (option.method) {

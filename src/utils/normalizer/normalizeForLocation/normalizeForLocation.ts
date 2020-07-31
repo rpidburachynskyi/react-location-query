@@ -1,6 +1,5 @@
 import { getInitialValues } from '../../valuesController/valuesController/valuesController';
 import { InitialExtendValues } from '../../../types/Initial/Initial';
-import { getOptions } from '../../../stores/options/options';
 import { QueryValues } from '../../../types/Query';
 import normalizeJson from './normalizeJson';
 import normalizeArray from './normalizeArray';
@@ -57,16 +56,17 @@ const normalizeForLocation = (
 				throw new Error('Unknown behavior error: unknown value');
 		}
 	});
-	removeUnusedQueryFields(queryValues, locationValues);
+	removeUnusedQueryFields(queryValues, locationValues, context);
 	locationValues = removeInitialValues(locationValues, context);
 	return locationValues;
 };
 
 const removeUnusedQueryFields = (
 	queryValues: QueryValues | InitialExtendValues,
-	locationValues: QueryValues
+	locationValues: QueryValues,
+	context: Context
 ) => {
-	if (!getOptions().removeUnusedQueryFields) {
+	if (!context.options.removeUnusedQueryFields) {
 		Object.assign(locationValues, { ...queryValues, ...locationValues });
 	}
 };

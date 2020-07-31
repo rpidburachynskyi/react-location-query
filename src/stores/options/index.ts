@@ -1,3 +1,3 @@
-import * as options from './options';
+import * as options from './types/Options';
 
 export default options;

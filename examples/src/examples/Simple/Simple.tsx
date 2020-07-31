@@ -6,7 +6,8 @@ const names = ['Rostyslav', 'Rostik', 'Rostya', 'kitsoRik'];
 const Simple = () => {
 	const [name, setName] = useLocationField('name', {
 		type: 'string',
-		initial: 'Rostyslav'
+		initial: 'Rostyslav',
+		validate: (a) => a
 	});
 
 	const changeNameRandomly = () => {

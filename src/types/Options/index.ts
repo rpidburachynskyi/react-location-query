@@ -1,3 +1,3 @@
-import { Options } from './Options';
+import { Options } from '../../stores/options/types/Options';
 
 export default Options;
