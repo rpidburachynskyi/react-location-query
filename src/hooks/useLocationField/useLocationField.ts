@@ -64,19 +64,20 @@ function useLocationField(
 function useLocationField(name: string, value?: any) {
 	const index = useIndex();
 	const context = useContext(Context);
-	const initialValue: InitialObjectType = transformToInitialValue(
-		value,
-		context
-	);
 
-	if (initialValue !== undefined) {
+	if (value !== undefined) {
+		const initialValue: InitialObjectType = transformToInitialValue(
+			value,
+			context
+		);
+
 		addInitialValue(name, initialValue, index, context);
 		context.query[name] = normalizeValueForUser(
 			context.query[name],
 			initialValue
 		);
 	}
-
+	if (!context.query[name]) throw new Error(`Unknown field: '${name}'`);
 	return [
 		context.query[name],
 		(newValue: any, actionOnChange: ActionOnChange = ActionOnChange.Push) =>
