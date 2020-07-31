@@ -1,15 +1,16 @@
 import { useHistory } from 'react-router-dom';
 import { stringifyQuery } from '../../utils/queryParser/queryParser';
 
-const useHistoryPush = () => {
+const useHistoryPush = (replace = false) => {
 	const history = useHistory();
 
 	const push = (path: string, values: {}) => {
+		const action = replace ? history.replace : history.push;
 		if (Object.keys(values).length === 0) {
-			return history.push(path);
+			return action(path);
 		}
 		const query = stringifyQuery(values);
-		return history.push(`${path}?${query}`);
+		return action(`${path}?${query}`);
 	};
 
 	return push;

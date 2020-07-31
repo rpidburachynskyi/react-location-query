@@ -16,7 +16,7 @@ const normalizeForLocation = (
 	context: Context
 ) => {
 	const initialValues = getInitialValues(context);
-	let locationValues: QueryValues = {};
+	let locationValues: { [x: string]: string | string[] } = {};
 	Object.keys(initialValues).forEach((key) => {
 		const value = queryValues[key] ? queryValues[key] : initialValues[key];
 		const initialValue = initialValues[key];
@@ -45,7 +45,10 @@ const normalizeForLocation = (
 				);
 				break;
 			case 'array':
-				locationValues[key] = normalizeArray(value, initialValue);
+				locationValues[key] = normalizeArray(
+					value as any[],
+					initialValue
+				);
 				break;
 			case 'custom':
 				locationValues[key] = normalizeCustom(value, initialValue);
@@ -54,7 +57,6 @@ const normalizeForLocation = (
 				throw new Error('Unknown behavior error: unknown value');
 		}
 	});
-
 	removeUnusedQueryFields(queryValues, locationValues);
 	locationValues = removeInitialValues(locationValues, context);
 	return locationValues;

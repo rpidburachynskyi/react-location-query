@@ -3,7 +3,7 @@ import { getInitialValues } from '../../../valuesController/valuesController/val
 import isRemoveInitialValue from './isRemoveInitialValue';
 
 const removeInitialValues = (
-	query: { [path: string]: string },
+	query: { [path: string]: string | string[] },
 	context: Context
 ) => {
 	const initialValues = getInitialValues(context);

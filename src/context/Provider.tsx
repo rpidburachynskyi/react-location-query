@@ -4,6 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { setHistory } from '../stores/store/store';
 import { calculateLocationPath } from '../utils/locationController/locationController';
 import readQuery from '../utils/locationController/readQuery';
+import { ActionOnChange } from '../types/ActionOnChange';
 
 interface Props {
 	children: any;
@@ -31,7 +32,7 @@ interface InsideProps {
 const InsideProvider = ({ children }: InsideProps) => {
 	const context = useContext(Context);
 	useEffect(() => {
-		calculateLocationPath(context);
+		calculateLocationPath(context, ActionOnChange.Replace);
 	});
 	return children;
 };

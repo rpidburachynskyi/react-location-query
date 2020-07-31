@@ -15,50 +15,55 @@ import Context from '../../context/context';
 import { normalizeValueForUser } from '../../utils/normalizer/normalizeForUser/normalizeForUser';
 import { addInitialValue } from '../../utils/valuesController/valuesController/addInitialValues';
 import transformToInitialValue from '../../utils/valuesController/valuesController/transformInitialValues';
-// import { removeInitialValue } from '../../utils/valuesController/valuesController/removeInitialValues';
+import { ActionOnChange } from '../../types/ActionOnChange';
+import { InitialObjectType } from '../../types/Initial/Initial';
 
 function useLocationField(
 	name: string,
 	value?: ObjectString | string
-): [string, (value: string) => void];
+): [string, (value: string, actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(
 	name: string,
 	value: ObjectNumber | number
-): [number, (value: number) => void];
+): [number, (value: number, actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(
 	name: string,
 	value: ObjectBoolean | boolean
-): [boolean, (value: boolean) => void];
+): [boolean, (value: boolean, actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(
 	name: string,
 	value: ObjectJson
-): [any, (value: any) => void];
+): [any, (value: any, actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(
 	name: string,
-	value: ObjectArrayBoolean
-): [boolean[], (value: boolean[]) => void];
+	value: ObjectArrayBoolean | boolean[]
+): [boolean[], (value: boolean[], actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(
 	name: string,
-	value: ObjectArrayNumber
-): [number[], (value: number[]) => void];
+	value: ObjectArrayNumber | number[]
+): [number[], (value: number[], actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(
 	name: string,
-	value: ObjectArrayString
-): [string[], (value: string[]) => void];
+	value: ObjectArrayString | string[]
+): [string[], (value: string[], actionOnChange?: ActionOnChange) => void];
 
-function useLocationField<T>(name: string): [any, (value: any) => void];
-function useLocationField(name: string): [any, (value: any) => void];
+function useLocationField<T>(
+	name: string
+): [any, (value: any, actionOnChange?: ActionOnChange) => void];
+function useLocationField(
+	name: string
+): [any, (value: any, actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(name: string, value?: any) {
 	const index = useIndex();
 	const context = useContext(Context);
-	const initialValue = transformToInitialValue(value);
+	const initialValue: InitialObjectType = transformToInitialValue(value);
 
 	if (initialValue !== undefined) {
 		addInitialValue(name, initialValue, index, context);
@@ -70,7 +75,8 @@ function useLocationField(name: string, value?: any) {
 
 	return [
 		context.query[name],
-		(newValue: any) => setQueryFieldValue(name, newValue, context)
+		(newValue: any, actionOnChange: ActionOnChange = ActionOnChange.Push) =>
+			setQueryFieldValue(name, newValue, context, actionOnChange)
 	];
 }
 

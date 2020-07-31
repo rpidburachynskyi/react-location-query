@@ -1,24 +1,29 @@
 import { QueryValues } from '../../types/Query';
-import { compareObjects } from '../objects';
 import readQuery from './readQuery';
 import { stringifyQuery } from '../queryParser/queryParser';
 import { getLocation, getHistory } from '../../stores/store/store';
 import { sortFieldsInQuery } from './sort';
 import { Context } from '../../context/context';
+import { ActionOnChange } from '../../types/ActionOnChange';
 
-const writeQuery = (query: QueryValues, context: Context) => {
+export const writeQuery = (
+	query: QueryValues,
+	context: Context,
+	actionOnChange: ActionOnChange
+) => {
 	const sorted = sortFieldsInQuery(query, context);
-	if (compareObjects(sorted, readQuery())) return;
+	if (stringifyQuery(sorted) === stringifyQuery(readQuery())) return;
 	const preparedQuery = stringifyQuery(sorted);
 
 	const history = getHistory();
 	const location = getLocation();
 
+	const action =
+		actionOnChange === ActionOnChange.Push ? history.push : history.replace;
+
 	if (Object.keys(sorted).length === 0) {
-		history.replace(location.pathname);
+		action(location.pathname);
 	} else {
-		history.replace(`${location.pathname}?${preparedQuery}`);
+		action(`${location.pathname}?${preparedQuery}`);
 	}
 };
-
-export default writeQuery;

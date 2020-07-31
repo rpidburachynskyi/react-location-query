@@ -3,6 +3,7 @@ import isRemoveInitialStringValue from './isRemoveInitialStringValue';
 import isRemoveInitialNumberValue from './isRemoveInitialNumberValue';
 import isRemoveInitialBooleanValue from './isRemoveInitialBooleanValue';
 import isRemoveInitialArrayValue from './isRemoveInitialArrayValue/isRemoveInitialArrayValue';
+import isRemoveInitialJsonValue from './isRemoveInitialJsonValue';
 
 const isRemoveInitialValue = (
 	value: string | string[],
@@ -21,6 +22,8 @@ const isRemoveInitialValue = (
 			return isRemoveInitialNumberValue(value, initialValue);
 		case 'boolean':
 			return isRemoveInitialBooleanValue(value, initialValue);
+		case 'json':
+			return isRemoveInitialJsonValue(value, initialValue);
 	}
 
 	throw new Error('Unknown initial value type');
