@@ -1,5 +1,5 @@
-import { ObjectBoolean } from '../../../../../types/Initial/Boolean';
-import isRemoveInitialBooleanValue from '../../../../../utils/normalizer/normalizeForLocation/removeInitialValues/isRemoveInitialBooleanValue';
+import { ObjectBoolean } from '../../../../../lib/types/Initial/Boolean';
+import isRemoveInitialBooleanValue from '../../../../../lib/utils/normalizer/normalizeForLocation/removeInitialValues/isRemoveInitialBooleanValue';
 
 describe('isRemoveInitialBooleanValue', () => {
 	it('should return true if is initial', () => {

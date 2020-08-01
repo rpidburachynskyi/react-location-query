@@ -1,7 +1,7 @@
-import { InitialObjectType } from '../../types/Initial/Initial';
+import { InitialObjectType } from '../../lib/types/Initial/Initial';
 import useLocationFields from '../../hooks/useLocationFields';
 import { useContext } from 'react';
-import Context from '../../context/context';
+import Context from '../../lib/context/context';
 
 type Values = {
 	[name: string]: InitialObjectType | string | number | boolean;

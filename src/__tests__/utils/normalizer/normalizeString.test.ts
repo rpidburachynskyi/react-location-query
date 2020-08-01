@@ -1,5 +1,5 @@
-import { ObjectString } from '../../../types/Initial/String';
-import normalizeString from '../../../utils/normalizer/normalizeString';
+import { ObjectString } from '../../../lib/types/Initial/String';
+import normalizeString from '../../../lib/utils/normalizer/normalizeString';
 
 describe('normalizeString', () => {
 	it('shold return some string value', () => {

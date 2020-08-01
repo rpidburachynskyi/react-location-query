@@ -1,5 +1,5 @@
-import { ObjectNumber } from '../../../types/Initial/Number';
-import normalizeNumber from '../../../utils/normalizer/normalizeNumber';
+import { ObjectNumber } from '../../../lib/types/Initial/Number';
+import normalizeNumber from '../../../lib/utils/normalizer/normalizeNumber';
 
 describe('normalizeNumber', () => {
 	it('shold return some number value', () => {
@@ -77,8 +77,10 @@ describe('normalizeNumber', () => {
 			type: 'number',
 			initial: 1,
 			onParsedError: () => 51,
-			validate: (value) => value <= 123,
-			onValidateError: () => 123
+			validate: (value) => {
+				if (value > 123) return 123;
+				return value;
+			}
 		};
 
 		expect(normalizeNumber(237, firstInitialValue)).toBe(123);

@@ -1,5 +1,5 @@
-import { ObjectNumber } from '../../../../../types/Initial/Number';
-import isRemoveInitialNumberValue from '../../../../../utils/normalizer/normalizeForLocation/removeInitialValues/isRemoveInitialNumberValue';
+import { ObjectNumber } from '../../../../../lib/types/Initial/Number';
+import isRemoveInitialNumberValue from '../../../../../lib/utils/normalizer/normalizeForLocation/removeInitialValues/isRemoveInitialNumberValue';
 
 describe('isRemoveInitialNumberValue', () => {
 	it('should return true if is initial', () => {

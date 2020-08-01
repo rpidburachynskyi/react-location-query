@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom';
-import { stringifyQuery } from '../../utils/queryParser/queryParser';
+import { stringifyQuery } from '../../lib/utils/queryParser/queryParser';
 import { useContext } from 'react';
-import Context from '../../context/context';
+import Context from '../../lib/context/context';
 
 const useQueryPush = (replace = false) => {
 	const history = useHistory();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocationFields } from '../..';
-import { InitialObjectType } from '../../types/Initial/Initial';
+import { InitialObjectType } from '../../lib/types/Initial/Initial';
 
 type Values = {
 	[name: string]: InitialObjectType | string | number | boolean;

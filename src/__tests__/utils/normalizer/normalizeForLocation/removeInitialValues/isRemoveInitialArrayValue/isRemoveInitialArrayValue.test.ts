@@ -1,5 +1,5 @@
-import { ObjectArray } from '../../../../../../types/Initial/Array';
-import isRemoveInitialArrayValue from '../../../../../../utils/normalizer/normalizeForLocation/removeInitialValues/isRemoveInitialArrayValue';
+import { ObjectArray } from '../../../../../../lib/types/Initial/Array';
+import isRemoveInitialArrayValue from '../../../../../../lib/utils/normalizer/normalizeForLocation/removeInitialValues/isRemoveInitialArrayValue';
 
 describe('isRemoveInitialArrayValue', () => {
 	it('should return false if arrays length not same', () => {

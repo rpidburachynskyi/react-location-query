@@ -1,5 +1,5 @@
-import { ObjectJson } from '../../../../types/Initial/Json';
-import normalizeJson from '../../../../utils/normalizer/normalizeForUser/normalizeJson';
+import { ObjectJson } from '../../../../lib/types/Initial/Json';
+import normalizeJson from '../../../../lib/utils/normalizer/normalizeForUser/normalizeJson';
 
 describe('normalizeJsonForUser', () => {
 	it('shold return some json value', () => {

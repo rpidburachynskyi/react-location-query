@@ -1,4 +1,4 @@
-import normalizeJson from '../../../../utils/normalizer/normalizeForLocation/normalizeJson';
+import normalizeJson from '../../../../lib/utils/normalizer/normalizeForLocation/normalizeJson';
 
 describe('normalizeJsonForLocation', () => {
 	it('shold return some json value', () => {

@@ -1,9 +1,9 @@
+import decryptQuery from '../crypto/decryptQuery';
+import qs from 'querystring';
 import { QueryValues } from '../../types/Query';
 import { getLocation } from '../../stores/store/store';
-import decryptQuery from '../crypto/decryptQuery';
+import { Options } from '../../stores/options/types/Options';
 import { Location } from '../../types/HistoryLocation';
-import qs from 'querystring';
-import Options from '../../types/Options';
 
 const readQuery = (options: Options): QueryValues => {
 	const location: Location = getLocation();

@@ -1,8 +1,8 @@
-import CryptoOption from '../../types/Options/CryptoOption';
 import compressFromBase64 from './compres/base64/compressFromBase64';
 import base64Decrypt from './methods/base64/base64Decrypt';
 import xorDecrypt from './methods/xor/xorDecrypt';
-import Options from '../../types/Options';
+import CryptoOption from '../../types/Options/CryptoOption';
+import { Options } from '../../stores/options/types/Options';
 
 const decryptQuery = (query: string, options: Options) => {
 	const option = options.crypto as Exclude<CryptoOption, false>;

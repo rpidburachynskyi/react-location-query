@@ -1,12 +1,12 @@
 import React, { useEffect, useContext } from 'react';
-import Context, { Context as ContextType } from '../../context/context';
+import Context, { Context as ContextType } from '../../lib/context/context';
 import { useHistory, useLocation } from 'react-router-dom';
-import { SortOptions } from '../../stores/options/types/SortOptions';
-import { DefaultOptions } from '../../stores/options/types/DefaultOptions';
-import Options from '../../types/Options';
-import { setHistory } from '../../stores/store/store';
-import readQuery from '../../utils/locationController/readQuery';
-import { calculateLocationPath } from '../../utils/locationController/locationController';
+import { SortOptions } from '../../lib/stores/options/types/SortOptions';
+import { DefaultOptions } from '../../lib/stores/options/types/DefaultOptions';
+import Options from '../../lib/types/Options';
+import { setHistory } from '../../lib/stores/store/store';
+import readQuery from '../../lib/utils/locationController/readQuery';
+import { calculateLocationPath } from '../../lib/utils/locationController/locationController';
 
 interface Props {
 	children: any;

@@ -1,10 +1,10 @@
-import { QueryValues } from '../../types/Query';
 import readQuery from './readQuery';
 import { stringifyQuery } from '../queryParser/queryParser';
-import { getLocation, getHistory } from '../../stores/store/store';
-import { Context } from '../../context/context';
-import { ActionOnChange } from '../../types/ActionOnChange';
 import { sortFieldsInQuery } from './sort/sort';
+import { Context } from '../../context/context';
+import { QueryValues } from '../../types/Query';
+import { ActionOnChange } from '../../types/ActionOnChange';
+import { getHistory, getLocation } from '../../stores/store/store';
 
 export const writeQuery = (
 	query: QueryValues,

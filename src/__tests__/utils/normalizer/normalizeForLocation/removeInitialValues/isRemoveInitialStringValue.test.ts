@@ -1,5 +1,5 @@
-import isRemoveInitialStringValue from '../../../../../utils/normalizer/normalizeForLocation/removeInitialValues/isRemoveInitialStringValue';
-import { ObjectString } from '../../../../../types/Initial/String';
+import isRemoveInitialStringValue from '../../../../../lib/utils/normalizer/normalizeForLocation/removeInitialValues/isRemoveInitialStringValue';
+import { ObjectString } from '../../../../../lib/types/Initial/String';
 
 describe('isRemoveInitialStringValue', () => {
 	it('should return true if is initial', () => {

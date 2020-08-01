@@ -2,21 +2,21 @@ import {
 	ObjectArrayBoolean,
 	ObjectArrayNumber,
 	ObjectArrayString
-} from '../../types/Initial/Array';
-import { ObjectBoolean } from '../../types/Initial/Boolean';
-import { ObjectJson } from '../../types/Initial/Json';
-import { ObjectNumber } from '../../types/Initial/Number';
-import { ObjectString } from '../../types/Initial/String';
+} from '../../lib/types/Initial/Array';
+import { ObjectBoolean } from '../../lib/types/Initial/Boolean';
+import { ObjectJson } from '../../lib/types/Initial/Json';
+import { ObjectNumber } from '../../lib/types/Initial/Number';
+import { ObjectString } from '../../lib/types/Initial/String';
 import useIndex from '../useIndex';
 import { useContext } from 'react';
-import { setQueryFieldValue } from '../../utils/locationController/locationController';
-import { getInitialValueByFieldName } from '../../utils/valuesController/valuesController/valuesController';
-import { normalizeValueForUser } from '../../utils/normalizer/normalizeForUser/normalizeForUser';
-import { addInitialValue } from '../../utils/valuesController/valuesController/addInitialValues';
-import transformToInitialValue from '../../utils/valuesController/valuesController/transformInitialValues';
-import { InitialObjectType } from '../../types/Initial/Initial';
-import { ActionOnChange } from '../../types/ActionOnChange';
-import Context from '../../context/context';
+import { setQueryFieldValue } from '../../lib/utils/locationController/locationController';
+import { getInitialValueByFieldName } from '../../lib/utils/valuesController/valuesController/valuesController';
+import { normalizeValueForUser } from '../../lib/utils/normalizer/normalizeForUser/normalizeForUser';
+import { addInitialValue } from '../../lib/utils/valuesController/valuesController/addInitialValues';
+import transformToInitialValue from '../../lib/utils/valuesController/valuesController/transformInitialValues';
+import { InitialObjectType } from '../../lib/types/Initial/Initial';
+import { ActionOnChange } from '../../lib/types/ActionOnChange';
+import Context from '../../lib/context/context';
 
 function useLocationField(
 	name: string,

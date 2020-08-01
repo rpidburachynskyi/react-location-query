@@ -1,4 +1,4 @@
-import { ActionOnChange } from '../../types/ActionOnChange';
+import { ActionOnChange } from '../../lib/types/ActionOnChange';
 import useLocationField from './useLocationField';
 
 type ReturnedTypes = string | number | boolean | object;

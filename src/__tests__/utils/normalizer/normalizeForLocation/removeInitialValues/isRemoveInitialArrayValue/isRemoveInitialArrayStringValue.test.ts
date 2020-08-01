@@ -1,5 +1,5 @@
-import isRemoveInitialArrayStringValue from '../../../../../../utils/normalizer/normalizeForLocation/removeInitialValues/isRemoveInitialArrayValue/isRemoveInitialArrayStringValue';
-import { ObjectArrayString } from '../../../../../../types/Initial/Array';
+import isRemoveInitialArrayStringValue from '../../../../../../lib/utils/normalizer/normalizeForLocation/removeInitialValues/isRemoveInitialArrayValue/isRemoveInitialArrayStringValue';
+import { ObjectArrayString } from '../../../../../../lib/types/Initial/Array';
 
 describe('isRemoveInitialArrayStringValue', () => {
 	it('should return true if is initial', () => {

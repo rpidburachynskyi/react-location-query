@@ -4,11 +4,11 @@ import {
 	ObjectArrayBoolean,
 	ObjectArrayNumber,
 	ObjectArrayString
-} from '../../types/Initial/Array';
-import { ObjectBoolean } from '../../types/Initial/Boolean';
-import { ObjectJson } from '../../types/Initial/Json';
-import { ObjectNumber } from '../../types/Initial/Number';
-import { ObjectString } from '../../types/Initial/String';
+} from '../../lib/types/Initial/Array';
+import { ObjectBoolean } from '../../lib/types/Initial/Boolean';
+import { ObjectJson } from '../../lib/types/Initial/Json';
+import { ObjectNumber } from '../../lib/types/Initial/Number';
+import { ObjectString } from '../../lib/types/Initial/String';
 
 function withLocationField(
 	name: string,

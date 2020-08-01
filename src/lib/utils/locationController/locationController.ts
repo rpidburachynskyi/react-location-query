@@ -1,9 +1,9 @@
-import { QueryValue, QueryValues } from '../../types/Query';
 import { normalizeForLocation } from '../normalizer/normalizer';
 import readQuery from './readQuery';
-import { Context } from '../../context/context';
 import { ActionOnChange } from '../../types/ActionOnChange';
 import { writeQuery } from './writeQuery';
+import { Context } from '../../context/context';
+import { QueryValues, QueryValue } from '../../types/Query';
 
 export const calculateLocationPath = (
 	context: Context,

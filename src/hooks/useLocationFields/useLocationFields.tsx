@@ -1,13 +1,13 @@
 import useIndex from '../useIndex';
 import { useContext } from 'react';
-import Context from '../../context/context';
-import { InitialObjectType } from '../../types/Initial/Initial';
-import transformToInitialValue from '../../utils/valuesController/valuesController/transformInitialValues';
-import { addInitialValue } from '../../utils/valuesController/valuesController/addInitialValues';
-import { normalizeValueForUser } from '../../utils/normalizer/normalizeForUser/normalizeForUser';
-import { setQueryFieldValue } from '../../utils/locationController/locationController';
-import { getInitialValueByFieldName } from '../../utils/valuesController/valuesController/valuesController';
-import { ActionOnChange } from '../../types/ActionOnChange';
+import Context from '../../lib/context/context';
+import { InitialObjectType } from '../../lib/types/Initial/Initial';
+import transformToInitialValue from '../../lib/utils/valuesController/valuesController/transformInitialValues';
+import { addInitialValue } from '../../lib/utils/valuesController/valuesController/addInitialValues';
+import { normalizeValueForUser } from '../../lib/utils/normalizer/normalizeForUser/normalizeForUser';
+import { setQueryFieldValue } from '../../lib/utils/locationController/locationController';
+import { getInitialValueByFieldName } from '../../lib/utils/valuesController/valuesController/valuesController';
+import { ActionOnChange } from '../../lib/types/ActionOnChange';
 
 type Values = {
 	[name: string]: InitialObjectType | string | number | boolean;
