@@ -66,7 +66,7 @@ const removeUnusedQueryFields = (
 	locationValues: QueryValues,
 	context: Context
 ) => {
-	if (!context.options.removeUnusedQueryFields) {
+	if (!context.rules.removeUnusedQueryFields) {
 		Object.assign(locationValues, { ...queryValues, ...locationValues });
 	}
 };

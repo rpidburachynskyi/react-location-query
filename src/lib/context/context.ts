@@ -2,7 +2,8 @@ import { createContext } from 'react';
 import { InitialExtendValuesWrappers } from '../types/Initial/Wrapper';
 import { SortOptions } from '../stores/options/types/SortOptions';
 import { DefaultOptions } from '../stores/options/types/DefaultOptions';
-import Options from '../types/Options';
+import CryptoOptions from '../stores/options/types/CryptoOptions/CryptoOptions';
+import { Rules } from '../stores/options/types/Rules';
 
 export interface Context {
 	query: object;
@@ -10,7 +11,8 @@ export interface Context {
 
 	sortOptions: SortOptions;
 	defaultOptions: DefaultOptions;
-	options: Options;
+	cryptoOptions: CryptoOptions;
+	rules: Rules;
 }
 
 const InitialContextType: Context = {
@@ -24,10 +26,10 @@ const InitialContextType: Context = {
 		hideIfDefault: false,
 		replaceValueWhenParsedError: true
 	},
-	options: {
-		crypto: false,
+	rules: {
 		removeUnusedQueryFields: true
-	}
+	},
+	cryptoOptions: { method: 'none' }
 };
 
 const Context = createContext<Context>(InitialContextType);

@@ -1,4 +1,4 @@
-import CryptoOption from '../../types/Options/CryptoOption';
+import CryptoOption from '../../stores/options/types/CryptoOptions';
 import compressWithBase64 from './compres/base64/compressWithBase64';
 import base64Encrypt from './methods/base64/base64Encrypt';
 import xorEncrypt from './methods/xor/xorEncrypt';

@@ -2,21 +2,21 @@ import decryptQuery from '../crypto/decryptQuery';
 import qs from 'querystring';
 import { QueryValues } from '../../types/Query';
 import { getLocation } from '../../stores/store/store';
-import { Options } from '../../stores/options/types/Options';
 import { Location } from '../../types/HistoryLocation';
+import CryptoOptions from '../../stores/options/types/CryptoOptions/CryptoOptions';
 
-const readQuery = (options: Options): QueryValues => {
+const readQuery = (crypto: CryptoOptions): QueryValues => {
 	const location: Location = getLocation();
-	return parseQuery(location.search, options);
+	return parseQuery(location.search, crypto);
 };
 
 export default readQuery;
 
-const parseQuery = (query: string, options: Options): QueryValues => {
+const parseQuery = (query: string, crypto: CryptoOptions): QueryValues => {
 	try {
 		const q = qs.parse(query === '' ? '' : query.substring(1));
-		if (options.crypto) {
-			if (q.q as any) return decryptQuery(q.q as any, options);
+		if (crypto.method !== 'none') {
+			if (q.q as any) return decryptQuery(q.q as any, crypto);
 			return {};
 		}
 		return q;

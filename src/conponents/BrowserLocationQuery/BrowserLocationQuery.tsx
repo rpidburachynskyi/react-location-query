@@ -3,22 +3,23 @@ import Context, { Context as ContextType } from '../../lib/context/context';
 import { useHistory, useLocation } from 'react-router-dom';
 import { SortOptions } from '../../lib/stores/options/types/SortOptions';
 import { DefaultOptions } from '../../lib/stores/options/types/DefaultOptions';
-import Options from '../../lib/types/Options';
 import { setHistory } from '../../lib/stores/store/store';
 import readQuery from '../../lib/utils/locationController/readQuery';
 import { calculateLocationPath } from '../../lib/utils/locationController/locationController';
+import CryptoOptions from '../../lib/stores/options/types/CryptoOptions/CryptoOptions';
+import { Rules } from '../../lib/stores/options/types/Rules';
 
 interface Props {
 	children: any;
 
 	sortOptions?: SortOptions;
 	defaultOptions?: DefaultOptions;
-	options?: Options;
+	rules?: Rules;
 }
 
 const BrowserLocationQuery = ({
 	children,
-	options,
+	rules,
 	defaultOptions,
 	sortOptions
 }: Props) => {
@@ -27,10 +28,9 @@ const BrowserLocationQuery = ({
 
 	setHistory(history);
 
-	const newOptions: Options = {
-		crypto: false,
+	const newRules: Rules = {
 		removeUnusedQueryFields: true,
-		...options
+		...rules
 	};
 
 	const newDefaultOptions: DefaultOptions = {
@@ -45,12 +45,18 @@ const BrowserLocationQuery = ({
 		...sortOptions
 	};
 
+	const newCryptoOptions: CryptoOptions = {
+		method: 'none',
+		...crypto
+	};
+
 	const context: ContextType = {
-		query: readQuery(newOptions),
+		query: readQuery(newCryptoOptions),
 		initialValuesWrappers: [],
-		options: newOptions,
+		rules: newRules,
 		defaultOptions: newDefaultOptions,
-		sortOptions: newSortOptions
+		sortOptions: newSortOptions,
+		cryptoOptions: newCryptoOptions
 	};
 
 	return (
