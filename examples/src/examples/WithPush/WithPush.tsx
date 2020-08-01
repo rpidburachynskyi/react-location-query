@@ -1,8 +1,8 @@
 import React from 'react';
-import { useHistoryPush } from 'react-location-query';
+import { useQueryPush } from 'react-location-query';
 
 const WithPush = () => {
-	const push = useHistoryPush();
+	const push = useQueryPush();
 
 	const pushToSimple = () => {
 		push('/examples/simple', { name: 'Donald' });

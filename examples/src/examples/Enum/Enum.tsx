@@ -1,15 +1,15 @@
 import React from 'react';
-import { useLocationField } from 'react-location-query';
+import { useLocationField, useLocationFieldT } from 'react-location-query';
 
 const Enum = () => {
-	const [, setType] = useLocationField('type', {
+	const [q, setType] = useLocationField('type', {
 		type: 'string',
-		initial: 'qwe',
+		initial: 'first',
 		enum: ['first', 'second', 'third', 'fourth', 'fifth'],
 		onParsedEnumError: () => 'first'
 	});
-
-	const [type] = useLocationField<string>('type');
+	
+	const [type] = useLocationFieldT<string>('type');
 
 	return (
 		<div>

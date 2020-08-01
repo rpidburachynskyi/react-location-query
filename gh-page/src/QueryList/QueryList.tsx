@@ -7,17 +7,15 @@ import classes from './QueryList.module.css';
 
 const QueryList = () => {
 	const { fullQuery, setQueryField } = useLocationQuery({});
-	console.log(fullQuery);
 	return (
 		<List
 			dataSource={Object.keys(fullQuery).map((key) => ({
 				name: key,
 				value: fullQuery[key]
 			}))}
-			renderItem={(item) => (
+			renderItem={(item: any) => (
 				<List.Item key={item.name}>
 					<Form.Item style={{ width: '100%' }} label={item.name}>
-						{console.log(item)}
 						<Input
 							value={
 								typeof item.value === 'object'

@@ -1,26 +1,28 @@
-import useLocationQuery from './hooks/useLocationQuery';
-import useLocationQueryExtend from './hooks/useLocationQueryExtend';
 import useLocationField from './hooks/useLocationField';
-import useLocationClear from './hooks/useLocationClear';
-import useHistoryPush from './hooks/useHistoryPush';
+import useLocationFieldT from './hooks/useLocationField/useLocationFieldT';
+import useLocationFields from './hooks/useLocationFields';
+
+import useQueryPush from './hooks/useQueryPush';
 
 import withLocationField from './hocs/withLocationField';
-import withHistoryPush from './hocs/withHistoryPush';
-import withLocationClear from './hocs/withLocationClear';
+import withLocationFields from './hocs/withLocationFields';
+import withQueryPush from './hocs/withQueryPush';
 
-import { setOptions, getOptions } from './stores/options/options';
-import BrowserLocationQuery from './context/Provider';
+import BrowserLocationQuery from './conponents/BrowserLocationQuery';
+import LocationQuery from './conponents/LocationQuery';
 
 export {
-	useLocationQuery,
-	useLocationQueryExtend,
+	// hooks
 	useLocationField,
-	useLocationClear,
-	useHistoryPush,
+	useLocationFieldT,
+	useLocationFields,
+	useQueryPush,
+	// hocs
 	withLocationField,
-	withHistoryPush,
-	withLocationClear,
-	setOptions,
-	getOptions,
+	withLocationFields,
+	withQueryPush,
+	// components
+	LocationQuery,
+	// main component
 	BrowserLocationQuery
 };

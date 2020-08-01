@@ -2,83 +2,91 @@ import {
 	ObjectArrayBoolean,
 	ObjectArrayNumber,
 	ObjectArrayString
-} from '../../types/Initial/Array';
-import { ObjectBoolean } from '../../types/Initial/Boolean';
-import { ObjectJson } from '../../types/Initial/Json';
-import { ObjectNumber } from '../../types/Initial/Number';
-import { ObjectString } from '../../types/Initial/String';
+} from '../../lib/types/Initial/Array';
+import { ObjectBoolean } from '../../lib/types/Initial/Boolean';
+import { ObjectJson } from '../../lib/types/Initial/Json';
+import { ObjectNumber } from '../../lib/types/Initial/Number';
+import { ObjectString } from '../../lib/types/Initial/String';
 import useIndex from '../useIndex';
-import { useEffect, useContext } from 'react';
-import {
-	calculateLocationPath,
-	setQueryField
-} from '../../utils/locationController/locationController';
-import {
-	addInitialValues,
-	removeInitialValues
-} from '../../utils/valuesController/valuesController';
-import { hashFromObject } from '../../utils/objects';
-import { normalizeForUser } from '../../utils/normalizer/normalizer';
-import extractQueryValueByName from '../../utils/queryParser/extractQueryValueByName';
-import Context from '../../context/context';
+import { useContext } from 'react';
+import { setQueryFieldValue } from '../../lib/utils/locationController/locationController';
+import { getInitialValueByFieldName } from '../../lib/utils/valuesController/valuesController/valuesController';
+import { normalizeValueForUser } from '../../lib/utils/normalizer/normalizeForUser/normalizeForUser';
+import { addInitialValue } from '../../lib/utils/valuesController/valuesController/addInitialValues';
+import transformToInitialValue from '../../lib/utils/valuesController/valuesController/transformInitialValues';
+import { InitialObjectType } from '../../lib/types/Initial/Initial';
+import { ActionOnChange } from '../../lib/types/ActionOnChange';
+import Context from '../../lib/context/context';
 
 function useLocationField(
 	name: string,
-	value?: ObjectString | string
-): [string, (value: string) => void];
+	value: ObjectString | string
+): [string, (value: string, actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(
 	name: string,
 	value: ObjectNumber | number
-): [number, (value: number) => void];
+): [number, (value: number, actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(
 	name: string,
 	value: ObjectBoolean | boolean
-): [boolean, (value: boolean) => void];
+): [boolean, (value: boolean, actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(
 	name: string,
 	value: ObjectJson
-): [any, (value: any) => void];
+): [any, (value: any, actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(
 	name: string,
-	value: ObjectArrayBoolean
-): [boolean[], (value: boolean[]) => void];
+	value: ObjectArrayBoolean | boolean[]
+): [boolean[], (value: boolean[], actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(
 	name: string,
-	value: ObjectArrayNumber
-): [number[], (value: number[]) => void];
+	value: ObjectArrayNumber | number[]
+): [number[], (value: number[], actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(
 	name: string,
-	value: ObjectArrayString
-): [string[], (value: string[]) => void];
+	value: ObjectArrayString | string[]
+): [string[], (value: string[], actionOnChange?: ActionOnChange) => void];
 
-function useLocationField<T>(name: string): [any, (value: any) => void];
-function useLocationField(name: string): [any, (value: any) => void];
+function useLocationField(
+	name: string
+): [any, (value: any, actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(name: string, value?: any) {
-	const initialValues = value !== undefined ? { [name]: value } : {};
-
 	const index = useIndex();
-	const contect = useContext(Context);
-	console.log(contect);
-	addInitialValues(initialValues, index);
+	const context = useContext(Context);
 
-	useEffect(() => {
-		calculateLocationPath();
-		return () => {
-			removeInitialValues(initialValues);
-			calculateLocationPath();
-		};
-	}, [hashFromObject(initialValues)]);
+	if (value !== undefined) {
+		const initialValue: InitialObjectType = transformToInitialValue(
+			value,
+			context
+		);
+
+		addInitialValue(name, initialValue, index, context);
+		context.query[name] = normalizeValueForUser(
+			context.query[name],
+			initialValue
+		);
+	}
+
+	if (context.query[name] === undefined && value === undefined)
+		throw new Error(`Unknown field: '${name}'`);
+
+	const initial = getInitialValueByFieldName(name, context);
 
 	return [
-		normalizeForUser({ [name]: extractQueryValueByName(name) })[name],
-		(a: any) => setQueryField(name, a)
+		context.query[name],
+		(
+			newValue: any,
+			actionOnChange: 'Push' | 'Replace' = initial.actionOnChange
+				? initial.actionOnChange
+				: 'Replace'
+		) => setQueryFieldValue(name, newValue, context, actionOnChange)
 	];
 }
 

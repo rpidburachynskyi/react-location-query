@@ -1,5 +1,5 @@
-import normalizeBoolean from '../../../utils/normalizer/normalizeBoolean';
-import { ObjectBoolean } from '../../../types/Initial/Boolean';
+import normalizeBoolean from '../../../lib/utils/normalizer/normalizeBoolean';
+import { ObjectBoolean } from '../../../lib/types/Initial/Boolean';
 
 describe('normalizeBoolean', () => {
 	it('shold return some boolean value', () => {

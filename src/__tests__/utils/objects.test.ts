@@ -1,4 +1,4 @@
-import { compareObjects, hashFromObject } from '../../utils/objects';
+import { compareObjects, hashFromObject } from '../../lib/utils/objects';
 
 describe('objects', () => {
 	it('compareObjects', () => {

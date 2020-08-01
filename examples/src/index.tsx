@@ -4,15 +4,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { setOptions, BrowserLocationQuery } from 'react-location-query';
+import { BrowserLocationQuery } from 'react-location-query';
 
-setOptions({
-	removeUnusedQueryFields: true
-});
 ReactDOM.render(
 	<React.StrictMode>
 		<Router>
-			<BrowserLocationQuery>
+			<BrowserLocationQuery
+				// @ts-ignore
+				sortOptions={{ sortBy: 'order', sortOrder: 'asc' }}
+			>
 				<App />
 			</BrowserLocationQuery>
 		</Router>
