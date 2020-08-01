@@ -1,4 +1,4 @@
-#### react-location-query
+# Documentation (English)
 
 Package for easier manipulation with location query.
 
