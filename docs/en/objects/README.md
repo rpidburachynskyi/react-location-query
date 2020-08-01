@@ -22,4 +22,6 @@ package will convert object as you pass it:
  const [name, setName] = useLocationField('name', {
 type: 'string',
 initial: 'Rostyslav'
+...defaultOptions
 });
+**ATTENTION**: defaultOptions is options from [BrowserLocationQuery](/docs/en/components/BrowserLocationQuery.md 'BrowserLocationQuery') and it have [default values](/docs/en/options/DefaultOptions.md 'default values').
