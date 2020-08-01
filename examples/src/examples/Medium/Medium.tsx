@@ -4,16 +4,8 @@ import { useLocationField } from 'react-location-query';
 const Medium = () => {
 	const [name, setName] = useLocationField('name', 'Rostyslav');
 	const [age, setAge] = useLocationField('age', {
-		// @ts-ignore
 		type: 'number',
-		// @ts-ignore
 		initial: 19,
-		// @ts-ignore
-		enum: [1, 2, 3, 19],
-		// @ts-ignore
-		// @ts-ignore
-		onParsedEnumError: () => 2,
-		// @ts-ignore
 		onParsedError: () => 0
 	});
 	const [married, setMarried] = useLocationField('married', false);
@@ -25,10 +17,7 @@ const Medium = () => {
 			</div>
 			<div>
 				<label>Age: </label>
-				<input
-					value={age}
-					onChange={(e) => (setAge as any)(+e.target.value)}
-				/>
+				<input value={age} onChange={(e) => setAge(+e.target.value)} />
 			</div>
 			<div>
 				<label>Married: </label>
