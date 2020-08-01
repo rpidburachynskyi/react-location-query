@@ -1,11 +1,11 @@
 import React from 'react';
-import { useHistoryPush } from '../..';
+import { useQueryPush } from '../..';
 
-function withHistoryPush(replaceToName?: string) {
+function withQueryPush(replaceToName?: string) {
 	return (WrapperComponent: any) => (props: any) => {
 		const name = replaceToName || 'push';
-		const push = useHistoryPush();
+		const push = useQueryPush();
 		return <WrapperComponent {...props} {...{ [name]: push }} />;
 	};
 }
-export default withHistoryPush;
+export default withQueryPush;

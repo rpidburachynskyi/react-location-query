@@ -1,15 +1,22 @@
 import useLocationField from './hooks/useLocationField';
-import useHistoryPush from './hooks/useHistoryPush';
+import useLocationFieldT from './hooks/useLocationField/useLocationFieldT';
+import useLocationFields from './hooks/useLocationFields';
+
+import useQueryPush from './hooks/useQueryPush';
 
 import withLocationField from './hocs/withLocationField';
-import withHistoryPush from './hocs/withHistoryPush';
+import withQueryPush from './hocs/withQueryPush';
 
 import BrowserLocationQuery from './context/Provider';
+import LocationQuery from './conponents/LocationQuery';
 
 export {
 	useLocationField,
-	useHistoryPush,
+	useLocationFieldT,
+	useLocationFields,
+	useQueryPush,
 	withLocationField,
-	withHistoryPush,
-	BrowserLocationQuery
+	withQueryPush,
+	BrowserLocationQuery,
+	LocationQuery
 };

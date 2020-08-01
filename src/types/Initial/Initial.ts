@@ -4,12 +4,11 @@ import { ObjectJson } from './Json';
 import { ObjectNumber } from './Number';
 import { ObjectString } from './String';
 import { ObjectCustom } from './Custom';
-import { ActionOnChange } from '../ActionOnChange';
 
 export type InitialObject = {
 	hideIfInitial?: boolean;
 	replaceValueWhenParsedError?: boolean;
-	actionOnChange?: ActionOnChange;
+	actionOnChange?: 'Push' | 'Replace';
 };
 
 export type InitialObjectType =

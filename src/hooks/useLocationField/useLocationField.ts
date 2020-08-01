@@ -10,13 +10,13 @@ import { ObjectString } from '../../types/Initial/String';
 import useIndex from '../useIndex';
 import { useContext } from 'react';
 import { setQueryFieldValue } from '../../utils/locationController/locationController';
-import {} from '../../utils/valuesController/valuesController/valuesController';
+import { getInitialValueByFieldName } from '../../utils/valuesController/valuesController/valuesController';
 import Context from '../../context/context';
 import { normalizeValueForUser } from '../../utils/normalizer/normalizeForUser/normalizeForUser';
 import { addInitialValue } from '../../utils/valuesController/valuesController/addInitialValues';
 import transformToInitialValue from '../../utils/valuesController/valuesController/transformInitialValues';
-import { ActionOnChange } from '../../types/ActionOnChange';
 import { InitialObjectType } from '../../types/Initial/Initial';
+import { ActionOnChange } from '../../types/ActionOnChange';
 
 function useLocationField(
 	name: string,
@@ -55,11 +55,7 @@ function useLocationField(
 
 function useLocationField(
 	name: string
-): [any, (value: any, actionOnChange?: keyof ActionOnChange) => void];
-
-// function useLocationField<T = any>( // -- not working correctly
-// 	name: string
-// ): [T, (value: T, actionOnChange?: ActionOnChange) => void];
+): [any, (value: any, actionOnChange?: ActionOnChange) => void];
 
 function useLocationField(name: string, value?: any) {
 	const index = useIndex();
@@ -81,10 +77,16 @@ function useLocationField(name: string, value?: any) {
 	if (context.query[name] === undefined && value === undefined)
 		throw new Error(`Unknown field: '${name}'`);
 
+	const initial = getInitialValueByFieldName(name, context);
+
 	return [
 		context.query[name],
-		(newValue: any, actionOnChange: ActionOnChange = ActionOnChange.Push) =>
-			setQueryFieldValue(name, newValue, context, actionOnChange)
+		(
+			newValue: any,
+			actionOnChange: 'Push' | 'Replace' = initial.actionOnChange
+				? initial.actionOnChange
+				: 'Replace'
+		) => setQueryFieldValue(name, newValue, context, actionOnChange)
 	];
 }
 

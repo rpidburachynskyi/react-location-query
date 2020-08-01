@@ -3,12 +3,12 @@ import { stringifyQuery } from '../../utils/queryParser/queryParser';
 import { useContext } from 'react';
 import Context from '../../context/context';
 
-const useHistoryPush = (replace = false) => {
+const useQueryPush = (replace = false) => {
 	const history = useHistory();
 	const context = useContext(Context);
 
-	const push = (path: string, values: {}) => {
-		const action = replace ? history.replace : history.push;
+	const push = (path: string, values: {}, innerReplace = false) => {
+		const action = replace || innerReplace ? history.replace : history.push;
 		if (Object.keys(values).length === 0) {
 			return action(path);
 		}
@@ -19,4 +19,4 @@ const useHistoryPush = (replace = false) => {
 	return push;
 };
 
-export default useHistoryPush;
+export default useQueryPush;

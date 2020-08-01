@@ -22,8 +22,7 @@ export const writeQuery = (
 	const history = getHistory();
 	const location = getLocation();
 
-	const action =
-		actionOnChange === ActionOnChange.Push ? history.push : history.replace;
+	const action = actionOnChange === 'Push' ? history.push : history.replace;
 
 	if (Object.keys(sorted).length === 0) {
 		action(location.pathname);

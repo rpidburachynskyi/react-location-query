@@ -4,7 +4,6 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { setHistory } from '../stores/store/store';
 import { calculateLocationPath } from '../utils/locationController/locationController';
 import readQuery from '../utils/locationController/readQuery';
-import { ActionOnChange } from '../types/ActionOnChange';
 import { SortOptions } from '../stores/options/types/SortOptions';
 import { DefaultOptions } from '../stores/options/types/DefaultOptions';
 import Options from '../types/Options';
@@ -68,7 +67,7 @@ interface InsideProps {
 const InsideProvider = ({ children }: InsideProps) => {
 	const context = useContext(Context);
 	useEffect(() => {
-		calculateLocationPath(context, ActionOnChange.Replace);
+		calculateLocationPath(context, 'Replace');
 	});
 	return children;
 };
