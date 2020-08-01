@@ -28,14 +28,9 @@ const BrowserLocationQuery = ({
 
 	setHistory(history);
 
-	const newRules: Rules = {
-		removeUnusedQueryFields: true,
-		...rules
-	};
-
 	const newDefaultOptions: DefaultOptions = {
 		hideIfDefault: false,
-		replaceValueWhenParsedError: true,
+		actionOnChange: 'Push',
 		...defaultOptions
 	};
 
@@ -50,13 +45,18 @@ const BrowserLocationQuery = ({
 		...crypto
 	};
 
+	const newRules: Rules = {
+		removeUnusedQueryFields: true,
+		...rules
+	};
+
 	const context: ContextType = {
 		query: readQuery(newCryptoOptions),
 		initialValuesWrappers: [],
-		rules: newRules,
 		defaultOptions: newDefaultOptions,
 		sortOptions: newSortOptions,
-		cryptoOptions: newCryptoOptions
+		cryptoOptions: newCryptoOptions,
+		rules: newRules
 	};
 
 	return (

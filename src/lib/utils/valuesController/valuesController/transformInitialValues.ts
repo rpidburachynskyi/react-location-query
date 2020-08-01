@@ -46,9 +46,9 @@ const transformToInitialValue = (
 	}
 
 	initialValue = {
-		...initialValue,
 		hideIfInitial: context.defaultOptions.hideIfDefault,
-		replaceValueWhenParsedError: false
+		actionOnChange: context.defaultOptions.actionOnChange,
+		...initialValue
 	};
 
 	return initialValue;

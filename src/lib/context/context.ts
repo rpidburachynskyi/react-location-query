@@ -15,23 +15,6 @@ export interface Context {
 	rules: Rules;
 }
 
-const InitialContextType: Context = {
-	initialValuesWrappers: [],
-	query: {},
-	sortOptions: {
-		sortBy: 'order',
-		sortOrder: 'asc'
-	},
-	defaultOptions: {
-		hideIfDefault: false,
-		replaceValueWhenParsedError: true
-	},
-	rules: {
-		removeUnusedQueryFields: true
-	},
-	cryptoOptions: { method: 'none' }
-};
-
-const Context = createContext<Context>(InitialContextType);
+const Context = createContext<Context>({} as any);
 
 export default Context;

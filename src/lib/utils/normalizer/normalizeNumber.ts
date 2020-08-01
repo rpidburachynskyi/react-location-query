@@ -9,6 +9,7 @@ const normalizeNumber = (
 	let newValue = validateInitial(value, initialValue);
 	newValue = validateNumber(newValue, initialValue);
 	newValue = validateEnum(newValue, initialValue);
+	newValue = validateInteger(newValue, initialValue);
 	newValue = validate(newValue, initialValue);
 
 	return newValue;
@@ -60,6 +61,26 @@ const validateEnum = (value: number, initialValue: ObjectNumber) => {
 				return newValue;
 			} else {
 				return initialValue.initial;
+			}
+		}
+	}
+
+	return value;
+};
+
+const validateInteger = (value: number, initialValue: ObjectNumber) => {
+	if ('integer' in initialValue) {
+		if (!Number.isInteger(value)) {
+			if (initialValue.onParsedIntegerError) {
+				const newValue = initialValue.onParsedIntegerError(value);
+				if (!Number.isInteger(newValue)) {
+					throw new Error(
+						`onParsedIntegerError returned non-integer value, received ${newValue}`
+					);
+				}
+				return newValue;
+			} else {
+				return Math.floor(value);
 			}
 		}
 	}
