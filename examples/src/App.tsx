@@ -6,6 +6,7 @@ import Json from './examples/Json';
 import Medium from './examples/Medium';
 import Simple from './examples/Simple';
 import WithPush from './examples/WithPush';
+import Components from './examples/Components';
 
 const App = () => {
 	return (
@@ -17,6 +18,7 @@ const App = () => {
 				<Link to='/examples/classes'>Classes</Link>
 				<Link to='/examples/json'>JSON</Link>
 				<Link to='/examples/enum'>Enum</Link>
+				<Link to='/examples/components'>Components</Link>
 			</header>
 			<div>
 				<Switch>
@@ -26,6 +28,7 @@ const App = () => {
 					<Route path='/examples/classes' component={Classes} />
 					<Route path='/examples/json' component={Json} />
 					<Route path='/examples/enum' component={Enum} />
+					<Route path='/examples/components' component={Components} />
 				</Switch>
 			</div>
 		</div>

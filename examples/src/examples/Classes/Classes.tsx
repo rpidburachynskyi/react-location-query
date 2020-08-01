@@ -1,6 +1,6 @@
 import React from 'react';
 // @ts-ignore
-import { withLocationField, withHistoryPush } from 'react-location-query';
+import { withLocationField, withQueryPush } from 'react-location-query';
 import Musics from './Musics';
 import Videos from './Videos';
 
@@ -42,4 +42,4 @@ export default withLocationField(
 	'videos',
 	'contentType',
 	'setContentType'
-)(withHistoryPush()(Classes));
+)(withQueryPush()(Classes));
