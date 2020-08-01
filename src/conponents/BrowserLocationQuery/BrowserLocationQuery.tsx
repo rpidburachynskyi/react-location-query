@@ -1,12 +1,12 @@
 import React, { useEffect, useContext } from 'react';
-import Context, { Context as ContextType } from './context';
+import Context, { Context as ContextType } from '../../context/context';
 import { useHistory, useLocation } from 'react-router-dom';
-import { setHistory } from '../stores/store/store';
-import { calculateLocationPath } from '../utils/locationController/locationController';
-import readQuery from '../utils/locationController/readQuery';
-import { SortOptions } from '../stores/options/types/SortOptions';
-import { DefaultOptions } from '../stores/options/types/DefaultOptions';
-import Options from '../types/Options';
+import { SortOptions } from '../../stores/options/types/SortOptions';
+import { DefaultOptions } from '../../stores/options/types/DefaultOptions';
+import Options from '../../types/Options';
+import { setHistory } from '../../stores/store/store';
+import readQuery from '../../utils/locationController/readQuery';
+import { calculateLocationPath } from '../../utils/locationController/locationController';
 
 interface Props {
 	children: any;
@@ -16,7 +16,7 @@ interface Props {
 	options?: Options;
 }
 
-const Provider = ({
+const BrowserLocationQuery = ({
 	children,
 	options,
 	defaultOptions,
@@ -72,4 +72,4 @@ const InsideProvider = ({ children }: InsideProps) => {
 	return children;
 };
 
-export default Provider;
+export default BrowserLocationQuery;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocationField } from '../..';
 import {
 	ObjectArrayBoolean,
@@ -66,7 +66,6 @@ function withLocationField(
 	setFieldName?: string
 ) {
 	return (WrapperComponent: any) => (props: any) => {
-		useState();
 		const [_value, _setValue] = useLocationField(name, value);
 
 		const _fieldName = fieldName || name;

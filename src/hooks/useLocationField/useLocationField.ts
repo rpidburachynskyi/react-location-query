@@ -11,12 +11,12 @@ import useIndex from '../useIndex';
 import { useContext } from 'react';
 import { setQueryFieldValue } from '../../utils/locationController/locationController';
 import { getInitialValueByFieldName } from '../../utils/valuesController/valuesController/valuesController';
-import Context from '../../context/context';
 import { normalizeValueForUser } from '../../utils/normalizer/normalizeForUser/normalizeForUser';
 import { addInitialValue } from '../../utils/valuesController/valuesController/addInitialValues';
 import transformToInitialValue from '../../utils/valuesController/valuesController/transformInitialValues';
 import { InitialObjectType } from '../../types/Initial/Initial';
 import { ActionOnChange } from '../../types/ActionOnChange';
+import Context from '../../context/context';
 
 function useLocationField(
 	name: string,

@@ -1,3 +1,3 @@
-import withHistoryPush from './withHistoryPush';
+import withQueryPush from './withQueryPush';
 
-export default withHistoryPush;
+export default withQueryPush;
