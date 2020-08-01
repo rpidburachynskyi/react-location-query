@@ -3,8 +3,12 @@ import useLocationFields from '../../hooks/useLocationFields';
 import { useContext } from 'react';
 import Context from '../../context/context';
 
+type Values = {
+	[name: string]: InitialObjectType | string | number | boolean;
+};
+
 interface Props {
-	values?: { [name: string]: InitialObjectType };
+	values?: Values;
 	children: (v: {
 		query: object;
 		setQueryField: (
