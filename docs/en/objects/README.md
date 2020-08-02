@@ -5,9 +5,9 @@
 -   [Boolean](/docs/en/objects/Boolean 'Boolean')
 -   [Json](/docs/en/objects/Json 'Json')
 -   [Array](/docs/en/objects/Array 'Array')
--   String
--   Number
--   Boolean
+    -   String
+    -   Number
+    -   Boolean
 
 Objects need to pass rules for package, to manipulate with fields.
 
