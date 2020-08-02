@@ -15,6 +15,6 @@ export interface Context {
 	rules: Rules;
 }
 
-const Context = createContext<Context>({} as any);
+const Context = createContext<Context>(undefined as any);
 
 export default Context;

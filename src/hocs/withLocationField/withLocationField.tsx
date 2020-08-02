@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLocationField } from '../..';
 import {
 	ObjectArrayBoolean,
@@ -9,6 +9,7 @@ import { ObjectBoolean } from '../../lib/types/Initial/Boolean';
 import { ObjectJson } from '../../lib/types/Initial/Json';
 import { ObjectNumber } from '../../lib/types/Initial/Number';
 import { ObjectString } from '../../lib/types/Initial/String';
+import Context from '../../lib/context/context';
 
 function withLocationField(
 	name: string,
@@ -66,6 +67,14 @@ function withLocationField(
 	setFieldName?: string
 ) {
 	return (WrapperComponent: any) => (props: any) => {
+		const context = useContext(Context);
+
+		if (!context) {
+			throw new Error(
+				'You must use withLocationField inside BrowserLocationQuery'
+			);
+		}
+
 		const [_value, _setValue] = useLocationField(name, value);
 
 		const _fieldName = fieldName || name;
