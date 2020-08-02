@@ -9,8 +9,6 @@ ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<BrowserLocationQuery>
-				{' '}
-				// this is our component
 				<App />
 			</BrowserLocationQuery>
 		</BrowserRouter>
@@ -28,7 +26,7 @@ You can pass next values:
 
 **ATTENTION**: all values is optionals, you can pass only you need values.
 
-###Example
+### Example
 
 ```javascript
 <BrowserLocationQuery
