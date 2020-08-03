@@ -5,7 +5,7 @@ Hook to create many field. Hook accepts single argument - object, where `keys` i
 #### Example
 
 ```ts
-const { query, setQueryField } = useLocationFields({
+const { values, setQueryField } = useLocationFields({
 	name: {
 		type: 'string',
 		initial: 'Rostyslav'
@@ -32,7 +32,7 @@ But instead default setters as `set[name]`, it returns `setQueryField` function 
 
 ```javascript
 const {
-	query: { name, aget, married },
+	values: { name, aget, married },
 	setQueryField
 } = useLocationFields({
 	name: {
