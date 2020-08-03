@@ -75,7 +75,7 @@ Package supports hooks, hocs and components to pass values in child function.
 -   [useLocationFields](/docs/en/hooks/useLocationFields.md 'useLocationFields') - to create many values.
 -   [useQueryPush](/docs/en/hooks/useQueryPush.md 'useQueryPush') - to push (or replace) new query.
 
-Read about available hooks [here](/docs/hooks 'here').
+Read about available hooks [here](/docs/en/hooks 'here').
 
 #### Hocs
 
@@ -83,13 +83,13 @@ Read about available hooks [here](/docs/hooks 'here').
 -   [withLocationFields](/docs/en/hocs/withLocationFields.md 'withLocationFields') - to create many values.
 -   [withQueryPush](/docs/en/hocs/withQueryPush.md 'withQueryPush') - to get function for push (or replace) new query.
 
-Read about available hocs [here](/docs/hocs 'here').
+Read about available hocs [here](/docs/en/hocs 'here').
 
 #### Components
 
 -   [BrowserLocationQuery](/docs/en/components/BrowserLocationQuery.md 'BrowserLocationQuery') - main component, need pass in the root component (or index.js);
 -   [LocationQuery](/docs/en/components/LocationQuery.md 'LocationQuery') - to create many values and pass them in child function.
 
-Read about available components [here](/docs/components 'here').
+Read about available components [here](/docs/en/components 'here').
 
 &copy; Pidburachynskyi Rostyslav
