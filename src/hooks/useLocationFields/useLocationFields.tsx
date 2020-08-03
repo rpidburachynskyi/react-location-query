@@ -28,7 +28,10 @@ function useLocationFields(values: Values = {}) {
 	const index = useIndex();
 	const context = useContext(Context);
 
-	if(!context) throw new Error("You must use useLocationFields hook inside BrowserLocationQuery");
+	if (!context)
+		throw new Error(
+			'You must use useLocationFields hook inside BrowserLocationQuery'
+		);
 
 	const keys = Object.keys(values);
 	if (keys.length !== 0) {
