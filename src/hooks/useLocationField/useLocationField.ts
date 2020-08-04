@@ -61,6 +61,8 @@ function useLocationField(name: string, value?: any) {
 	const index = useIndex();
 	const context = useContext(Context);
 
+	if(!context) throw new Error("You must use useLocationField hook inside BrowserLocationQuery");
+
 	if (value !== undefined) {
 		const initialValue: InitialObjectType = transformToInitialValue(
 			value,

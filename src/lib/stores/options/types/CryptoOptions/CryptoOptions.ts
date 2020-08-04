@@ -1,3 +1,7 @@
+interface None {
+	method: 'none';
+}
+
 interface Base64Option {
 	method: 'base64';
 }
@@ -8,6 +12,6 @@ interface XorOption {
 	compessedToBase64: boolean;
 }
 
-type CryptoOption = false | Base64Option | XorOption;
+type CryptoOptions = None | Base64Option | XorOption;
 
-export default CryptoOption;
+export default CryptoOptions;

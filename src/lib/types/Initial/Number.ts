@@ -5,6 +5,9 @@ interface InitialObjectNumber extends InitialObject {
 	initial: number;
 	onParsedError?: (errorValue: string) => number;
 	validate?: (value: number) => number;
+
+	integer?: boolean;
+	onParsedIntegerError?: (number: number) => number;
 }
 
 interface InitialObjectNumberWithEnum

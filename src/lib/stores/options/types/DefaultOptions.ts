@@ -1,4 +1,6 @@
+import { ActionOnChange } from '../../../types/ActionOnChange';
+
 export interface DefaultOptions {
 	hideIfDefault: boolean;
-	replaceValueWhenParsedError: boolean;
+	actionOnChange: ActionOnChange;
 }
