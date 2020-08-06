@@ -14,7 +14,7 @@ const useQueryPush = (replace = false) => {
 		if (Object.keys(values).length === 0) {
 			return action(path);
 		}
-		const query = stringifyQuery(values, context.rules);
+		const query = stringifyQuery(values, context.cryptoOptions);
 		return action(`${path}?${query}`);
 	};
 
