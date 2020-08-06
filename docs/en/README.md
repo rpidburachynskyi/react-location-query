@@ -1,6 +1,6 @@
-#### react-location-query
+# Documentation (English)
 
-Set of hooks for easier manipulation with location query
+Package for easier manipulation with location query.
 
 #### Examples
 
@@ -24,36 +24,72 @@ Set of hooks for easier manipulation with location query
 -   work with all standart types (string | number | boolean | array)
 -   work with non-standart types (json)
 
-# Hooks
+---
 
-## useLocationField
+### Minimal code to run
 
-Hook to easier get/set single field value.
-First argument - `name` of field, second - `value`. It returns couple as `[value, setValue]`;
+[This code in codesandbox.io](https://codesandbox.io/s/react-location-query-min-example-2x6lc 'This code in codesandbox.io')
 
-Object can provide next options:
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserLocationQuery, useLocationField } from 'react-location-query';
+import { BrowserRouter } from 'react-router-dom';
 
-| Name                        | Description                                          | Default value  |
-| --------------------------- | ---------------------------------------------------- | -------------- |
-| type                        | type of field                                        | (not optional) |
-| initial                     | initial value of field                               | (not optional) |
-| hideIfInitial               | option to hide if initial from query                 | false          |
-| onParsedError               | callback for get value if it cannot be parsed        | -              |
-| replaceValueWhenParsedError | option to replace value in query after onParsedError | true           |
+function App() {
+	const [name, setName] = useLocationField('name', {
+		type: 'string',
+		initial: 'Rostyslav'
+	});
 
-#### Example
+	return (
+		<div className='App'>
+			<h1>Hello {name}</h1>
+			<div>
+				<label>Change name: </label>
+				<input value={name} onChange={(e) => setName(e.target.value)} />
+			</div>
+		</div>
+	);
+}
 
-```ts
-const [name, setName] = useLocationField('name', {
-	type: 'string',
-	initial: 'Rostyslav',
-	hideIfInitial: false
-});
+ReactDOM.render(
+	<React.StrictMode>
+		<BrowserRouter>
+			<BrowserLocationQuery>
+				<App />
+			</BrowserLocationQuery>
+		</BrowserRouter>
+	</React.StrictMode>,
+	document.getElementById('root')
+);
 ```
 
-or identical with JavaScript value
+---
 
-```ts
-const [name, setName] = useLocationField('name', 'Rostyslav');
-```
+Package supports hooks, hocs and components to pass values in child function.
 
+#### Hooks
+
+-   [useLocationField](/docs/en/hooks/useLocationField.md 'useLocationField') - to create/get one value.
+-   [useLocationFields](/docs/en/hooks/useLocationFields.md 'useLocationFields') - to create many values.
+-   [useQueryPush](/docs/en/hooks/useQueryPush.md 'useQueryPush') - to push (or replace) new query.
+
+Read about available hooks [here](/docs/en/hooks 'here').
+
+#### Hocs
+
+-   [withLocationField](/docs/en/hocs/withLocationField.md 'withLocationField') - to create/get one value.
+-   [withLocationFields](/docs/en/hocs/withLocationFields.md 'withLocationFields') - to create many values.
+-   [withQueryPush](/docs/en/hocs/withQueryPush.md 'withQueryPush') - to get function for push (or replace) new query.
+
+Read about available hocs [here](/docs/en/hocs 'here').
+
+#### Components
+
+-   [BrowserLocationQuery](/docs/en/components/BrowserLocationQuery.md 'BrowserLocationQuery') - main component, need pass in the root component (or index.js);
+-   [LocationQuery](/docs/en/components/LocationQuery.md 'LocationQuery') - to create many values and pass them in child function.
+
+Read about available components [here](/docs/en/components 'here').
+
+&copy; Pidburachynskyi Rostyslav
