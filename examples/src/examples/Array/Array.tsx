@@ -17,7 +17,6 @@ const MyArray = () => {
 		<div className='App'>
 			{Array.from({ length: 25 }).map((v, page) => {
 				const selected = selectedPages.includes(page);
-				console.log(selectedPages, page, selected);
 				const onClick = () => {
 					if (selected) {
 						setSelectedPages(

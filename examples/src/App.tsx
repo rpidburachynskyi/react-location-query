@@ -8,6 +8,7 @@ import Simple from './examples/Simple';
 import WithPush from './examples/WithPush';
 import Components from './examples/Components';
 import Array from './examples/Array';
+import LinkComponent from './examples/Link';
 
 const App = () => {
 	return (
@@ -21,6 +22,7 @@ const App = () => {
 				<Link to='/examples/enum'>Enum</Link>
 				<Link to='/examples/array'>Array</Link>
 				<Link to='/examples/components'>Components</Link>
+				<Link to='/examples/link'>Link</Link>
 			</header>
 			<div>
 				<Switch>
@@ -32,6 +34,7 @@ const App = () => {
 					<Route path='/examples/enum' component={Enum} />
 					<Route path='/examples/array' component={Array} />
 					<Route path='/examples/components' component={Components} />
+					<Route path='/examples/link' component={LinkComponent} />
 				</Switch>
 			</div>
 		</div>
