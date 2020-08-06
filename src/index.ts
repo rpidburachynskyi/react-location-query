@@ -10,7 +10,6 @@ import withQueryPush from './hocs/withQueryPush';
 
 import BrowserLocationQuery from './conponents/BrowserLocationQuery';
 import LocationQuery from './conponents/LocationQuery';
-import Link from './conponents/Link';
 
 export {
 	// hooks
@@ -24,7 +23,6 @@ export {
 	withQueryPush,
 	// components
 	LocationQuery,
-	Link,
 	// main component
 	BrowserLocationQuery
 };
