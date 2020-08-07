@@ -3,15 +3,15 @@
 </h1>
 
 <h5 align="center">
-  Additional functional for <a href="https://github.com/ReactTraining/react-router">React Router</a>
-</h5> to work with query
+  Additional functional for <a href="https://github.com/ReactTraining/react-router">React Router</a> to work with query
+</h5> 
 
 <p align="center">
   <a href="https://www.npmjs.com/package/react-location-query"><img src="https://img.shields.io/npm/v/react-location-query?style=flat-square"></a>
   <a href="https://www.npmjs.com/package/react-location-query"><img src="https://img.shields.io/npm/dm/react-location-query?style=flat-square"></a>
 
--   [Docs here](https://github.com/kitsoRik/react-location-query/tree/master/docs).
--   [Changes here](https://github.com/kitsoRik/react-location-query/blob/master/CHANGES.md)
+- [Docs here](https://github.com/kitsoRik/react-location-query/tree/master/docs).
+- [Changes here](https://github.com/kitsoRik/react-location-query/blob/master/CHANGES.md)
 
 ## Sumary
 
