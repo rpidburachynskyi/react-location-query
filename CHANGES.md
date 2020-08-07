@@ -1,4 +1,8 @@
-## 1.2.0
+## 1.2.4
+
+> August 7, 2020
+
+-   Added `Link` component;
 
 > July 30, 2020
 
