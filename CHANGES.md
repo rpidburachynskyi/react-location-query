@@ -1,3 +1,9 @@
+## 1.2.5
+
+> August 8, 2020
+
+-   Added 'min' and 'max' validators to number
+
 ## 1.2.4
 
 > August 7, 2020
