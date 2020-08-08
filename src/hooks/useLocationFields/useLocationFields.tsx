@@ -41,7 +41,6 @@ function useLocationFields(values: Values = {}) {
 				value,
 				context
 			);
-			console.log(initialValue);
 
 			addInitialValue(name, initialValue, index, context);
 			context.query[name] = normalizeValueForUser(
