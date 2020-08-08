@@ -10,7 +10,7 @@ import normalizeArray from './normalizeArray';
 import { QueryValues, QueryValue } from '../../../types/Query';
 import { InitialExtendValuesWrappers } from '../../../types/Initial/Wrapper';
 import normalizeCustom from './normalizeCustom';
-import normalizeNumber from '../normalizeNumber';
+import normalizeNumber from '../normalizeNumber/normalizeNumber';
 import normalizeString from '../normalizeString';
 import { Context } from '../../../context/context';
 

@@ -8,11 +8,12 @@ interface InitialObjectNumber extends InitialObject {
 
 	integer?: boolean;
 	onParsedIntegerError?: (number: number) => number;
+
+	min?: number;
+	max?: number;
 }
 
-interface InitialObjectNumberWithEnum
-	extends InitialObjectNumber,
-		InitialObjectNumber {
+interface InitialObjectNumberWithEnum extends InitialObjectNumber {
 	enum: number[];
 	onParsedEnumError?: (value: number) => number;
 }

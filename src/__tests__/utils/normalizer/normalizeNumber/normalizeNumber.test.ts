@@ -1,5 +1,5 @@
-import { ObjectNumber } from '../../../lib/types/Initial/Number';
-import normalizeNumber from '../../../lib/utils/normalizer/normalizeNumber';
+import { ObjectNumber } from '../../../../lib/types/Initial/Number';
+import normalizeNumber from '../../../../lib/utils/normalizer/normalizeNumber/normalizeNumber';
 
 describe('normalizeNumber', () => {
 	it('shold return some number value', () => {
