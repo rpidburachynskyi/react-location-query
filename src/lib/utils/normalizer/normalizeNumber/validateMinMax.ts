@@ -8,7 +8,7 @@ const validateMinMax = (value: number, initialValue: ObjectNumber): number => {
 	}
 
 	if (initialValue.max !== undefined) {
-		if (value < initialValue.max) {
+		if (value > initialValue.max) {
 			return initialValue.max;
 		}
 	}
