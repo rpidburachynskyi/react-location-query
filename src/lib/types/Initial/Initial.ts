@@ -1,7 +1,7 @@
 import { ObjectArray } from './Array';
 import { ObjectBoolean } from './Boolean';
 import { ObjectJson } from './Json';
-import { ObjectNumber } from './Number';
+import { ObjectNumber } from './Number/Number';
 import { ObjectString } from './String';
 import { ObjectCustom } from './Custom';
 

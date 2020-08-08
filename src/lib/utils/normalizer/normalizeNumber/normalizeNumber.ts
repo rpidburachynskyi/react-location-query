@@ -1,4 +1,4 @@
-import { ObjectNumber } from '../../../types/Initial/Number';
+import { ObjectNumber } from '../../../types/Initial/Number/Number';
 import validateInitial from './validateInitial';
 import validateNumber from './validateNumber';
 import validateEnum from './validateEnum';

@@ -1,20 +1,22 @@
-import { ObjectNumber } from '../../../types/Initial/Number';
+import { ObjectNumber } from '../../../types/Initial/Number/Number';
 
 const validateEnum = (value: number, initialValue: ObjectNumber) => {
-	if ('enum' in initialValue) {
-		if (!initialValue.enum.includes(value)) {
-			if (initialValue.onParsedEnumError) {
-				const newValue = initialValue.onParsedEnumError(value);
+	if (initialValue.enum !== undefined) {
+		if (Array.isArray(initialValue.enum)) {
+			if (!initialValue.enum.includes(value)) {
+				return initialValue.initial;
+			}
+		} else {
+			if (initialValue.enum.onNonEnum !== undefined) {
+				const newValue = initialValue.enum.onNonEnum(value);
 
-				if (!initialValue.enum.includes(newValue)) {
+				if (!initialValue.enum.array.includes(newValue)) {
 					throw new Error(
 						`'${newValue}' not contains in enum array ${initialValue.enum}, but you passed it`
 					);
 				}
 
 				return newValue;
-			} else {
-				return initialValue.initial;
 			}
 		}
 	}

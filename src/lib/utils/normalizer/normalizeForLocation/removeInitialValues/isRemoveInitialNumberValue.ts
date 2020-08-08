@@ -1,4 +1,4 @@
-import { ObjectNumber } from '../../../../types/Initial/Number';
+import { ObjectNumber } from '../../../../types/Initial/Number/Number';
 
 const isRemoveInitialNumberValue = (
 	value: string,
