@@ -1,5 +1,5 @@
 import validateNumber from '../../../../lib/utils/normalizer/normalizeNumber/validateNumber';
-import { ObjectNumber } from '../../../../lib/types/Initial/Number';
+import { ObjectNumber } from '../../../../lib/types/Initial/Number/Number';
 
 describe('validateNumber', () => {
 	it('should should return transformed value', () => {

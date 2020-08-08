@@ -85,13 +85,15 @@ describe('validateEnum', () => {
 		).toBe(0);
 	});
 
-	it('should should return onParsedEnumError value', () => {
+	it('should should return onNonEnum value', () => {
 		expect(
 			validateEnum(0, {
 				type: 'number',
 				initial: 1,
-				onParsedEnumError: () => 2,
-				enum: [1, 2, 3, 4]
+				enum: {
+					array: [1, 2, 3, 4],
+					onNonEnum: () => 2
+				}
 			})
 		).toBe(2);
 
@@ -99,8 +101,10 @@ describe('validateEnum', () => {
 			validateEnum(5, {
 				type: 'number',
 				initial: 2,
-				onParsedEnumError: () => 4,
-				enum: [1, 2, 3, 4]
+				enum: {
+					array: [1, 2, 3, 4],
+					onNonEnum: () => 4
+				}
 			})
 		).toBe(4);
 
@@ -108,8 +112,10 @@ describe('validateEnum', () => {
 			validateEnum(-2, {
 				type: 'number',
 				initial: 2,
-				onParsedEnumError: () => -1,
-				enum: [0, -1, 2]
+				enum: {
+					array: [0, -1, 2],
+					onNonEnum: () => -1
+				}
 			})
 		).toBe(-1);
 
@@ -117,8 +123,10 @@ describe('validateEnum', () => {
 			validateEnum(122, {
 				type: 'number',
 				initial: 123,
-				onParsedEnumError: () => 456,
-				enum: [123, 456, 789]
+				enum: {
+					array: [123, 456, 789],
+					onNonEnum: () => 456
+				}
 			})
 		).toBe(456);
 
@@ -126,8 +134,10 @@ describe('validateEnum', () => {
 			validateEnum(1, {
 				type: 'number',
 				initial: 0,
-				onParsedEnumError: () => 0,
-				enum: [0]
+				enum: {
+					array: [0],
+					onNonEnum: () => 0
+				}
 			})
 		).toBe(0);
 	});
