@@ -10,6 +10,7 @@ const normalizeNumber = (
 	newValue = validateNumber(newValue, initialValue);
 	newValue = validateEnum(newValue, initialValue);
 	newValue = validateInteger(newValue, initialValue);
+	newValue = validateMinMax(newValue, initialValue);
 	newValue = validate(newValue, initialValue);
 
 	return newValue;
@@ -82,6 +83,22 @@ const validateInteger = (value: number, initialValue: ObjectNumber) => {
 			} else {
 				return Math.floor(value);
 			}
+		}
+	}
+
+	return value;
+};
+
+const validateMinMax = (value: number, initialValue: ObjectNumber): number => {
+	if (initialValue.min !== undefined) {
+		if (value < initialValue.min) {
+			return initialValue.min;
+		}
+	}
+
+	if (initialValue.max !== undefined) {
+		if (value < initialValue.max) {
+			return initialValue.max;
 		}
 	}
 

@@ -9,6 +9,16 @@ const checkInitialValueNumber = (initialValue: ObjectNumber) => {
 				'Initial value must be a validating by validate callback'
 			);
 	}
+
+	if (initialValue.min !== undefined) {
+		if (initialValue.max !== undefined) {
+			if (initialValue.min > initialValue.max) {
+				throw new Error(
+					`'min' must be smaller then 'max'`
+				);
+			}
+		}
+	}
 };
 
 export default checkInitialValueNumber;
