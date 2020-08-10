@@ -6,7 +6,7 @@ import normalizeArray from './normalizeArray';
 import normalizeCustom from './normalizeCustom';
 import normalizeBoolean from '../normalizeBoolean';
 import normalizeNumber from '../normalizeNumber/normalizeNumber';
-import normalizeString from '../normalizeString';
+import normalizeString from '../normalizeString/normalizeString';
 import { Context } from '../../../context/context';
 import removeInitialValues from './removeInitialValues';
 

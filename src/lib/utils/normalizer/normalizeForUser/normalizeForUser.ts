@@ -11,7 +11,7 @@ import { QueryValues, QueryValue } from '../../../types/Query';
 import { InitialExtendValuesWrappers } from '../../../types/Initial/Wrapper';
 import normalizeCustom from './normalizeCustom';
 import normalizeNumber from '../normalizeNumber/normalizeNumber';
-import normalizeString from '../normalizeString';
+import normalizeString from '../normalizeString/normalizeString';
 import { Context } from '../../../context/context';
 
 export const normalizeValueForUser = (

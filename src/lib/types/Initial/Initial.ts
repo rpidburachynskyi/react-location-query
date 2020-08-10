@@ -2,7 +2,7 @@ import { ObjectArray } from './Array';
 import { ObjectBoolean } from './Boolean';
 import { ObjectJson } from './Json';
 import { ObjectNumber } from './Number/Number';
-import { ObjectString } from './String';
+import { ObjectString } from './String/String';
 import { ObjectCustom } from './Custom';
 
 export type InitialObject = {

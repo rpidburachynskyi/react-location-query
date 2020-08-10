@@ -1,5 +1,5 @@
-import { ObjectString } from '../../../lib/types/Initial/String';
-import normalizeString from '../../../lib/utils/normalizer/normalizeString';
+import normalizeString from '../../../../lib/utils/normalizer/normalizeString/normalizeString';
+import ObjectString from '../../../../lib/types/Initial/String/String';
 
 describe('normalizeString', () => {
 	it('shold return some string value', () => {
@@ -36,12 +36,14 @@ describe('normalizeString', () => {
 		expect(normalizeString('bitbucket', firstInitialValue)).toBe('github');
 	});
 
-	it('shold return onParsedEnumError value when passed string not from enum', () => {
+	it('shold return onNonEnum value when passed string not from enum', () => {
 		const firstInitialValue: ObjectString = {
 			type: 'string',
 			initial: 'github',
-			enum: ['github', 'gitlab'],
-			onParsedEnumError: () => 'gitlab'
+			enum: {
+				array: ['github', 'gitlab'],
+				onNonEnum: () => 'gitlab'
+			}
 		};
 
 		expect(normalizeString('1', firstInitialValue)).toBe('gitlab');

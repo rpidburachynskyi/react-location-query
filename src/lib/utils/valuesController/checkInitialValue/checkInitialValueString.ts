@@ -1,4 +1,4 @@
-import { ObjectString } from '../../../types/Initial/String';
+import { ObjectString } from '../../../types/Initial/String/String';
 
 const checkInitialValueString = (initialValue: ObjectString) => {
 	if (typeof initialValue.initial !== 'string')
