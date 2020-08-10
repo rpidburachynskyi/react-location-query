@@ -1,4 +1,4 @@
-import normalizeBoolean from '../../../lib/utils/normalizer/normalizeBoolean';
+import normalizeBoolean from '../../../lib/utils/normalizer/normalizeBoolean/normalizeBoolean';
 import { ObjectBoolean } from '../../../lib/types/Initial/Boolean';
 
 describe('normalizeBoolean', () => {

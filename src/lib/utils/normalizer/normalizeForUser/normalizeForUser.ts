@@ -4,7 +4,7 @@ import {
 } from '../../../types/Initial/Initial';
 import { UserValues } from '../../../types/User';
 import { getInitialValuesWrappers } from '../../valuesController/valuesController/valuesController';
-import normalizeBoolean from '../normalizeBoolean';
+import normalizeBoolean from '../normalizeBoolean/normalizeBoolean';
 import normalizeJson from './normalizeJson';
 import normalizeArray from './normalizeArray';
 import { QueryValues, QueryValue } from '../../../types/Query';

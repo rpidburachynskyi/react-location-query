@@ -4,7 +4,7 @@ import { QueryValues } from '../../../types/Query';
 import normalizeJson from './normalizeJson';
 import normalizeArray from './normalizeArray';
 import normalizeCustom from './normalizeCustom';
-import normalizeBoolean from '../normalizeBoolean';
+import normalizeBoolean from '../normalizeBoolean/normalizeBoolean';
 import normalizeNumber from '../normalizeNumber/normalizeNumber';
 import normalizeString from '../normalizeString/normalizeString';
 import { Context } from '../../../context/context';
