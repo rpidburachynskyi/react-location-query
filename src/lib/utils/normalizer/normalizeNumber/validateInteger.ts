@@ -1,4 +1,4 @@
-import { ObjectNumber } from '../../../types/Initial/Number/Number';
+import ObjectNumber from '../../../types/Initial/Number/Number';
 
 const validateInteger = (value: number, initialValue: ObjectNumber) => {
 	if (initialValue.integer) {

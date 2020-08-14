@@ -1,4 +1,4 @@
-import { ObjectNumber } from '../../../types/Initial/Number/Number';
+import ObjectNumber from '../../../types/Initial/Number/Number';
 
 const validateInitial = (
 	value: string | number | ObjectNumber,

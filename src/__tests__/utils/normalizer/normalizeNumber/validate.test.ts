@@ -1,4 +1,4 @@
-import { ObjectNumber } from '../../../../lib/types/Initial/Number/Number';
+import ObjectNumber from '../../../../lib/types/Initial/Number/Number';
 import validate from '../../../../lib/utils/normalizer/normalizeNumber/validate';
 
 describe('validate', () => {

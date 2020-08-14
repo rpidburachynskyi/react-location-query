@@ -3,7 +3,6 @@ import { InitialExtendValues } from '../../../types/Initial/Initial';
 import { QueryValues } from '../../../types/Query';
 import normalizeJson from './normalizeJson';
 import normalizeArray from './normalizeArray';
-import normalizeCustom from './normalizeCustom';
 import normalizeBoolean from '../normalizeBoolean/normalizeBoolean';
 import normalizeNumber from '../normalizeNumber/normalizeNumber';
 import normalizeString from '../normalizeString/normalizeString';
@@ -48,9 +47,6 @@ const normalizeForLocation = (
 					value as any[],
 					initialValue
 				);
-				break;
-			case 'custom':
-				locationValues[key] = normalizeCustom(value, initialValue);
 				break;
 			default:
 				throw new Error('Unknown behavior error: unknown value');

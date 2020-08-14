@@ -12,7 +12,6 @@ describe('validate', () => {
 		expect(validate('one hundred', firstInitialValue)).toBe(
 			'from validate'
 		);
-		expect(validate('custom', firstInitialValue)).toBe('from validate');
 		expect(validate('any', firstInitialValue)).toBe('from validate');
 
 		const secondInitialValue: ObjectString = {

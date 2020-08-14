@@ -1,4 +1,4 @@
-import { ObjectNumber } from '../../../types/Initial/Number/Number';
+import ObjectNumber from '../../../types/Initial/Number/Number';
 
 const validateEnum = (value: number, initialValue: ObjectNumber) => {
 	if (initialValue.enum !== undefined) {

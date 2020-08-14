@@ -1,4 +1,4 @@
-import { ObjectNumber } from '../../../types/Initial/Number/Number';
+import ObjectNumber from '../../../types/Initial/Number/Number';
 
 const validateMinMax = (value: number, initialValue: ObjectNumber): number => {
 	let newValue = validateMin(value, initialValue);

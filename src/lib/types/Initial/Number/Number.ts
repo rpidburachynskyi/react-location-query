@@ -18,4 +18,5 @@ interface InitialObjectNumber extends InitialObject {
 	max?: Max;
 }
 
-export type ObjectNumber = InitialObjectNumber;
+type ObjectNumber = InitialObjectNumber;
+export default ObjectNumber;

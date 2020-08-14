@@ -9,7 +9,6 @@ import normalizeJson from './normalizeJson';
 import normalizeArray from './normalizeArray';
 import { QueryValues, QueryValue } from '../../../types/Query';
 import { InitialExtendValuesWrappers } from '../../../types/Initial/Wrapper';
-import normalizeCustom from './normalizeCustom';
 import normalizeNumber from '../normalizeNumber/normalizeNumber';
 import normalizeString from '../normalizeString/normalizeString';
 import { Context } from '../../../context/context';
@@ -28,8 +27,6 @@ export const normalizeValueForUser = (
 			return normalizeArray(value as string[] | string, initialValue);
 		case 'json':
 			return normalizeJson(value as string, initialValue);
-		case 'custom':
-			return normalizeCustom(value, initialValue);
 		case 'string':
 			return normalizeString(value as string, initialValue);
 		default:
@@ -70,9 +67,6 @@ export const normalizeForUser = (
 				break;
 			case 'json':
 				normalized[key] = normalizeJson(value as string, initialValue);
-				break;
-			case 'custom':
-				normalized[key] = normalizeCustom(value, initialValue);
 				break;
 			case 'string':
 				normalized[key] = normalizeString(
