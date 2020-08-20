@@ -1,4 +1,4 @@
-import { ObjectString } from '../../../../types/Initial/String';
+import ObjectString from '../../../../types/Initial/String/String';
 
 const isRemoveInitialStringValue = (
 	value: string,

@@ -1,4 +1,4 @@
-import { ObjectNumber } from '../../../types/Initial/Number';
+import ObjectNumber from '../../../types/Initial/Number/Number';
 
 const checkInitialValueNumber = (initialValue: ObjectNumber) => {
 	if (typeof initialValue.initial !== 'number')
@@ -13,9 +13,7 @@ const checkInitialValueNumber = (initialValue: ObjectNumber) => {
 	if (initialValue.min !== undefined) {
 		if (initialValue.max !== undefined) {
 			if (initialValue.min > initialValue.max) {
-				throw new Error(
-					`'min' must be smaller then 'max'`
-				);
+				throw new Error(`'min' must be smaller then 'max'`);
 			}
 		}
 	}

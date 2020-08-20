@@ -1,4 +1,4 @@
-import { ObjectNumber } from '../../../../lib/types/Initial/Number';
+import ObjectNumber from '../../../../lib/types/Initial/Number/Number';
 import validate from '../../../../lib/utils/normalizer/normalizeNumber/validate';
 
 describe('validate', () => {
@@ -16,7 +16,7 @@ describe('validate', () => {
 		const secondInitialValue: ObjectNumber = {
 			type: 'number',
 			initial: 1,
-			validate: (value) => (value > 100 ? 100 : value)
+			validate: (value: number) => (value > 100 ? 100 : value)
 		};
 		expect(validate(1, secondInitialValue)).toBe(1);
 		expect(validate(123, secondInitialValue)).toBe(100);

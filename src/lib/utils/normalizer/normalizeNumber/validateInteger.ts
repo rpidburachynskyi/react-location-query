@@ -1,18 +1,19 @@
-import { ObjectNumber } from '../../../types/Initial/Number';
+import ObjectNumber from '../../../types/Initial/Number/Number';
 
 const validateInteger = (value: number, initialValue: ObjectNumber) => {
-	if ('integer' in initialValue) {
+	if (initialValue.integer) {
 		if (!Number.isInteger(value)) {
-			if (initialValue.onParsedIntegerError) {
-				const newValue = initialValue.onParsedIntegerError(value);
-				if (!Number.isInteger(newValue)) {
-					throw new Error(
-						`onParsedIntegerError returned non-integer value, received ${newValue}`
-					);
-				}
-				return newValue;
-			} else {
+			if (typeof initialValue.integer === 'boolean') {
 				return Math.floor(value);
+			} else {
+				if (initialValue.integer.onFloat) {
+					const newValue = initialValue.integer.onFloat(value);
+					if (!Number.isInteger(newValue)) {
+						throw new Error(
+							`onFloat returned non-integer value, received ${newValue}`
+						);
+					}
+				}
 			}
 		}
 	}

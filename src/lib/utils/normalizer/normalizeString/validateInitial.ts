@@ -1,9 +1,9 @@
-import ObjectNumber from '../../../types/Initial/Number/Number';
+import ObjectString from '../../../types/Initial/String/String';
 
 const validateInitial = (
-	value: string | number | ObjectNumber,
-	initialValue: ObjectNumber
-): string | number => {
+	value: string | ObjectString,
+	initialValue: ObjectString
+): string => {
 	if (typeof value === 'object' && 'type' in value)
 		return initialValue.initial;
 	return value;

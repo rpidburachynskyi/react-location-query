@@ -7,8 +7,8 @@ import {
 } from '../../lib/types/Initial/Array';
 import { ObjectBoolean } from '../../lib/types/Initial/Boolean';
 import { ObjectJson } from '../../lib/types/Initial/Json';
-import { ObjectNumber } from '../../lib/types/Initial/Number';
-import { ObjectString } from '../../lib/types/Initial/String';
+import ObjectNumber from '../../lib/types/Initial/Number/Number';
+import ObjectString from '../../lib/types/Initial/String/String';
 import Context from '../../lib/context/context';
 
 function withLocationField(

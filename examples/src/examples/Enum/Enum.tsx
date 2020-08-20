@@ -5,10 +5,12 @@ const Enum = () => {
 	const [q, setType] = useLocationField('type', {
 		type: 'string',
 		initial: 'first',
-		enum: ['first', 'second', 'third', 'fourth', 'fifth'],
-		onParsedEnumError: () => 'first'
+		enum: {
+			array: ['first', 'second', 'third', 'fourth', 'fifth'],
+			onNonEnum: () => 'second'
+		}
 	});
-	
+
 	const [type] = useLocationFieldT<string>('type');
 
 	return (

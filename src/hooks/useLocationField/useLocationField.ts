@@ -5,8 +5,8 @@ import {
 } from '../../lib/types/Initial/Array';
 import { ObjectBoolean } from '../../lib/types/Initial/Boolean';
 import { ObjectJson } from '../../lib/types/Initial/Json';
-import { ObjectNumber } from '../../lib/types/Initial/Number';
-import { ObjectString } from '../../lib/types/Initial/String';
+import ObjectNumber from '../../lib/types/Initial/Number/Number';
+import ObjectString from '../../lib/types/Initial/String/String';
 import useIndex from '../useIndex';
 import { useContext } from 'react';
 import { setQueryFieldValue } from '../../lib/utils/locationController/locationController';
@@ -61,7 +61,10 @@ function useLocationField(name: string, value?: any) {
 	const index = useIndex();
 	const context = useContext(Context);
 
-	if(!context) throw new Error("You must use useLocationField hook inside BrowserLocationQuery");
+	if (!context)
+		throw new Error(
+			'You must use useLocationField hook inside BrowserLocationQuery'
+		);
 
 	if (value !== undefined) {
 		const initialValue: InitialObjectType = transformToInitialValue(

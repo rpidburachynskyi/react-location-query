@@ -1,4 +1,4 @@
-import { ObjectNumber } from '../../../../../lib/types/Initial/Number';
+import ObjectNumber from '../../../../../lib/types/Initial/Number/Number';
 import isRemoveInitialNumberValue from '../../../../../lib/utils/normalizer/normalizeForLocation/removeInitialValues/isRemoveInitialNumberValue';
 
 describe('isRemoveInitialNumberValue', () => {

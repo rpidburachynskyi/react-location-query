@@ -4,7 +4,7 @@ import { stringifyQuery } from '../../lib/utils/queryParser/queryParser';
 import Context from '../../lib/context/context';
 
 interface Props extends LinkProps {
-	query: {
+	query?: {
 		[name: string]:
 			| boolean
 			| string
@@ -14,7 +14,7 @@ interface Props extends LinkProps {
 	};
 }
 
-const Link = ({ to, query, ...props }: Props) => {
+const Link = ({ to, query = {}, ...props }: Props) => {
 	const context = useContext(Context);
 	const newTo = `${to}?${stringifyQuery(query, context.cryptoOptions)}`;
 	return <RRDLink to={newTo} {...props} />;
