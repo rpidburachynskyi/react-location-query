@@ -1,3 +1,9 @@
+## 1.2.6
+
+> August 20, 2020
+
+-   Added 'skip' option
+
 ## 1.2.5
 
 > August 8, 2020
