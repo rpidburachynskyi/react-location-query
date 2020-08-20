@@ -18,6 +18,9 @@ const normalizeForLocation = (
 	Object.keys(initialValues).forEach((key) => {
 		const value = queryValues[key];
 		const initialValue = initialValues[key];
+
+		if (initialValue.skip) return;
+
 		switch (initialValue.type) {
 			case 'json':
 				locationValues[key] = normalizeJson(value);

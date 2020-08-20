@@ -3,12 +3,12 @@ import { ObjectBoolean } from './Boolean';
 import { ObjectJson } from './Json';
 import ObjectNumber from './Number/Number';
 import ObjectString from './String/String';
-import { ObjectCustom } from './Custom';
 
 export type InitialObject = {
 	hideIfInitial?: boolean;
 	replaceValueWhenParsedError?: boolean;
 	actionOnChange?: 'Push' | 'Replace';
+	skip?: boolean;
 };
 
 export type InitialObjectType =
@@ -16,8 +16,7 @@ export type InitialObjectType =
 	| ObjectBoolean
 	| ObjectNumber
 	| ObjectArray
-	| ObjectJson
-	| ObjectCustom;
+	| ObjectJson;
 
 export type InitialExtendValue = InitialObjectType;
 
