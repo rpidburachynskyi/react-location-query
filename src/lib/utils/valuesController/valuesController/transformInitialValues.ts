@@ -12,11 +12,14 @@ const transformToInitialValue = (
 	let initialValue: InitialObjectType;
 
 	if (typeof value === 'object') {
-		if ('type' in value) return value;
-		if (Array.isArray(value)) {
-			initialValue = transformInitialArray(value);
+		if ('type' in value) {
+			initialValue = { ...value };
 		} else {
-			throw new Error('Passed uncorrect object, please read docs');
+			if (Array.isArray(value)) {
+				initialValue = transformInitialArray(value);
+			} else {
+				throw new Error('Passed uncorrect object, please read docs');
+			}
 		}
 	} else {
 		switch (typeof value) {
@@ -48,6 +51,7 @@ const transformToInitialValue = (
 	initialValue = {
 		hideIfInitial: context.defaultOptions.hideIfDefault,
 		actionOnChange: context.defaultOptions.actionOnChange,
+		active: true,
 		...initialValue
 	};
 

@@ -19,7 +19,7 @@ const normalizeForLocation = (
 		const value = queryValues[key];
 		const initialValue = initialValues[key];
 
-		if (initialValue.skip) return;
+		if (!initialValue.active) return;
 
 		switch (initialValue.type) {
 			case 'json':
