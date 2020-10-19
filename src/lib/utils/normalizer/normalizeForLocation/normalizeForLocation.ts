@@ -1,4 +1,7 @@
-import { getInitialValues } from '../../valuesController/valuesController/valuesController';
+import {
+	getInitialValues,
+	getInitialValuesWrapper
+} from '../../valuesController/valuesController/valuesController';
 import { InitialExtendValues } from '../../../types/Initial/Initial';
 import { QueryValues } from '../../../types/Query';
 import normalizeJson from './normalizeJson';
@@ -19,7 +22,11 @@ const normalizeForLocation = (
 		const value = queryValues[key];
 		const initialValue = initialValues[key];
 
-		if (!initialValue.active) return;
+		if (!initialValue.active) {
+			const wrapper = getInitialValuesWrapper(key, context);
+			if (!wrapper.storedValue) wrapper.storedValue = value;
+			return;
+		}
 
 		switch (initialValue.type) {
 			case 'json':

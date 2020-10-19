@@ -13,11 +13,18 @@ export const addInitialValue = (
 	const wrapper: InitialExtendValuesWrappers = {};
 	checkInitialValue(initialValue);
 
-	wrapper[name] = {
-		index,
-		initialValue,
-		name
-	};
+	if (!wrapper[name]) {
+		wrapper[name] = {
+			index,
+			initialValue,
+			name,
+			storedValue: undefined
+		};
+	} else {
+		wrapper[name].index = index;
+		wrapper[name].initialValue = initialValue;
+		wrapper[name].name = name;
+	}
 
 	setInitialValuesWrappers(
 		[...context.initialValuesWrappers, wrapper],

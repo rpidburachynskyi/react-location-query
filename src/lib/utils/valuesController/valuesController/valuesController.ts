@@ -22,6 +22,13 @@ export const getInitialValuesWrappers = (context: Context) => {
 	return initialValuesWrappersArray;
 };
 
+export const getInitialValuesWrapper = (
+	fieldName: string,
+	context: Context
+) => {
+	return getInitialValuesWrappers(context)[fieldName];
+};
+
 export const getInitialValues = (context: Context) => {
 	let initialValues: InitialExtendValues = {};
 	context.initialValuesWrappers.forEach((initialValuesWrapper) => {
