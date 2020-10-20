@@ -30,9 +30,14 @@ export const normalizeValueForUser = (
 		typeof initialValue.active === 'object' &&
 		!initialValue.active.isActive
 	) {
-		console.log(wrapper);
-		if (initialValue.active.storeValue) return wrapper.storedValue;
-		return initialValue.initial;
+		if (initialValue.active.storeValue) {
+			if (initialValue.active.canChangeValue) {
+			} else {
+				return wrapper.storedValue || initialValue.initial;
+			}
+		} else {
+			return initialValue.initial;
+		}
 	}
 
 	switch (initialValue.type) {

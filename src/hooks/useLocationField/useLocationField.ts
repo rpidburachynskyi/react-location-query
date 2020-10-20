@@ -85,7 +85,7 @@ function useLocationField(name: string, value?: any) {
 		throw new Error(`Unknown field: '${name}'`);
 
 	const initial = getInitialValueByFieldName(name, context);
-  
+
 	return [
 		context.query[name],
 		(

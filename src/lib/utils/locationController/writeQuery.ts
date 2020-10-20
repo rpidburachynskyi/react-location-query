@@ -9,12 +9,17 @@ import { getHistory, getLocation } from '../../stores/store/store';
 export const writeQuery = (
 	query: QueryValues,
 	context: Context,
-	actionOnChange: ActionOnChange
+	actionOnChange: ActionOnChange,
+	force: boolean = false
 ) => {
 	const sorted = sortFieldsInQuery(query, context);
 	if (
 		stringifyQuery(sorted, context.cryptoOptions) ===
-		stringifyQuery(readQuery(context.cryptoOptions), context.cryptoOptions)
+			stringifyQuery(
+				readQuery(context.cryptoOptions),
+				context.cryptoOptions
+			) &&
+		!force
 	)
 		return;
 	const preparedQuery = stringifyQuery(sorted, context.cryptoOptions);
