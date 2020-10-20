@@ -8,7 +8,13 @@ export type InitialObject = {
 	hideIfInitial?: boolean;
 	replaceValueWhenParsedError?: boolean;
 	actionOnChange?: 'Push' | 'Replace';
-	active?: boolean;
+	active?:
+		| boolean
+		| {
+				storeValue: boolean;
+				changeValue: boolean;
+				isActive: boolean;
+		  };
 };
 
 export type InitialObjectType =

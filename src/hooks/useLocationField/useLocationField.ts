@@ -75,7 +75,9 @@ function useLocationField(name: string, value?: any) {
 		addInitialValue(name, initialValue, index, context);
 		context.query[name] = normalizeValueForUser(
 			context.query[name],
-			initialValue
+			initialValue,
+			name,
+			context
 		);
 	}
 
@@ -83,7 +85,7 @@ function useLocationField(name: string, value?: any) {
 		throw new Error(`Unknown field: '${name}'`);
 
 	const initial = getInitialValueByFieldName(name, context);
-
+  
 	return [
 		context.query[name],
 		(

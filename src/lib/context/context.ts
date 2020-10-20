@@ -7,7 +7,7 @@ import { Rules } from '../stores/options/types/Rules';
 
 export interface Context {
 	query: object;
-	initialValuesWrappers: InitialExtendValuesWrappers[];
+	initialValuesWrappers: InitialExtendValuesWrappers;
 
 	sortOptions: SortOptions;
 	defaultOptions: DefaultOptions;

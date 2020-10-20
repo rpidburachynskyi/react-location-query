@@ -21,13 +21,13 @@ const normalizeForLocation = (
 	Object.keys(initialValues).forEach((key) => {
 		const value = queryValues[key];
 		const initialValue = initialValues[key];
-
-		if (!initialValue.active) {
-			const wrapper = getInitialValuesWrapper(key, context);
-			if (!wrapper.storedValue) wrapper.storedValue = value;
+		if (
+			!initialValue.active ||
+			(typeof initialValue.active === 'object' &&
+				!initialValue.active.isActive)
+		) {
 			return;
 		}
-
 		switch (initialValue.type) {
 			case 'json':
 				locationValues[key] = normalizeJson(value);
@@ -61,6 +61,9 @@ const normalizeForLocation = (
 			default:
 				throw new Error('Unknown behavior error: unknown value');
 		}
+
+		const wrapper = getInitialValuesWrapper(key, context);
+		wrapper.storedValue = locationValues[key];
 	});
 	removeUnusedQueryFields(queryValues, locationValues, context);
 	locationValues = removeInitialValues(locationValues, context);

@@ -3,7 +3,10 @@ import {
 	InitialExtendValue
 } from '../../../types/Initial/Initial';
 import { UserValues } from '../../../types/User';
-import { getInitialValuesWrappers } from '../../valuesController/valuesController/valuesController';
+import {
+	getInitialValuesWrapper,
+	getInitialValuesWrappers
+} from '../../valuesController/valuesController/valuesController';
 import normalizeBoolean from '../normalizeBoolean/normalizeBoolean';
 import normalizeJson from './normalizeJson';
 import normalizeArray from './normalizeArray';
@@ -15,9 +18,23 @@ import { Context } from '../../../context/context';
 
 export const normalizeValueForUser = (
 	value: InitialExtendValue | QueryValue | undefined,
-	initialValue: InitialExtendValue
+	initialValue: InitialExtendValue,
+	name: string,
+	context: Context
 ) => {
 	if (value === undefined) return initialValue.initial;
+	const wrapper = getInitialValuesWrapper(name, context);
+
+	if (!initialValue.active) return initialValue.initial;
+	if (
+		typeof initialValue.active === 'object' &&
+		!initialValue.active.isActive
+	) {
+		console.log(wrapper);
+		if (initialValue.active.storeValue) return wrapper.storedValue;
+		return initialValue.initial;
+	}
+
 	switch (initialValue.type) {
 		case 'boolean':
 			return normalizeBoolean(value as string, initialValue);
