@@ -8,6 +8,8 @@ import readQuery from '../../lib/utils/locationController/readQuery';
 import { calculateLocationPath } from '../../lib/utils/locationController/locationController';
 import CryptoOptions from '../../lib/stores/options/types/CryptoOptions/CryptoOptions';
 import { Rules } from '../../lib/stores/options/types/Rules';
+import { unmarkAllInitialValuesWrappers } from '../../lib/utils/valuesController/valuesController/unmarkAllInitialValuesWrappers';
+import { deleteUnmarkedWrappers } from '../../lib/utils/valuesController/valuesController/deleteUnmarkedWrappers';
 
 interface Props {
 	children: any;
@@ -16,6 +18,8 @@ interface Props {
 	defaultOptions?: DefaultOptions;
 	rules?: Rules;
 }
+
+let oldContext: ContextType;
 
 const BrowserLocationQuery = ({
 	children,
@@ -50,14 +54,26 @@ const BrowserLocationQuery = ({
 		...rules
 	};
 
-	const context: ContextType = {
-		query: readQuery(newCryptoOptions),
-		initialValuesWrappers: [],
-		defaultOptions: newDefaultOptions,
-		sortOptions: newSortOptions,
-		cryptoOptions: newCryptoOptions,
-		rules: newRules
-	};
+	const context: ContextType =
+		oldContext && !oldContext.isCleaned
+			? oldContext
+			: {
+					isCleaned: false,
+					query: readQuery(newCryptoOptions),
+					initialValuesWrappers: {},
+					defaultOptions: newDefaultOptions,
+					sortOptions: newSortOptions,
+					cryptoOptions: newCryptoOptions,
+					rules: newRules
+			  };
+
+	unmarkAllInitialValuesWrappers(context);
+
+	oldContext = context;
+
+	useEffect(() => {
+		deleteUnmarkedWrappers(context);
+	});
 
 	return (
 		<Context.Provider value={context}>
