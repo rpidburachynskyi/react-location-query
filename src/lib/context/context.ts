@@ -6,8 +6,10 @@ import CryptoOptions from '../stores/options/types/CryptoOptions/CryptoOptions';
 import { Rules } from '../stores/options/types/Rules';
 
 export interface Context {
+	isCleaned: boolean;
+
 	query: object;
-	initialValuesWrappers: InitialExtendValuesWrappers[];
+	initialValuesWrappers: InitialExtendValuesWrappers;
 
 	sortOptions: SortOptions;
 	defaultOptions: DefaultOptions;

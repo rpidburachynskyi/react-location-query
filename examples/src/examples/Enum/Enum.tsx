@@ -7,7 +7,7 @@ const Enum = () => {
 		initial: 'first',
 		enum: {
 			array: ['first', 'second', 'third', 'fourth', 'fifth'],
-			onNonEnum: () => 'second'
+			onNonEnum: () => 'first'
 		}
 	});
 

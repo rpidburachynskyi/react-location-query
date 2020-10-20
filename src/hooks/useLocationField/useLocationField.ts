@@ -75,7 +75,9 @@ function useLocationField(name: string, value?: any) {
 		addInitialValue(name, initialValue, index, context);
 		context.query[name] = normalizeValueForUser(
 			context.query[name],
-			initialValue
+			initialValue,
+			name,
+			context
 		);
 	}
 
