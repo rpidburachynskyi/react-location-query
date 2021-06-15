@@ -8,9 +8,9 @@ import withLocationField from './hocs/withLocationField';
 import withLocationFields from './hocs/withLocationFields';
 import withQueryPush from './hocs/withQueryPush';
 
-import BrowserLocationQuery from './conponents/BrowserLocationQuery';
-import LocationQuery from './conponents/LocationQuery';
-import Link from './conponents/Link';
+import BrowserLocationQuery from './components/BrowserLocationQuery';
+import LocationQuery from './components/LocationQuery';
+import Link from './components/Link';
 
 export {
 	// hooks
